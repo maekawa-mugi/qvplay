@@ -1,1 +1,0 @@
-../../src/jpegtab_f.h
