@@ -3,17 +3,17 @@
 #include <sys/types.h>
 #include <setjmp.h>
 #include "common.h"
-#ifdef X68
-#include "tty_x68.h"
+#ifdef X68K
+#include "x68k/tty_x68.h"
 #else
-#ifdef WIN32
-#include "tty_w32.h"
+#ifdef _WIN32
+#include "win32/tty_w32.h"
 #else
 #ifdef OS2
-#include "tty_os2.h"
+#include "os2/tty_os2.h"
 #else
 #ifdef DOS
-#include "tty_dos.h"
+#include "dos/tty_dos.h"
 #else
 #include "tty.h"
 #include <termios.h>

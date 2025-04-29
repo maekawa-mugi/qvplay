@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <iocslib.h>
 #include "common.h"
-#include "tty_x68.h"
+#include "x68k/tty_x68.h"
 
 #define TTYTIMEOUT (10 * 100)
 

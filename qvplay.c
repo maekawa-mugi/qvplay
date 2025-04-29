@@ -18,18 +18,18 @@
 #include "common.h"
 #include "command.h"
 #include "command1.h"
-#ifdef X68
-#include "tty_x68.h"
+#ifdef X68KK
+#include "x68k/tty_x68.h"
 #else
-#ifdef WIN32
-#include "tty_w32.h"
-#include "getopt.h"
+#ifdef _WIN32
+#include "win32/tty_w32.h"
+#include "win32/getopt/getopt.h"
 #else
 #ifdef OS2
-#include "tty_os2.h"
+#include "os2/tty_os2.h"
 #else
 #ifdef DOS
-#include "tty_dos.h"
+#include "dos/tty_dos.h"
 #else 
 #include "tty.h"
 #endif /* DOS */
@@ -193,7 +193,7 @@ get_picture(n, outfilename, format)
   }
 #ifdef BINARYFILEMODE
   if(outfp == stdout){
-#ifdef WIN32
+#ifdef _WIN32
     _setmode(_fileno(stdout), _O_BINARY);
 #else
     setmode(fileno(stdout), O_BINARY); /* X680x0 DOS */
@@ -368,7 +368,7 @@ get_picture(n, outfilename, format)
   }
 #ifdef BINARYFILEMODE
   if(outfp == stdout){
-#ifdef WIN32
+#ifdef _WIN32
     _setmode(_fileno(stdout), _O_BINARY);
 #else
     setmode(fileno(stdout), O_BINARY); /* X680x0 */
@@ -967,7 +967,7 @@ take_picture()
   all_pic_num = QVhowmany();
 }
 
-#ifdef X68
+#ifdef X68K
 void
 show_on_X68k(n)
      int n;
@@ -1329,7 +1329,7 @@ main(argc, argv)
 	}
       }
     break;
-#ifdef X68
+#ifdef X68K
     case 'X':
       show_on_X68k(atoi(optarg));
       break;
