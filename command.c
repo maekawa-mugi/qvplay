@@ -1,8 +1,11 @@
+#include "common.h"
 #include "config.h"
+#include <setjmp.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <sys/types.h>
-#include <setjmp.h>
-#include "common.h"
+
+
 #ifdef X68K
 #include "x68k/tty_x68.h"
 #else
@@ -26,72 +29,61 @@
 #endif
 
 #if 0
-# define dprintf(x)	fprintf x
+#define dprintf(x) fprintf x
 #else
-# define dprintf(x)
+#define dprintf(x)
 #endif
 
 int qvverbose;
 int qvhasvgamode;
 int qv7xxprotocol;
 
-static int	QVfd = -1;
-static int	dotrap = 0;
-static jmp_buf	errtrap;
+static int QVfd = -1;
+static int dotrap = 0;
+static jmp_buf errtrap;
 static int check_sum = 0;
 
 /* for VC++1.5 */
 #ifdef DOS
-void 
-sleep(sec)
-int sec;
+void sleep(sec) int sec;
 {
-	time_t lt;
-	time_t lt2;
-	time(&lt);
+  time_t lt;
+  time_t lt2;
+  time(&lt);
 
-	while(1){
-		time(&lt2);		
-		if((lt2 - lt) >= sec)
-			return;
-	}
+  while (1) {
+    time(&lt2);
+    if ((lt2 - lt) >= sec)
+      return;
+  }
 }
 #endif
 
-void
-QVsetfd(fd)
-     int	fd;
+void QVsetfd(fd) int fd;
 {
   dprintf((stderr, "QVfd = %x\n", fd));
   QVfd = fd;
 }
 
-int
-QVgetfd()
-{
-  return QVfd;
-}
+int QVgetfd() { return QVfd; }
 
 /*------------------------------------------------------------*/
-static int
-calcsum(p, len)
-     u_char *p;
-     int len;
+static int calcsum(p, len)
+uint8_t *p;
+int len;
 {
-  u_char *q;
+  uint8_t *q;
   int sum = 0;
   int i;
   q = p;
-  for(i = 0 ; i < len ; i++){
+  for (i = 0; i < len; i++) {
     sum = sum + *q;
     q++;
   }
-  return(sum);
+  return (sum);
 }
 
-void
-wbyte(c)
-     u_char	c;
+void wbyte(c) uint8_t c;
 {
   dprintf((stderr, "> %02x\n", c));
   if (writetty(QVfd, &c, 1) < 0) {
@@ -101,13 +93,11 @@ wbyte(c)
     else
       Exit(1);
   }
-  check_sum = check_sum + (int) c;
+  check_sum = check_sum + (int)c;
 }
 
-u_char
-rbyte()
-{
-  u_char	c;
+uint8_t rbyte() {
+  uint8_t c;
 
   if (readtty(QVfd, &c, 1) < 0) {
     perror("readtty");
@@ -120,23 +110,20 @@ rbyte()
   return c;
 }
 
-int checksum(u_char u)
-{
-	u_char s;
-	s = 0xff & (~check_sum);
-	if(u != s) {
-		if(s == rbyte())
-			return(1);
-		fprintf(stderr,"checksum error.\n");
-		return(-1);
-	}
-	return(1);
+int checksum(uint8_t u) {
+  uint8_t s;
+  s = 0xff & (~check_sum);
+  if (u != s) {
+    if (s == rbyte())
+      return (1);
+    fprintf(stderr, "checksum error.\n");
+    return (-1);
+  }
+  return (1);
 }
 
-void
-wstr(p, len)
-     u_char	*p;
-     int	len;
+void wstr(p, len) uint8_t *p;
+int len;
 {
   dprintf((stderr, "> len=%d\n", len));
   if (writetty(QVfd, p, len) < 0) {
@@ -149,10 +136,8 @@ wstr(p, len)
   check_sum = check_sum + calcsum(p, len);
 }
 
-inline void
-rstr(p, len)
-     u_char	*p;
-     int	len;
+inline void rstr(p, len) uint8_t *p;
+int len;
 {
 
   dprintf((stderr, "< len=%d\n", len));
@@ -167,209 +152,203 @@ rstr(p, len)
 
 /*------------------------------------------------------------*/
 
-int
-QVok()
-{
+int QVok() {
   int retrycount = RETRY;
 
-  while(retrycount--){
+  while (retrycount--) {
     wbyte(ENQ);
-    if (rbyte() == ACK){
+    if (rbyte() == ACK) {
       check_sum = 0;
-      return 1;			/*ok*/
+      return 1; /*ok*/
     }
   }
-  return 0;			/*ng*/
+  return 0; /*ng*/
 }
 
-int
-QVreset(flag)
-     int flag;
+int QVreset(flag)
+int flag;
 {
-  u_char	s;
+  uint8_t s;
 
   if (!QVok())
-    return -1;			/*ng*/
+    return -1; /*ng*/
 
-  if(flag)
+  if (flag)
     wstr("QR", 2);
   else
     wstr("QE", 2);
 
-  s = rbyte();			/*supposed to be 0x5c('Z') or 0x69*/
-#if !defined(__FreeBSD__)  /* Why ? */
-  if(checksum(s) == -1)
-	  return(-1);
+  s = rbyte();            /*supposed to be 0x5c('Z') or 0x69*/
+#if !defined(__FreeBSD__) /* Why ? */
+  if (checksum(s) == -1)
+    return (-1);
 #endif
   wbyte(ACK);
 
-  return (int) s;		/*ok*/
+  return (int)s; /*ok*/
 }
 
-int
-QVhowmany()
-{
-  u_char	s;
-  u_char	n;
+int QVhowmany() {
+  uint8_t s;
+  uint8_t n;
   int retrycount = RETRY;
 
-  while(retrycount--){
+  while (retrycount--) {
     if (!QVok())
-      return -1;		/*ng*/
+      return -1; /*ng*/
     wstr("MP", 2);
-    s = rbyte();		/*supposed to be 0x62 */
-    if(s == 0x62) break;
+    s = rbyte(); /*supposed to be 0x62 */
+    if (s == 0x62)
+      break;
   }
   wbyte(ACK);
-  n = rbyte();			/*# of pictures*/
-  return (int) n;
+  n = rbyte(); /*# of pictures*/
+  return (int)n;
 }
 
-int
-QVremain(n)  /* 100 only may be*/
-     int	n;
+int QVremain(n) /* 100 only may be*/
+int n;
 {
-  u_char	s;
+  uint8_t s;
 
   int p;
 
   if (!QVok())
-    return -1;			/*ng*/
+    return -1; /*ng*/
 
-  if(qvhasvgamode == 0) {/* QV10/30/10a/11/70 */
+  if (qvhasvgamode == 0) { /* QV10/30/10a/11/70 */
     p = QVhowmany();
-    if(p < 0) return -1;
-    return(MAX_PICTURE_NUM_QV10 - p);
+    if (p < 0)
+      return -1;
+    return (MAX_PICTURE_NUM_QV10 - p);
   }
 
-  if(qv7xxprotocol == 0){
+  if (qv7xxprotocol == 0) {
     /* QV100/300/200 */
-    if(n)
+    if (n)
       wstr("Eb", 2); /* fine picture remain */
     else
       wstr("EB", 2); /* normal picture remain */
-    s = rbyte();			
-    if(checksum(s) == -1) return(-1);
+    s = rbyte();
+    if (checksum(s) == -1)
+      return (-1);
     wbyte(ACK);
-    s = rbyte();  /* remain picture num */
-    return (int) s;
+    s = rbyte(); /* remain picture num */
+    return (int)s;
   } else {
     /* QV700/770 */
     /* not supported yet */
-    return(100);
+    return (100);
   }
 }
 
-int
-QVshowpicture(n)
-     int	n;
+int QVshowpicture(n)
+int n;
 {
-  u_char	s;
+  uint8_t s;
 
   if (!QVok())
-    return -1;			/*ng*/
+    return -1; /*ng*/
   wstr("DA", 2);
   wbyte(n);
-  s = rbyte();			/*supposed to be 0x7a - n*/
-  if(checksum(s) == -1) return(-1);
+  s = rbyte(); /*supposed to be 0x7a - n*/
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
-  return 1;			/*ok*/
+  return 1; /*ok*/
 }
 
-int
-QVswstat()
-{
-  u_char	s;
+int QVswstat() {
+  uint8_t s;
   int r;
 
   if (!QVok())
-    return -1;			/*ng*/
+    return -1; /*ng*/
   wstr("DS", 2);
   wbyte(0x02);
-  s = rbyte();			
-  if(checksum(s) == -1) return(-1);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
-  s = rbyte();  /* SW status ?*/
+  s = rbyte(); /* SW status ?*/
   r = s << 8;
-  s = rbyte();  /* SW status ?*/
-  r = r | s ; 
-  return (int) r;
+  s = rbyte(); /* SW status ?*/
+  r = r | s;
+  return (int)r;
 }
 
-long
-QVrevision()
-{
-  u_char	s;
+long QVrevision() {
+  uint8_t s;
   long r;
 
   if (!QVok())
-    return -1;			/*ng*/
+    return -1; /*ng*/
   wstr("SU", 2);
-  s = rbyte();			
-  if(checksum(s) == -1) return(-1);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
-  s = rbyte();  /* revision ? */
+  s = rbyte(); /* revision ? */
   r = s;
-  s = rbyte();  
+  s = rbyte();
   r = r << 8;
   r = r | s;
-  s = rbyte();  /* revision ? */
+  s = rbyte(); /* revision ? */
   r = r << 8;
   r = r | s;
-  s = rbyte();  
+  s = rbyte();
   r = r << 8;
   r = r | s;
-  return (long) r;
+  return (long)r;
 }
 
 static int current_speed = DEFAULT;
-int
-QVchangespeed(speed)
-     int speed;
+int QVchangespeed(speed)
+int speed;
 {
   int n;
-  u_char	s;
+  uint8_t s;
   int baud;
 
-  if(current_speed == speed)
-    return(1);
+  if (current_speed == speed)
+    return (1);
 
   if (!QVok())
-    return -1;			/*ng*/
+    return -1; /*ng*/
 
-  switch(speed){
-  case LIGHT:			/* 115200 baud */
+  switch (speed) {
+  case LIGHT: /* 115200 baud */
     n = 3;
 #ifdef CANNOTUSEHIGHSPEED
- /* some linux distribution cannot use B115200,
-      so you should use setserial command  */
+    /* some linux distribution cannot use B115200,
+         so you should use setserial command  */
     baud = B38400;
 #else
     baud = B115200;
 #endif
     break;
-  case TOP:			/* 57600 baud */
+  case TOP: /* 57600 baud */
     n = 7;
 #ifdef CANNOTUSEHIGHSPEED
     baud = B38400;
 #else
- /* some linux distribution cannot use B57600,
-      so you should use setserial command  */
+    /* some linux distribution cannot use B57600,
+         so you should use setserial command  */
     baud = B57600;
 #endif
     break;
-  case HIGH:			/* 38400 baud */
+  case HIGH: /* 38400 baud */
 #ifdef X68K
-    if(qvhasvgamode)
-      n = 11;  /* QV-100/300  */
+    if (qvhasvgamode)
+      n = 11; /* QV-100/300  */
     else
-      n = 10;                     /* 39062.5 baud */
+      n = 10; /* 39062.5 baud */
 #else
     n = 11;
 #endif
     baud = B38400;
     break;
-  case MID:			/* 19200 baud */
+  case MID: /* 19200 baud */
 #ifdef X68K
     n = 23;
 #else
@@ -387,60 +366,58 @@ QVchangespeed(speed)
   wbyte(n);
 
   s = rbyte();
-  if (checksum(s) == -1) return(-1);
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
-  sleep(1);			/* ??? */
+  sleep(1); /* ??? */
   changespeed(QVfd, baud);
   current_speed = speed;
   if (!QVok())
-    return -1;			/*ng*/
-  return 1;			/*ok*/
-
+    return -1; /*ng*/
+  return 1;    /*ok*/
 }
 
 /*------------------------------------------------------------*/
-int 
-QVsectorsize(n)
-     int n;
+int QVsectorsize(n)
+int n;
 {
-  u_char s;
-  u_char t;
-  s = (u_char) (n >> 8) & 0xff;
-  t = (u_char) n &  0xff;
+  uint8_t s;
+  uint8_t t;
+  s = (uint8_t)(n >> 8) & 0xff;
+  t = (uint8_t)n & 0xff;
   if (!QVok())
-    return -1;                  /*ng*/
+    return -1; /*ng*/
   wstr("PP", 2);
   wbyte(s);
   wbyte(t);
   s = rbyte();
-  if(checksum(s) == -1) return(-1);
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
   return 1;
 }
 
 #ifdef USEWORKFILE
-int
-QVblockrecv_file(fp, filesize)
-     FILE	*fp;
-     int filesize;
+int QVblockrecv_file(fp, filesize)
+FILE *fp;
+int filesize;
 {
-  u_char	s;
-  u_char	t;
-  u_char	*p;
+  uint8_t s;
+  uint8_t t;
+  uint8_t *p;
   int i = 0;
-  u_int	sectorsize;
+  u_int sectorsize;
   int retrycount = RETRY;
   int sum;
-  u_char buf[SECTOR];
+  uint8_t buf[SECTOR];
 
   wbyte(DC2);
 
-
   while (1) {
     if (qvverbose)
-	fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
-      else
-	fprintf(stderr, "%6d/%6d\b\b\b\b\b\b\b\b\b\b\b\b\b", p - buf, filesize);
+      fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
+    else
+      fprintf(stderr, "%6d/%6d\b\b\b\b\b\b\b\b\b\b\b\b\b", p - buf, filesize);
 
     /* x: fault handlers */
     dotrap = 1;
@@ -450,16 +427,16 @@ QVblockrecv_file(fp, filesize)
     }
 
   retry:;
-	p = buf;
+    p = buf;
     /* 1: obtain sector size */
     if ((s = rbyte()) != STX) {
-      dprintf((stderr,"NG sector size(%02x)\n",s ));
+      dprintf((stderr, "NG sector size(%02x)\n", s));
       flushtty(QVfd);
       wbyte(NAK);
-      retrycount --;
-      if(retrycount)
-		  goto retry;
-      return -1;		/*ng*/
+      retrycount--;
+      if (retrycount)
+        goto retry;
+      return -1; /*ng*/
     }
     s = rbyte();
     sum = s;
@@ -472,17 +449,17 @@ QVblockrecv_file(fp, filesize)
 
     sum = sum + calcsum(p, sectorsize);
     /* 3: finalize sector */
-    s = rbyte();		/*sector type?*/
-    t = 0xff & ( ~ rbyte());	/*checksum?*/
+    s = rbyte();           /*sector type?*/
+    t = 0xff & (~rbyte()); /*checksum?*/
     sum = 0xff & (sum + s);
-    if(sum != t){
+    if (sum != t) {
       flushtty(QVfd);
       wbyte(NAK);
       goto retry;
     }
-	i += sectorsize;
-	fwrite(p, sizeof(u_char), sectorsize, fp);
-		
+    i += sectorsize;
+    fwrite(p, sizeof(uint8_t), sectorsize, fp);
+
     dotrap = 0;
 
     if (s == ETX) {
@@ -490,7 +467,7 @@ QVblockrecv_file(fp, filesize)
       wbyte(ACK);
       break;
     } else if (s == ETB) {
-      /* block cleanup */	
+      /* block cleanup */
       wbyte(ACK);
     } else {
       /* strange condition... retry this sector */
@@ -507,15 +484,14 @@ QVblockrecv_file(fp, filesize)
 }
 #endif
 
-int
-QVblockrecv(buf, filesize)
-     u_char	*buf;
-     int filesize;
+int QVblockrecv(buf, filesize)
+uint8_t *buf;
+int filesize;
 {
-  u_char	s;
-  u_char	t;
-  u_char	*p;
-  u_int	sectorsize;
+  uint8_t s;
+  uint8_t t;
+  uint8_t *p;
+  u_int sectorsize;
   int retrycount = RETRY;
   int sum;
 
@@ -524,10 +500,10 @@ QVblockrecv(buf, filesize)
   p = buf;
   while (1) {
     if (qvverbose)
-      if(filesize == 0)
-	fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
+      if (filesize == 0)
+        fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
       else
-	fprintf(stderr, "%6d/%6d\b\b\b\b\b\b\b\b\b\b\b\b\b", p - buf, filesize);
+        fprintf(stderr, "%6d/%6d\b\b\b\b\b\b\b\b\b\b\b\b\b", p - buf, filesize);
 
     /* x: fault handlers */
     dotrap = 1;
@@ -539,13 +515,13 @@ QVblockrecv(buf, filesize)
   retry:;
     /* 1: obtain sector size */
     if ((s = rbyte()) != STX) {
-      dprintf((stderr,"NG sector size(%02x)\n",s ));
+      dprintf((stderr, "NG sector size(%02x)\n", s));
       flushtty(QVfd);
       wbyte(NAK);
-      retrycount --;
-      if(retrycount)
-	goto retry;
-      return -1;		/*ng*/
+      retrycount--;
+      if (retrycount)
+        goto retry;
+      return -1; /*ng*/
     }
     s = rbyte();
     sum = s;
@@ -559,15 +535,15 @@ QVblockrecv(buf, filesize)
     p += sectorsize;
 
     /* 3: finalize sector */
-    s = rbyte();		/*sector type?*/
-    t = 0xff & ( ~ rbyte());	/*checksum?*/
+    s = rbyte();           /*sector type?*/
+    t = 0xff & (~rbyte()); /*checksum?*/
     sum = 0xff & (sum + s);
-    if(sum != t){
+    if (sum != t) {
       flushtty(QVfd);
       wbyte(NAK);
       goto retry;
     }
-		
+
     dotrap = 0;
 
     if (s == ETX) {
@@ -575,7 +551,7 @@ QVblockrecv(buf, filesize)
       wbyte(ACK);
       break;
     } else if (s == ETB) {
-      /* block cleanup */	
+      /* block cleanup */
       wbyte(ACK);
     } else {
       /* strange condition... retry this sector */
@@ -591,15 +567,14 @@ QVblockrecv(buf, filesize)
   return p - buf;
 }
 
-int
-QVblocksend(buf, size)
-     u_char	*buf;
-     int size;
+int QVblocksend(buf, size)
+uint8_t *buf;
+int size;
 {
-  u_char	s;
-  u_char	t;
-  u_char	*p;
-  u_int	sectorsize;
+  uint8_t s;
+  uint8_t t;
+  uint8_t *p;
+  u_int sectorsize;
   int retrycount = RETRY;
   int rest;
   int sum;
@@ -610,15 +585,15 @@ QVblocksend(buf, size)
   while (rest > 0) {
     if (qvverbose)
       fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
-    if(rest < SECTOR)
+    if (rest < SECTOR)
       sectorsize = rest;
     else
       sectorsize = SECTOR;
 
     wbyte(STX);
-    s = (u_char) (sectorsize >> 8) & 0xff;
+    s = (uint8_t)(sectorsize >> 8) & 0xff;
     sum = s;
-    t = (u_char) sectorsize &  0xff;
+    t = (uint8_t)sectorsize & 0xff;
     sum += t;
     wbyte(s);
     wbyte(t);
@@ -630,10 +605,10 @@ QVblocksend(buf, size)
 
     wbyte(ETB);
     sum += ETB;
-    wbyte(0xff & (~ sum));
-    s = rbyte();  /* 0x06 */
-    if(s != ACK)
-      return(-1);
+    wbyte(0xff & (~sum));
+    s = rbyte(); /* 0x06 */
+    if (s != ACK)
+      return (-1);
   }
 
   if (qvverbose)
@@ -644,46 +619,45 @@ QVblocksend(buf, size)
   wbyte(0x00);
   wbyte(ETX);
   wbyte(0xfc);
-  s = rbyte();  /* 0x06 */
-  if(s != ACK)
-    return(-1);
-  
+  s = rbyte(); /* 0x06 */
+  if (s != ACK)
+    return (-1);
+
   if (qvverbose)
     fprintf(stderr, "\n");
 
   return p - buf;
 }
 
-int
-QVbattery()
-{
-  u_char        s;
+int QVbattery() {
+  uint8_t s;
 
   if (!QVok())
-    return -1;                  /*ng*/
-
+    return -1; /*ng*/
 
   wstr("RB", 2);
   wbyte(ENQ);
   wbyte(0xFF);
   wbyte(0xFE);
   wbyte(0xE6);
-  s = rbyte();                  /* check sum 0x83 */
-  if(checksum(s) == -1) return(-1);
+  s = rbyte(); /* check sum 0x83 */
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
-  s = rbyte();                  /* battery */
+  s = rbyte(); /* battery */
 
 #ifdef AAAAAAA
-  if(qv7xxprotocol == 0){
+  if (qv7xxprotocol == 0) {
     wstr("RB", 2);
     wbyte(ENQ);
     wbyte(0xFF);
     wbyte(0xFE);
     wbyte(0xE6);
-    s = rbyte();  
-    if(checksum(s) == -1) return(-1);
+    s = rbyte();
+    if (checksum(s) == -1)
+      return (-1);
     wbyte(ACK);
-    s = rbyte();  
+    s = rbyte();
   } else {
     wstr("BC", 2);
     s = rbyte();
@@ -694,53 +668,47 @@ QVbattery()
   }
 #endif
 
-  return (int) s;
+  return (int)s;
 }
 
-
-int
-QVdefaultpicture(n)
-     int n;
+int QVdefaultpicture(n)
+int n;
 {
-  u_char        s;
+  uint8_t s;
 
   if (!QVok())
-    return -1;                  /*ng*/
+    return -1; /*ng*/
   wstr("DV", 2);
   wbyte(n);
-  s = rbyte(); 
-  if(checksum(s) == -1) return(-1);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
-  return (int) 1;
+  return (int)1;
 }
 
-int
-QVnewprotocol()
-{
-  u_char s;
+int QVnewprotocol() {
+  uint8_t s;
   if (!QVok())
-    return -1;                  /*ng*/
+    return -1; /*ng*/
   wstr("NP", 2);
   wbyte(0x01);
-  s = rbyte(); 
-  if(checksum(s) == -1) return(-1);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
-  return (int) 1;
+  return (int)1;
 }
 
-
-int
-QVdisableAutoPowerOff()
-{
-  u_char s;
+int QVdisableAutoPowerOff() {
+  uint8_t s;
   if (!QVok())
-    return -1;                  /*ng*/
+    return -1; /*ng*/
   wstr("DU", 2);
-  s = rbyte(); 
-  if(checksum(s) == -1) return(-1);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
   QVreset(0); /* QE */
-  return (int) 1;
+  return (int)1;
 }
-
-

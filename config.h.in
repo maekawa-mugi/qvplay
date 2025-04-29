@@ -53,4 +53,3 @@
 
 /* Define if you have the <ioctl-types.h> header file. (glibc) */
 #undef HAVE_IOCTL_TYPES_H
-

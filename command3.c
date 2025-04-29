@@ -1,9 +1,10 @@
+#include "command.h"
+#include "common.h"
 #include "config.h"
+#include <setjmp.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <sys/types.h>
-#include <setjmp.h>
-#include "common.h"
-#include "command.h"
 #ifdef X68K
 #include "x68k/tty_x68.h"
 #else
@@ -26,17 +27,13 @@
 #include <unistd.h>
 #endif
 
-int
-QValldelete()
-{
-  u_char	s;
+int QValldelete() {
+  uint8_t s;
   if (!QVok())
     return -1;
   wstr("DD", 2);
   s = rbyte();
-  if(checksum(s) == -1) return(-1);
+  if (checksum(s) == -1)
+    return (-1);
   wbyte(ACK);
 }
-
-
-

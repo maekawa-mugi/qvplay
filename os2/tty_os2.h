@@ -1,9 +1,9 @@
-int	changespeed P__((int, int));
-int	opentty P__((char *));
-int	readtty P__((int, u_char *, int));
-int	writetty P__((int, u_char *, int));
-int closetty P__((int));
-void	flushtty P__((int));
+int	changespeed (int, int);
+int	opentty (char *);
+int	readtty (int, uint8_t *, int);
+int	writetty (int, uint8_t *, int);
+int closetty (int);
+void	flushtty (int);
 
 /* #define sleep(sec)	DosSleep(sec*1000) */
 

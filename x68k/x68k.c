@@ -8,7 +8,7 @@
 
 void
 write_x68k(buf, PPM_WIDTH, PPM_HEIGHT, rateW, rateH)
-     u_char	*buf;
+     uint8_t	*buf;
      int PPM_WIDTH;
      int PPM_HEIGHT;
      int rateW;
@@ -18,9 +18,9 @@ write_x68k(buf, PPM_WIDTH, PPM_HEIGHT, rateW, rateH)
   long cr, cb;
   long L;
   long r,g,b;
-  u_char *Y;
-  u_char *Cr;
-  u_char *Cb;
+  uint8_t *Y;
+  uint8_t *Cr;
+  uint8_t *Cb;
 
   struct PSETPTR psetptr;
 
@@ -66,7 +66,7 @@ write_x68k(buf, PPM_WIDTH, PPM_HEIGHT, rateW, rateH)
 
 void
 write_x68k_fine(buf, PPM_WIDTH, PPM_HEIGHT, rateW, rateH)
-     u_char	*buf;
+     uint8_t	*buf;
      int PPM_WIDTH;
      int PPM_HEIGHT;
      int rateW;
@@ -76,9 +76,9 @@ write_x68k_fine(buf, PPM_WIDTH, PPM_HEIGHT, rateW, rateH)
 	long cr, cb;
 	long L;
 	long r[4],g[4],b[4];
-	u_char *Y;
-	u_char *Cr;
-	u_char *Cb;
+	uint8_t *Y;
+	uint8_t *Cr;
+	uint8_t *Cb;
 	int i;
 
 	struct PSETPTR psetptr;

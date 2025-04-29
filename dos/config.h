@@ -49,26 +49,26 @@
 /* Define if you have the <unistd.h> header file.  */
 #define HAVE_UNISTD_H 0
 
-
 #define inline
-#define DONTCAREUID	 1
+#define DONTCAREUID 1
 #define BINARYFILEMODE 1
 
 #define USEWORKFILE 1
 
 /* for VC++1.5 */
-#include <stdlib.h>
 #include <io.h>
+#include <stdint.h>
+#include <stdlib.h>
 
 
 /*
-	Win32ÍÑ¤Îconfig.h¤«¤é
-	#include <windows.h>¤òÈ´¤¤¤Æ¡¢
-	¤½¤ì¤ËÁêÅö¤·¤¿¤â¤Î¤òÄÉ²Ã¤·¤Þ¤·¤¿¡£
+        Win32ï¿½Ñ¤ï¿½config.hï¿½ï¿½ï¿½ï¿½
+        #include <windows.h>ï¿½ï¿½È´ï¿½ï¿½ï¿½Æ¡ï¿½
+        ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¤ï¿½ï¿½É²Ã¤ï¿½ï¿½Þ¤ï¿½ï¿½ï¿½ï¿½ï¿½
 */
-typedef unsigned short		u_short;
-typedef unsigned long		u_long;
-typedef unsigned int		u_int;
-typedef unsigned char		u_char;
+typedef unsigned short uint16_t;
+typedef unsigned long uint32_t;
+typedef unsigned int u_int;
+typedef unsigned char uint8_t;
 
 #define DOS

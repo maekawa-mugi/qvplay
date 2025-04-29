@@ -1,8 +1,8 @@
-int	changespeed P__((int, int));
-int	opentty P__((char *));
-int	readtty P__((int, u_char *, int));
-void	flushtty P__((int));
-int     siochk P__((void));
+int	changespeed (int, int);
+int	opentty (char *);
+int	readtty (int, uint8_t *, int);
+void	flushtty (int);
+int     siochk (void);
 
 
 #define B9600 1

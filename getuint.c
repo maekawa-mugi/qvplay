@@ -1,21 +1,20 @@
 #include "config.h"
+#include <stdint.h>
 #include <sys/types.h>
-
-u_short
-get_u_short(buf)
-     u_char 	*buf;
+uint16_t get_uint16_t(buf)
+uint8_t *buf;
 {
-  return ((u_short)buf[0] << 8) | buf[1];
+  return ((uint16_t)buf[0] << 8) | buf[1];
 }
 
-u_int
-get_u_int(buf)
-        u_char  *buf;
+uint32_t get_u_int(buf)
+uint8_t *buf;
 {
-        u_int   t;
+  u_int t;
 
-        t = (((u_int)buf[0] << 8) | buf[1]) << 16;;
-        t |= ((u_int)buf[2] << 8) | buf[3];;
-        return t;
+  t = (((u_int)buf[0] << 8) | buf[1]) << 16;
+  ;
+  t |= ((u_int)buf[2] << 8) | buf[3];
+  ;
+  return t;
 }
-

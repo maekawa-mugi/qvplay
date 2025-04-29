@@ -1,10 +1,10 @@
-int	changespeed P__((int, int));
-int	opentty P__((char *));
-int	readtty P__((int, u_char *, int));
-int	writetty P__((int, u_char *, int));
-int closetty P__((int));
-void	flushtty P__((int));
-void sleep P__((int));
+int	changespeed (int, int);
+int	opentty (char *);
+int	readtty (int, uint8_t *, int);
+int	writetty (int, uint8_t *, int);
+int closetty (int);
+void	flushtty (int);
+void sleep (int);
 
 
 #define B9600 9600

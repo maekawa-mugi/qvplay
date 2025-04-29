@@ -1,1 +1,1 @@
-int	QValldelete P__(());
+int QValldelete ();

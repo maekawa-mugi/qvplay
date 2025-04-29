@@ -1,3 +1,1 @@
-int write_bmp P__((u_char *, FILE *, int, int, int, int));
-
-
+int write_bmp (uint8_t *, FILE *, int, int, int, int);
