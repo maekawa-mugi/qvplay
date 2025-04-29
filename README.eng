@@ -1,0 +1,605 @@
+*Control QV-10/10a/11/30/70/100/200/300/700/770  "QVplay" Ver. 0.95
+                                                          2000.08.29
+
+*What's this?
+
+CASIO QV-10 digital camera is a cool product. But, PC link software
+provided by CASIO works on only MS Windows PC or Machintosh.
+
+To download image data, and convert it to TIFF image file format
+you should to use CASIO's PC link software on Windows/Machintosh
+environment.
+For a Unix environment user, it is horrible.
+
+Furtunately, for Unix user, converting software to CAM format
+image file  (CASIO's original image data format) to JPEG(JFIF)
+image file is available. 
+(Thank's for Mr.Iwama's CAM format document.)
+
+'cam2jpeg'  (Auther Jun-ichiro "itojun" Itoh<itojun@itojun.org>)
+'camtoppm.pl'  (Auther Shuji Senda <senda@kuis.kyoto-u.ac.jp>)
+
+Now, you can download image data from QV-10 at Unix(and Windows NT,
+Windows 95) environment, using 'qvplay'.
+
+'qvplay' has many functions:
+- downlod image data from QV-10 and save into files.
+- show images on QV-10's LCD.
+- delete image data on QV-10.
+- report how many images in QV-10.
+- press the shutter of QV-10.
+
+And, you can upload 'PPM', 'RGB', 'CAM' format image files
+to QV-10, using 'qvrec'.
+
+#QV-100/200/300's fine mode picture (640x480) is supported at Ver 0.90.
+#QV-700/770's fine mode picture(640x480) is supported at Ver 0.93.
+#But upload is not supported yet.
+
+# 'qvplay' dose not support QV-5000SX/7000SX, and QV-2000UX. Sorry.
+
+*Author 
+
+Ken-ichi HAYASHI <xg2k-hys@asahi-net.or.jp>
+Jun-ichiro "itojun" Itoh <itojun@itojun.org>
+
+*Attention
+- The auther assumes no responsibility for the results for the usage of
+  this software(qvplay, qvrec, qvalldel), and documents.
+- There is a possibility of this software (qvplay, qvrec, qvalldel)
+  can cause permanent damage to QV-10's hardware and image data
+  in the QV-10. 
+  Use at your own risk.
+- Sometimes, you must do a small hardware hack to PC-QV10 connection
+  cable. (On old FreeBSD and NEXTSTEP, this hardware hack is needed)
+- This software (qvplay, qvrec, qvalldel) is 'FreeWare'.
+  You can freely redistribute this archive.
+- You can use the entire source code of this archive in your software,
+  but I assume no resuponsibilitiy for the results of the usage of the
+  source code.
+  Use at your own risk.
+- If you want to need some kind of 'license',
+  you can choice 'BSD style license' or 'LGPL'.
+  It is great presure you describe at README file of your software,
+  "This software has QVplay's source code.".
+- You can redistribute source archive of 'Ver. 0.10a' and 'Ver. 0.95'.
+  Other versions are not stable or older version, so you should not
+  redistribute.
+- I finish development of 'qvplay' at 'Ver. 0.95' release.
+
+*Tested environments
+Unix system
+-PC/AT clone Linux 1.2.13, 1.3.20, 2.0.35, 2.0.36
+  (RedHat 5.2J、OpenLinux 1.3、Turbo Linux 3.0、Slackware 3.1、
+   VineLinux 1.0beta1、Plamo Linux 1.3)
+-PC/AT clone Linux 2.2.X
+  (VineLinux 2.0、Slackware7.0、Laser5 Linux 6.0 rel.2、
+   Laser5 Linux 6.2、Red Hat 6.1J、RedHat 6.2J、
+   TurboLinux 4.2、TurboLinux 6.0WS(J)、Omoikane Linux 1.1、
+   Kondara/MNU Linux 1.1、Kondara/MNU Linux 1.2)
+-PC/AT clone BSD/OS 2.0
+-Sony NEWS-3150U2 NEWS-OS 4.2.1RN
+-Sony NEWS-1860 NEWS-OS 4.2C
+-Sony NEWS-4000 NEWS-OS 6.1.1
+-NEC EWS4800 Rel.4.4 Rev01
+-Sun Sparc Station 20 Solaris2.3(SunOS 5.3)
+-Sparc clone SunOS 4.1.4
+-Apple Macintosh SE/30 NetBSD 1.0
+-PC/AT clone FreeBSD 2.2.6R
+-PC/AT clone FreeBSD 2.0.5R(*)
+-PC/AT clone FreeBSD 2.1.0R(*)
+-NeXT NeXTcube(M68040-25) NEXTSTEP 3.3J(*)
+
+Non-Unix systems
+-SHARP X68030 + Human68k 3.02
+-PC/AT clone Windows NT 3.51 (Intel) (work on DOS prompt)
+-PC/AT clone Windows 95 (work on DOS prompt)
+-PC/AT clone OS/2 Warp 3.0 (Intel) (work on DOS prompt)
+
+(*) Need hardware hack.(describe below)
+
+*Table of contents
+ README     README file(JIS code, Japanese)
+ README.eng this file
+ PROTOCOL.txt document of serial protocol (JIS code, Japanese)
+ Protocol.eng document of serial protocol (English)
+ HISTORY    HISTORY file (JIS code, Japanese)
+ FAQ.txt    FAQ (JIS code, Japanese)
+ install-sh
+ setup
+ obj/
+    Win32/
+        config.h
+        getopt.c (GNU getopt)
+        getopt.h (GNU getopt)
+        tty_w32.c
+        tty_w32.h
+     X68k/
+         Makefile
+         config.h
+         siochk.c (Thanks for Masuda-san)
+         tty_x68.c
+         tty_x68.h
+         x68k.c
+  src/
+     qvplay.c
+     qvrec.c
+     qvalldel.c
+     qvplay.1
+     qvrec.1
+     qvalldel.1
+     common.h
+     command.h
+     command.c    
+     command1.h
+     command1.c    
+     command2.h
+     command2.c    
+     command3.h
+     command3.c    
+     getuint.c
+     getuint.h
+     tty.h
+     tty.c   
+     jpeg.h     
+     jpeg.c
+     ppm.h
+     ppm.c
+     bmp.h
+     bmp.c
+     cam2jpgtab.h (Thanks for itojun-san)
+     configure*
+     Makefile.in
+     configure.in
+     config.h.in
+
+*Installation (Unix system)
+1. ./setup OSname   (OSname is your operating system's name.
+                     c.f. linux, newsos4 ...
+                     If your environment can use 'uname', 'OSname'
+                     is not need.)
+2. cd obj/OSname
+3. ./configure
+4. Edit 'common.h' at directory 'obj/OSname', 
+   set your operating system's tty device to '#define RSPORT'
+   definition.
+   Or, make symbolic link to the tty device like this.
+    ln -s /dev/ttyS0 /dev/qvtty
+5. Check the 'Makefile' in obj/OSname.
+   See at 'install:' section.
+
+   $(INSTALL_PROGRAM) -s -o root -g uucp -m 2755 $(PROG1) $(bindir)/$(PROG1)
+
+   Check owner name 'root' and groupe name 'uucp' are same as
+   the special file of tty device you want to use.
+   % ls -l /dev/ttyS0
+   crw-rw----   1 root     uucp       4,  64 May  6  1998 /dev/ttyS0
+                  owner    group
+   If owner and group are not same, edit Makefile.
+6. make
+7. su
+8. make install
+
+OS and special file 
+- Linux 2.2.X 2.3.X       #define RSPORT "/dev/ttyS0"
+- Linux 1.2.X 1.3.X 2.0.X #define RSPORT "/dev/cua0"
+- BSD/OS 2.0              #define RSPORT "/dev/tty00"
+- NEWS-OS 4.2.1RN         #define RSPORT "/dev/tty00"
+- NEWS-OS 4.2C            #define RSPORT "/dev/tty00"
+- NEWS-OS 6.1.1           #define RSPORT "/dev/term/00"
+- SunOS 4.1.4             #define RSPORT "/dev/ttya"
+- Solaris2.3(SunOS 5.3)   #define RSPORT "/dev/ttya"
+- NetBSD 1.0              #define RSPORT "/dev/tty00"
+- EWS4800 Rel.4.4 Rev01   #define RSPORT "/dev/term/00"
+- FreeBSD 2.1.0R 2.2.0R   #define RSPORT "/dev/cuaa0"
+- NEXTSTEP 3.3J           #define RSPORT "/dev/ttya"
+
+*Installation (X680x0)
+Use the source code at 'obj/X68k' and 'src'. 
+You should compile it with 'gcc', 'gmake', and 'libc'.
+extract source archive on X680x0.
+cd QVplay\obj\X68k
+copy ..\..\src\*.c .
+copy ..\..\src\*.h .
+gmake -f Makefile
+
+*Installation (Windows NT/Windows 95)
+Use the source code at 'obj/Win32' and 'src/'. 
+You should complie it with 'VisualC++4.0'.
+extract source archive on Windows NT.
+cd QVplay\obj\Win32
+copy ..\..\src\*.c .
+copy ..\..\src\*.h .
+Start VisualC++.
+Select [File][New][ProjectWorkspace] menu item.
+Select [Console Application] at [New ProjectWorkspace]Dialog Box.
+make ProjectWorkspace named 'qvplay'.
+Select [Insert][Add File to Project] menu item.
+Add files(qvplay.c command.c command1.c jpeg.c ppm.c
+bmp.c getopt.c getuint.c tty_w32.c) to project.
+Do build.
+
+To build 'qvrec', make ProjectWorkspace named 'qvrec'.
+Add files(qvrec.c command.c command2.c getopt.c getuint.c
+tty_w32.c) to project. And do build.
+
+To build 'qvalldel', make ProjectWorkspace named 'qvrec'.
+Add files(qvalldel.c command.c command3.c getopt.c tty_w32.c)
+to project. And do build.
+
+Default serial port is defined in 'common.h'.
+Please change '#define RSPORT "COM1"', to your 
+default serial port.
+
+*Installation (OS/2 Warp3.0 for Intel)
+You need EMX developpers environment, and GNU make for OS/2.
+Use the source code at 'obj/os2' and 'src'. 
+extract source archive on OS/2.
+cd QVplay\obj\os2
+copy ..\..\src\*.c .
+copy ..\..\src\*.h .
+make -f os2.mak
+
+*Installation (DOS)
+You need Turbo C++ Ver.4.0 and MCD Version 0.91.
+See readme.txt in obj/dos directory.
+Use the source code at 'obj/dos' and 'src'. 
+extract source archive on OS/2.
+cd QVplay\obj\dos
+copy ..\..\src\*.c .
+copy ..\..\src\*.h .
+do make
+
+*Equipment for qvplay, qvrec, qvalldel.
+- CASIO QV-10, QV-10a, QV-30, QV-11, QV-70
+        QV-100, QV-200, QV-300
+        QV-700, QV-770
+- PC link cable (included CASIO PC link kit for Windows)
+
+Connect QV-10 and PC/WS by PC link cable.
+And execute 'qvplay', 'qvrec', 'qvdeleteall'.
+But, in some operating system environments, 'qvplay', 'qvrec', and
+'qvdeleteall', may not work well. Because, PC link cable has
+electrical circuits (may be level converter), and it works
+by PC/WS's serial terminal voltage. The circuit in PC link cable
+use the CTS,DTR terminal as Vdd(+ side), and the RTS terminal as
+Vss(- side). So 'qvplay', 'qvrec', and 'qvdeleteall' change the
+CTS,DTR terminal to on, the RTS terminal to off and hold 
+those states. But, some operating system environments,
+change RTS terminal to off, causing serial communicaton to stop.
+If your environment cannot use serial terminal without turning
+RTS terminal to off, you must to do small hardware hack to the
+PC link cable.
+- connect RTS signal pin to GND pin.
+This small hardware hack makes a voltage difference from CTS,DSR 
+to RTS, so the circuit in PC link cable works any time.
+If you don't want to hack the PC link cable, you can make an
+RS-232c jumper box as described below.
+                  JUMPER BOX
+(PC/WS side)  male          female    (PC link cable side)  
+         (RTS) 4        +------ 4(RTS)
+                        |
+         (GND) 7 -------+-------7(GND)
+And connect like below.
+[PC/WS serial port]--[JUMPER BOX]--[PC link cable]--[QV10]
+
+*How to use 'qvplay'
+
+QV-10 has three states. (may be).
+1. reseted mode.
+2. command mode.
+3. processing mode.
+
+'Reseted mode' is the state of directly after power on.
+In this mode, you can operate QV-10's buttons.
+On 'reseted mode' QV-10 can accept commands from PC/WS.
+
+'Command mode' is the state, QV-10 can accept commands from PC/WS's
+serial port. In this mode, QV-10's buttons are not work.
+(If you want to be reseted mode, send reset command from PC/WS or
+ reboot QV-10, by toggle the power SW OFF and ON.)
+
+'Processing mode' is the state, QV-10 processing the commands
+from PC/WS's serial port. In this mode, QV-10 don't accept
+commands from serial port, without reset command.
+
+'qvplay' can do many operation to QV-10, and it makes QV-10 to 
+'command mode'. So, you can not operate QV-10's buttons. 
+Therefore, you shuold send reset command by adding the '-r' 
+option as the command line's last option.
+
+When, you get the error message "tty not respond.",
+or you feel data transfer is not working well, or 
+you want to terminate data transfer, terminate 'qvplay'
+using 'CTRL-C', and reboot QV-10.
+
+- usage (the manpages look better and are more thorough.)
+  qvplay [options]
+ 
+ num: picture number, 1 to 96 or 1 to 192 positive number.
+ filename: output file name, strings 
+ options are processed sequentially.  For example, the file type must be
+ set before the option to extract the file, otherwise the default type
+ will be used.
+ 
+ -h          Show usage to stderr.
+ -r          Reset QV10.
+             When reset operation is done, QV10's LCD is cleared,
+             and you can operate QV10's buttons. Reset operation
+             dose not affect in image data in QV10.
+ -n          Shows how many pictures in QV10 to stdout.
+ -N          Shows how many pictures can be taken.
+             * At QV-700/770, this feature dose not work.
+ -p num      Shows a picture to QV10's LCD.
+ -o filename Set output filename.  (the picture number and image
+             extension will be tacked on to the end of this.)
+ -F {jpeg,ppm,PPM,rgb,RGB,bmp,BMP,cam} 
+             Set output file format.
+             Use with -a option or -g option.
+             You should set this option before -a or -g.
+             This option is not affect to before it.
+
+             jpeg  JPEG(JFIF) format
+             ppm   PPM format (thumbnail image)
+             PPM   PPM format (picture image)
+             rgb   RGB format (thumbnail image)
+             RGB   RGB format (picture image)
+             bmp   BMP(24bit) format (thumbnail image)
+             BMP   BMP(24bit) format (thumbnail image)
+             cam   CAM format (thimbnail and picture image)
+            
+             Default is 'jpeg'.
+             Format name is detected by first letter.
+             So, 'photo', 'picture' are same as 'ppm'.
+ -g num      Download all images from QV10 and save as
+             image files. (see -F option)
+             If -o option is set, saved as the filename,
+             if -o option is not set, image file is dumped
+             to stdout.
+ -a          Download all image data from QV10 and save as
+             image files.(see -F option)
+             If -F option is not set, and -o option is set,
+             you got image files like below.
+              filename_001.jpg
+              filename_002.jpg
+              filename_003.jpg
+              .....
+             If -o option is not set, you got image files like below.
+              qv_001.jpg
+              qv_002.jpg
+              qv_003.jpg
+              .....
+             If -F option is set, the filename become '*.ppm', '*.cam',
+             and so on.
+ -s num      Use with -a option.
+             It must be set before -a option.
+             Set the first picture number that you want to download.
+ -e num      Use with -a option.
+             It must be set before -a option.
+             Set the last picture number that you want to download.
+ -v          Use with -a or -g option.
+             It must be set before -a or -g option.
+             Verbose mode. Reports downloaded data bytes to stderr.
+             (Reported information is downloaded bytes, not a filesize)
+ -d num      Delete image data in QV10.
+ -4 num1,num2,num3,num4
+             Split QV10's LCD to quad, and show image data.
+ -9 num1,num2,....num9
+             Split QV10's LCD to 9 sectors, and show image data.
+ -P num      Protect image data.
+ -U num      Unprotect image data.
+ -i num      Show image data information to stderr.
+ -I          Show information for all images to stderr.
+ -t          Take a picutre. (set QV10's function SW to REC position.)
+             * This function dose not work well for QV-100series.
+             * This function dose not work for QV-700/770.
+ -V          Report approximate battery status.
+             * This function dose not work for QV-700/770.
+ -0          Poer off QV10 (not 'oh' it is 'zero')
+ -1          Disable auto power off function.
+ -7          Display a colour bar on QV10's LCD.
+ -D ttydevice Change serial port to 'ttydevice'.
+             If your environment is Windows NT/95, set 'COM1'...'COM4'
+             as 'ttydevice'.
+ -S {normal,mid,high,top,light}or{1,2,3,4,5}
+             Set serial speed.
+             1 normal   standard speed   9600 baud
+             2 mid      medium speed    19200 baud
+             3 high     high speed      38400 baud
+             4 top      very high speed 57600 baud
+             5 light    light speed:-) 115200 baud
+             (If your environment is Linux, FreeBSD, OS2,
+              or Windows NT/95, and your computer has
+              high speed serial port, you can use 'light' speed.)
+ -X num     Display picture to X680x0's graphic plane.
+            * This function works on X680x0 only.
+ -z         Report camera status
+            * This function dose not work for QV-700/770.
+ -Z         Report camera revision.
+
+
+Options are processed from left to right.  You can set the same option
+many times. However, -s -e -o -v option have no effect if you set those
+options after the options that you want to affect.  The single exception
+to this is -D, which can be anywhere.  Only one -D will have an effect;
+you can't use a single command line to access multiple cameras.
+  
+When -h option is set, it shows usage, and exits qvplay. The options 
+which are used after the -h option are ignored.
+  
+Outputed picture image files (jpeg, PPM, RGB, BMP), are 
+480x240. So you should change aspect size to 4:3.
+'Fine' pictures of QV-100 seriers(QV-100/200/300) and all pictres of 
+QV-700/770 are output as 640x480. So you should not change aspect size.
+
+-S option should be used as soon as possible for maximum affect.  (First
+option, unless -D is first, in which case it should be second.)
+Maximum serial speed depends on computer hardware, and the operating
+system.  (c.f. on NEWS-OS4.2C maximum speed is 9600baud).
+
+-r option changes serial speed to standard(9600baud).
+
+When 'qvplay' exits, it changes serial speed to standard(9600baud).
+
+At compile time, if you see the message like, "B115200 cannot defined."
+you should add "-DCANNOTUSEHIGHSPEED" to CFLAGS in Makefile.
+If you set "-DCANNOTUSEHIGHSPEED" in Linux environment,
+to use 'top' or 'light' speed on Linux, set serial port by 
+'setserial' command.
+
+Example 1 
+  setserial /dev/cua1 spd_hi        # set 57600baud
+  qvplay -S top -o foo.jpg -g 1
+Example 2
+  setserial /dev/cua1 spd_vhi        # set 115200baud
+  qvplay -S light -o foo.jpg -g 1
+
+(At old Linux kernel, without using setserial, 
+ specifying over '-S high' will give tty problems.)
+
+If you are using PC/AT clone, you should use a 16550A compatible
+serial controler, when using over 19200baud(mid).
+
+You can specify the serial port by environment variable
+QVPLAYTTY instead of -D option.
+Under unix variant environment, specify a path name of special file 
+like '/dev/ttyS0'. Under WindowsNT/95 environment, specify the
+strings like "COM1", "COM2", etc.
+Under X680x0 environment, this environment variable QVPLAYTTY is
+ignored.
+
+*How to use 'qvrec'
+- usage 
+  qvrec [options] file1 file2 .....
+
+ Upload image files to QV-10 and reset QV-10.
+ If image files are not setted in command line, 'qvrec'
+ accsepts an image file from standard input.
+ (Accsept only one image). 
+
+ 'qvrec' works only QV10 series.
+ 
+ 
+ -h          Show usage to stderr.
+ -v          Verbose mode. Reports downloaded data bytes to stderr.
+             (Reported information is uploaded bytes, not a filesize)
+ -F {ppm,PPM,rgb,RGB,cam,CAM} 
+             Set input file format.
+
+             ppm or PPM   PPM format
+             rgb or RGB   RGB format
+             cam or CAM   CAM format
+
+             Default is 'ppm'.
+             Format name is detected by first letter.
+             So, 'photo', 'picture' are same as 'ppm'.
+            * This function dose not work for fine mode of QV-100 seriese.
+            * This function dose not work for QV-700/770.
+            * DOS version, you cannot choice format without CAM.
+ -D ttydevice Change serial port to 'ttydevice'.
+             If your environment is Windows NT/95, set 'COM1'...'COM4'
+             as 'ttydevice'.
+ -S {normal,mid,high,top,light}or{1,2,3,4,5}
+             Set serial speed.
+             See options of 'qvplay' for detail.
+ 
+File format of image files are limited.
+       PPM  raw format (P6 fomat)
+            RGB 24bit color(8-8-8)
+            size 480x240   
+       RGB  RGB 24bit color(8-8-8)
+            size 480x240   
+
+Example 1 
+ 1. Upload PPM image files to QV-10.
+    qvrec file1.ppm file2.ppm file3.ppm
+
+    If QV-10 has 4 pictures already,
+    file1.ppm become No.5,
+    file2.ppm become No.6,
+    file3.ppm become No.7,
+    in QV-10.
+
+ 2. Upload an image file by high speed mode,
+    and show byte size of transfered.
+    qvrec -v -S h file.ppm
+
+ 3. Upload an image file from standard input.
+    cat file.ppm | qvrec
+
+ 4. Upload a CAM format image file.
+    qvrec -F cam file1.cam
+
+*How to use 'qvalldel'
+- usage
+  qvalldel [options]
+
+  Delete all images in QV-10 and reset QV-10.
+  NOTICE!! All images are deleted although protected.
+
+  When execute qvalldel, it show confirm message 'Are you sure?'.
+  If you say 'y', it delte all images.
+
+  If you has luck enough to do, you can fix FATAL ERROR,
+  by 'qvalldel'. (But sometimes cannot fix.)
+
+  'qvalldel' is made for fix FATAL ERROR.
+  You should do operate [DEL]button to delete images in QV-10.
+
+ -h          Show usage to stderr.
+ -f          Don't show confirm message 'Are you sure?' and
+             do delete all images and reset.
+ -D ttydevice Change serial port to 'ttydevice'.
+             If your environment is Windows NT/95, set 'COM1'...'COM4'
+             as 'ttydevice'.
+
+*Related Resources
+
+Software
+- cam2jpeg     CAM to JPEG image converter.
+   <ftp://ftp.itojun.org/pub/digi-cam/QV10/unix/>
+- netpbm       File format converer collection.
+- djpeg/cjpeg  Sample inplement of JPEG library by Independent JPEG
+               Group.
+- xv or imagemagik
+
+Hardware
+- How to make QV-link cable.
+  <http://www.kiwi-us.com/~mohyama/article/QV10/>
+  <http://www.bekkoame.or.jp/~horimoto/QV-MAX/>
+  <http://home.interlink.or.jp/~gamma/qv10.html>
+
+FAQ
+- Kimura-san's QV-10 FAQ
+  <http://www.st.rim.or.jp/%7Ekimu/palm/qv10faq8.html#8>
+- QV Plaza
+  <http://www.casio.co.jp/English/QV-e.htm>
+
+*Special Thanks for
+ Iwama-san, Itojun-san, Senda-san, Kimura Kazushi-san,
+ Brahma-san, Goto-san, mario-san, Yato-san,
+ Masuda-san, Yanagawa-san, Hirano-san, Ohkubo-san, Suda-san,
+ Asato-san, Shimokawa-san, Kuwata-san, Kimura-san, Janbe-san,
+ Hisada-san, Nowake-san, Ohuchi-san, Yasuda-san, Isshiki-san,
+ Matsuyama-san, Fujita-san, Imai-san, Ohniwa-san, Himeno-san,
+ Murai-san, Hane-san, Bohno-san, Murao-san, Tabuchi-san,
+ Hibara-san, Okuno-san, Tokoro-san, Yamamoto-san, Kameoka-san,
+ Miyamoto-san, Linus Jin-san, Tada-san, Yoda-san, Kumon-san,
+ Robert Bunting-san, Stuat Inglis-san, Ed Wang-san, Nakai-san,
+ Emerson Brasil Gomes-san, Johan Verner Olsen-san,
+ Brian Fahrlander-san, Omote-san, Jason Froebe-san,
+ Mori-san, Kitsunezaki-san, Sasaki-san, Sato-san,
+ Ed Grimm-san, Ferenc Papai-san, Jean-Baptiste Nivoit-san,
+ Jason Froebe-san, Magnus Therning-san, Erica Sadun-san,
+ Bob Hepple-san,
+ And other people.
+
+*Known BUGs
+ - At QV-100/300, qvplay's -t option is not work well.
+ - 'qvrec' is not support the fine mode of QV-100series.
+ - 'qvrec' is not support QV-700/770.
+ - DOS version is not works well.
+
+*URL/mail
+ http: http://www.asahi-net.or.jp/~xgk2-hys/index-e.html
+ mail: xg2k-hys@asahi-net.or.jp  <Ken-ichi HAYASHI>

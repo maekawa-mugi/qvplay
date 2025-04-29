@@ -1,0 +1,41 @@
+dnl Process this file with autoconf to produce a configure script.
+AC_INIT(command.c)
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+dnl for BSDI BSD/OS 2.0
+AC_CHECK_PROG(LDCC, shlicc, shlicc, \$(CC))
+
+dnl Checks for libraries.
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(sys/param.h termios.h termio.h sys/ioctl.h sgtty.h fcntl.h sys/time.h unistd.h ttold.h ioctl-types.h)
+dnl AC_CHECK_HEADER(termios.h, 
+dnl   AC_MSG_CHECKING(faked support for termios.h VTIME capability)
+dnl   AC_EGREP_CPP(fake, [#include <termios.h>
+dnl #if VTIME == VEOL
+dnl   fake
+dnl #endif
+dnl ],
+dnl     AC_MSG_RESULT(fake),
+dnl     AC_MSG_RESULT(true support); AC_DEFINE(FAKE_TERMIOS, 1)))
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_INLINE
+AC_TYPE_SIZE_T
+AC_TYPE_UID_T
+AC_HEADER_TIME
+
+dnl Checks for library functions.
+AC_PROG_GCC_TRADITIONAL
+AC_CHECK_FUNCS(setreuid)
+AC_CHECK_FUNCS(select)
+if test "$HAVE_SELECT" = no; then
+  AC_MSG_WARN(make will fail because you don't have select systemcall)
+fi
+
+AC_CONFIG_HEADER(config.h)
+AC_OUTPUT(Makefile)

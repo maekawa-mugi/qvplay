@@ -1,0 +1,403 @@
+.ig \"-*- nroff -*-
+Copyright (C) 1989-1995 Free Software Foundation, Inc.
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided that the
+entire resulting derived work is distributed under the terms of a
+permission notice identical to this one.
+
+Permission is granted to copy and distribute translations of this
+manual into another language, under the above conditions for modified
+versions, except that this permission notice may be included in
+translations approved by the Free Software Foundation instead of in
+the original English.
+
+$Id: qvplay.1,v 1.1 2000/08/28 19:41:28 ken-ichi Exp bhepple $
+$Log: qvplay.1,v $
+Revision 1.1  2000/08/28 19:41:28 ken-ichi
+Initial revision
+
+..
+.TH QVPLAY 1 "$Date: 2000/08/28 19:41:28 $" "Local" "Local commands"
+.UC 4
+.SH NAME
+qvplay \- control Casio QV-10 digital camera.
+.SH SYNOPSIS
+.ad l
+.B qvplay
+[
+.BI \-D \ ttydevice
+]
+[
+.BI \-S \ speed
+]
+[
+.BI \-p \ num
+]
+[
+.BI \-o \ filename
+]
+[
+.BI \-F \ format
+]
+[
+.BI \-g \ num
+]
+[
+.BI \-s \ num
+]
+[
+.BI \-e \ num
+]
+[
+.BI \-d \ num
+]
+[
+.BI \-4 \ num1,num2,num3,num4
+]
+[
+.BI \-9 \ num1,num2,num3,num4
+]
+[
+.BI \-P \ num
+]
+[
+.BI \-U \ num
+]
+[
+.BI \-i \ num
+]
+[
+.BI \-y \ num
+]
+[
+.B \-hrnavtV01I7VzZ
+]
+.ad b
+.SH DESCRIPTION
+This manual page applies to
+.B qvplay
+version 0.95 by ken-ichi HAYASHI and Jun-ichiro "itojun" ITOH.
+.PP
+.B qvplay
+allows the computer to control the Casio QV-10 digital
+camera.
+Use entirely at your own risk.
+Functions include downloading picture(s) from the
+camera, deleting camera image(s), report on camera and picture status,
+instruct the camera to take a photo, reset the camera etc.
+.P
+QV-10 can take up to 96 pictures, each at 320x240 24-bit
+pixels. And QV-100/200/300/700/770 can take more pictures, and 640x480
+pixel pictures. It can be linked to the serial port of a computer using the
+supplied cable (see under
+.B BUGS
+for wiring changes needed for some machines.
+.PP
+When switched on, the camera can be in one of three states - normally,
+it responds to its own control panel
+.B (Normal 
+state) or it is in
+.B Command 
+state when it only responds to commands from the computer. 
+Finally, it can be
+.B Processing
+where it will only respond to the reset command.  
+For this reason it
+is a good idea to reset the camera by running
+.B "qvplay \-r"
+after using it with the computer.
+.PP
+If the camera does not respond, switch it off and then on again to do
+a 'hard' reset.  
+If the transfer times out, try using a slower speed.
+.PP
+Pictures of QV-10 series(QV-10/10a/11/30/70) and 'Normal' pictures of QV-100
+series(QV-100/200/300) 
+ are output as 480x240 so you should re-size them with
+.BR xv (1)
+or pipe through a converter, e.g.
+.PP
+.nf
+qvplay -g 1 | djpeg | pnmscale -xsize 320 -ysize 240 | cjpeg
+.fi
+.PP
+where
+.BR djpeg (1)
+and
+.BR cjpeg (1)
+are conversion routines from the International JPEG Group (often
+distributed with
+.BR xv (1).
+.PP
+'Fine' pictures of QV-100 seriers(QV-100/200/300) and all pictres of 
+QV-700/770 are output as 640x480.
+.SH OPTIONS
+Options are processed from left to right so it is important to set the
+serial line speed first, then any start and end parameters before any
+.B \-g
+or 
+.B \-a
+options.
+.IP "\fB\-D\fP \fIttydevice\fP"
+Specify the serial port to use. Something like \fI/dev/ttyS0\fP on 
+.B Unix
+and \fICOM1\fP on less sophisticated systems.
+The default is \fI/dev/qvtty\fP.
+.IP "\fB\-S\fP \fIspeed\fP"
+Specify the baud rate for the transfer. Possible values are
+{normal, mid, high, top, light} or {1,2,3,4,5} for a corresponding
+{9600, 19200, 38400, 57600, 115200} baud rate.
+\'light speed' is supported in Linux, OS2, and Win NT/95.
+With Old version Linux, use 
+.B setserial(1)
+to achieve lightspeed e.g.
+.RS
+.PP
+.nf
+  setserial /dev/cua1 spd_hi	# set 57600baud
+  qvplay -S top -o foo.jpg -g 1
+or
+  setserial /dev/cua1 spd_vhi	# set 115200baud
+  qvplay -S light -o foo.jpg -g 1
+.fi
+.PP
+If you are using a PC/AT compatible computer, you will need a 16550A compatible
+serial controller to use more than 19200 baud (the 'mid' setting).
+.RE
+.IP "\fB\-p\fP \fInum\fP"
+Instruct camera to display picture number
+.I num.
+.IP "\fB\-o\fP \fIbasename\fP"
+Use
+.I
+basename
+as the basis for filenames with the
+.B \-a
+option instead of
+.I qv.
+For example,
+.I "\-o foo"
+will cause files foo_001.jpg, foo_002.jpg to be created.
+.IP "\fB\-F\fP \fIformat\fP"
+Governs the output format for the download. 
+The format is determined by the first letter, so 'ppm', 'picture' and
+\'photo' are equivalent.
+.PP
+.RS 
+Possible values are:
+.PP
+.PD 0
+.TP 8
+.B jpeg
+The default.
+JPEG (JFIF) format.
+.TP 8
+.B ppm
+PPM format thumbnail picture
+.TP 8
+.B PPM
+PPM format picture
+.TP 8
+.B rgb
+RGB format thumbnail picture
+.TP 8
+.B RGB
+RGB format picture
+.TP 8
+.B bmp
+BMP format thumbnail picture
+.TP 8
+.B BMP
+BMP format picture
+.TP 8
+.B cam
+CAM format picture (thumbnail and picture format) - Casio's
+proprietary format.
+.PP
+.RE
+.PD 1
+.IP "\fB\-g\fP \fInum\fP"
+Download the
+.I num'th
+image from the camera.
+If the
+.BI \-o \ basename
+option is used, then the picture will be saved as 
+.I basename.jpg,
+otherwise, the image is sent to
+.B stdout.
+.IP "\fB\-s\fP \fInum\fP"
+Specify the starting number for a mass download of files.
+Must be used
+.I before
+the
+.B \-a
+option.
+.IP "\fB\-e\fP \fInum\fP"
+Specify the ending number for a mass download of files.
+Must be used
+.I before
+the
+.B \-a
+option.
+.IP "\fB\-d\fP \fInum\fP"
+Delete the num'th image in the camera.
+.IP "\fB\-4\fP \fInum1,num2,num3,num4\fP"
+Display 4 images on the camera screen at once.
+.IP "\fB\-9\fP \fInum1,num2,num3,num4\fP"
+Display 9 images on the camera screen at once.
+.IP "\fB\-P\fP \fInum\fP"
+Protect the num'th image.
+.IP "\fB\-U\fP \fInum\fP"
+Unprotect the num'th image.
+.IP "\fB\-i\fP \fInum\fP"
+Print information about the num'th picture.
+.IP "\fB\-y\fP \fInum\fP"
+Set num'th image as default picture, it shown when QV-10 is powered on or reseted.
+.B \-a
+or
+.B \-g.
+.IP "\fB\-h\fP"
+Print a help message and exit.
+.IP "\fB\-r\fP"
+Reset the camera and change baud rate to 9600 baud.
+.IP "\fB\-n\fP"
+Print the number of pictures in the camera's memory.
+.IP "\fB\-a\fP"
+Download all pictures from the camera and save as files called
+qv_001.jpg, qv_002.jpg etc. See also the
+.B "-F, -o, -s"
+and
+.B -e
+options.
+.IP "\fB\-v\fP"
+Used with the
+.B -a
+and
+.B -g
+options, reports download verbosely on 
+.B stderr. 
+Reported information is downloaded bytes, not a filesize.
+.IP "\fB\-t\fP"
+Instruct camera to take a picture - sets camera switch to REC
+position.
+(This function dose not work at QV-700/770.)
+.IP "\fB\-I\fP"
+Print information about all pictures.
+.IP "\fB\-7\fP"
+Display a colour bar on the camera.
+.IP "\fB\-0\fP"
+Power off.
+.IP "\fB\-1\fP"
+Disable auto power off function.
+.IP "\fB\-V\fP"
+Report approximate battery status.
+(This function dose not work at QV-700/770.)
+.IP "\fB\-z\fP"
+Report camera status.
+(This function dose not work at QV-700/770.)
+.IP "\fB\-Z\fP"
+Report camera revision.
+.SH ENVIRONMENT
+.SH FILES
+.SH BUGS
+Because the Casio QV-10 to PC link cable incorporates special
+electrical circuits to provide power to the camera's serial port
+(level converter), some computers  (see under
+.B AVAILABILITY )
+will need a hardware hack.
+.PP
+The link cable
+uses CTS, DTR terminal as Vdd(+ side), and RTS terminal as
+Vss(- side). So 
+.BR qvplay (1), 
+.BR qvrec (1),
+and
+.BR qvdelall (1) 
+all turn
+CTS, DTR terminal on, RTS terminal off and hold them there. 
+Since some operating systems
+change RTS terminal to off, this causes serial communicaton to stop.
+If your computer cannot hold the
+RTS terminal off, you must hack the
+PC link cable to connect the RTS signal pin to GND pin.
+This small hardware hack applies a voltage difference from CTS, DSR 
+to RTS, so that the circit in the Casio PC link cable works all the time.
+.PP
+As an alternative to hacking the PC link cable, you can make up
+an RS-232c jumper box as follows:
+.PP
+.nf
+                  JUMPER BOX
+(PC/WS side)  male          female    (PC link cable side)  
+         (RTS) 4        +------ 4(RTS)
+                        |
+         (GND) 7 -------+-------7(GND)
+
+And connect like this:
+
+[PC/WS serial port]--[JUMPER BOX]--[PC link cable]--[QV-10]
+.fi
+.PP
+Take picture function(-t option) dose not work well at QV-100/200/300.
+.PP
+Take picture function(-t option) dose not work at QV-700/770.
+.SH COPYRIGHT
+.SH AUTHORS
+Ken-ichi HAYASHI <xg2k-hys@asahi-net.or.jp>
+.P
+Jun-ichiro "itojun" Itoh <itojun@csl.sony.co.jp>
+.SH AVAILABILITY
+.PP
+.nf
+Unix systems:
+-PC/AT clone Linux 2.2.X, 2.3.X
+-PC/AT clone Linux 1.2.13, 1.3.20, 2.0.35
+-PC/AT clone BSD/OS 2.0
+-Sony NEWS-3150U2 NEWS-OS 4.2.1RN
+-Sony NEWS-1860 NEWS-OS 4.2C
+-Sony NEWS-4000 NEWS-OS 6.1.2
+-NEC EWS4800 Rel.4.4 Rev01
+-Sun Sparc Station 20 Solaris2.3(SunOS 5.3)
+-Sparc clone SunOS 4.1.4
+-Apple Macintosh SE/30 NetBSD 1.0
+-PC/AT clone FreeBSD 2.2.6R
+-PC/AT clone FreeBSD 2.0.5R(*)
+-PC/AT clone FreeBSD 2.1.0R(*)
+-NeXT NeXTcube(M68040-25) NEXTSTEP 3.3J(*)
+.PP
+.nf
+Non-Unix systems:
+-SHARP X68030 + Human68k 3.02
+-PC/AT clone Windows NT 3.51(Intel)(work on DOS prompt)
+-PC/AT clone Windows 95(work on DOS prompt)
+-PC/AT clone OS/2 Warp 3.0(Intel)(work on DOS prompt)
+.fi
+.PP
+Systems marked with (*) need the hardware hack described under
+.B BUGS
+above. 
+.SH SPECIAL THANKS
+.PP
+Bob Hepple <bhepple@pacific.net.sg> (Thanks for this man page.)
+.PP
+.SH "SEE ALSO"
+.BR qvrec (1),
+.BR qvalldel (1),
+.BR cam2jpeg (1)
+by Jun-ichiro "itojun" Itoh <itojun@csl.sony.co.jp>.
+.PP
+.BR camtoppm.pl (1)
+by Shuji Senda <senda@kuis.kyoto-u.ac.jp>.
+.\" For emacs:
+.\" Local Variables:
+.\" fill-column: 70
+.\" eval:(setq filename (substring buffer-file-name (string-match "[a-zA-Z0-9_.]+$" buffer-file-name)))
+.\" eval:(setq basename (substring filename 0 (string-match "\\." filename)))
+.\" eval:(setq compile-command (concat "make -k " basename ".man"))
+.\" End:

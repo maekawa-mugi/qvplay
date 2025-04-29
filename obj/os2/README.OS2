@@ -1,0 +1,71 @@
+qvplay/qvrec Ver.0.10 for OS/2 patch                            1996.6.9
+
+qvplay/qvrecをOS/2のコマンドプロンプトで動作させるためのパッチキットです。
+これには以下のものが含まれています。
+
+  README.OS2 このファイル(SJIS)
+  obj/
+     os2/
+        config.h
+        tty_os2.c
+        tty_os2.h
+        os2.mak
+        os2.patch
+        qvplay.def
+        qvrec.def
+
+本パッチキットを使ってOS/2版qvplay/qvrecを作成するには、EMX開発環境が必要
+です。またOS/2版GNU make、OS/2版GNU patchも必要となります。
+当然、QVplay Ver.0.10のソース(qvplay-0.10.tar.gz)が必要であることは言うま
+でもありません。qvplay-0.10.tar.gzは、
+  http://www.asahi-net.or.jp/~XG2K-HYS/
+  ftp://ftp.csl.sony.co.jp/pub/QV10/
+あたりから入手出来るのではないでしょうか。
+
+参考までに、当方での作成環境は、
+GATEWAY 2000 P5-90 (RAM 16M) OS/2 Warp 3.01 + EMX0.9b#Fix3
+です。
+
+コンパイルは以下の手順で行います。
+
+ソースをOS/2上で展開する。
+gzip -dc qvplay-0.10.tar.gz | tar xvf -
+cd QVplay010
+gzip -dc qvplay-os2.tar.gz | tar xvf -
+cd obj\os2
+copy ..\..\src\*.c .
+copy ..\..\src\*.h .
+patch -p1 < os2.patch
+make -f os2.mak
+qvplay.exe、qvrec.exeが出来上がる。
+
+という手順になります。
+
+デフォルトのシリアルポートは、WindowsNT/95版にならってCOM2になっています。
+必要に応じてcommon.hの#define RSPORT "COM2"の記述を変更して下さい。
+
+動作環境
+PC/AT互換機 OS/2 Warp 3.0(Intel系) OS/2コマンドプロンプトで動かします
+
+OS/2コマンドプロンプトで動作するということ以外は、基本的にWindowsNT/95版と
+同等(のはず)なので、使用法その他詳細はオリジナル版のREADMEを参照して下さい。
+
+
+注意事項
+本パッチを使用することによって生じる損害、不利益などについて作者は一切の責
+任を負いません。
+本パッチのコピー、改変、再配布などには一切制限はなく、自由に行っていただい
+てかまいませんが、それによる損害についても作者は一切責任を負いません。
+その他、qvplay/qvrecを使用する上での注意点、制限などについては、qvplayのそ
+れにしたがって下さい。
+
+
+今後の予定(願望?)
+出来ればPM版のアプリケーションに仕上げたいですね。
+ああそういえばAmigaDOS版も作らねば。
+
+
+大久保英樹
+ohkubo@ba2.so-net.or.jp
+pcs35757@asciinet.or.jp
+TAB00715@niftyserve.or.jp
