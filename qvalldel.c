@@ -51,7 +51,7 @@ void usage()
 {
   static	char	*usagestr[] =  {
     "qvalldel (Ver 0.95) (c)1996-2000 ken-ichi HAYASHI\n",
-    "qvrec [options]\n",
+    "qvalldel [options]\n",
     "\t -h           : show this usage.\n",
     "\t -f           : not show 'Are you sure ?' message.\n",
 #ifndef X68
