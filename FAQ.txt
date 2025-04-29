@@ -1,45 +1,45 @@
-$B!}(BQV-10 control probram "qvplay" Ver. 0.95 FAQ  00.08.29
+◎QV-10 control probram "qvplay" Ver. 0.95 FAQ  00.08.29
 
-$B!&(BLinux/WinNT$B$G;H$C$F$$$^$9$,!"(B-S $B%*%W%7%g%s$GE>AwB.EY$K(B
-  "lignt" $B$r;XDj$9$k$H$&$^$/DL?.$G$-$^$;$s!#(B
-$B"*$=$l$OE>AwB.EY$,8wB.$K$A$+$E$$$?$?$a%m!<%l%s%DC;=L$,!D(B(^^;;
-  $B$H$$$&$N$O>iCL$G!";n$7$K<j;}$A$N$$$m$$$m$J%7%j%"%k%+!<%I$G(B
-  $B;n$7$F$_$?$H$3$3$m!"$"$k%+!<%I$H$"$k(BMB$B$NAH9g$;$G$J$$$H(B
-  $B$&$^$/$$$-$^$;$s$G$7$?!#(B
-  $B$H$j$"$($:(B top (57600 baud)$B$O$I$NAH9g$;$G$b$&$4$-$^$7$?$N$G!"(B
-  top $B$,<BMQ8B3&$+$H;W$o$l$^$9!#(Blight speed$B$O;H$($l$P%i%C%-!<(B
-  $B$@$H;W$C$F$/$@$5$$!#(B
-$B"*(BWinNT/95$B$G$b(BRTS$B$r(BOFF$B$K$9$kJ}K!$r65$($F$$$?$@$$$?$N$G!"(B
-  qvplay.exe$B$G$b(Btop(57600 baud)$B$G$NE>Aw$,=PMh$k$h$&$K$7$^$7$?!#(B
-  $BNS$N4D6-(B(WinNT3.51)$B$G$O(Btop(57600 baud)$B$,8B3&$G$7$?$,!"(B
-  light(115200 baud)$B$,;H$($?$H$$$&Js9p$b$$$?$@$$$F$$$^$9!#(B
+・Linux/WinNTで使っていますが、-S オプションで転送速度に
+  "lignt" を指定するとうまく通信できません。
+→それは転送速度が光速にちかづいたためローレンツ短縮が…(^^;;
+  というのは冗談で、試しに手持ちのいろいろなシリアルカードで
+  試してみたとこころ、あるカードとあるMBの組合せでないと
+  うまくいきませんでした。
+  とりあえず top (57600 baud)はどの組合せでもうごきましたので、
+  top が実用限界かと思われます。light speedは使えればラッキー
+  だと思ってください。
+→WinNT/95でもRTSをOFFにする方法を教えていただいたので、
+  qvplay.exeでもtop(57600 baud)での転送が出来るようにしました。
+  林の環境(WinNT3.51)ではtop(57600 baud)が限界でしたが、
+  light(115200 baud)が使えたという報告もいただいています。
 
-$B!&(BLinux$B$G;H$C$F$$$^$9$,!"(BRTS$B$r(BGND$B$KMn$H$9$H$$$&%1!<%V%k$N(B
-  $B2~B$$r9T$&$H!"(Btop $B0J>e$G$NE>Aw$,$&$^$/$$$-$^$;$s!#(B
-$B"*K\Mh!"(BCTS,DTR$B$r(B+$BB&EE8;!"(BRTS$B$r(B-$BB&EE8;$H$7$F@\B3%1!<%V%k(B
-  $BFbIt$N2sO)$OF0:n$7$^$9$,!"(BRTS$B$r(BGND$B$K$7$F$7$^$&$H!"EE8;(B
-  $BEE05$,H>J,DxEY$7$+$H$l$J$$$3$H$K$J$C$F$7$^$$$^$9$N$G!"(B
-  $B9bB.DL?.;~$K2sO)$,==J,$KF0:n$7$F$$$J$$$?$a$H9M$($i$l$^$9!#(B
-  top (57600 baud)$B0J>e$r;H$&>l9g$O!V%1!<%V%k$N2~B$$O(B
-  $B$d$i$J$$$G$/$@$5$$!W(B
-$B!tNS$N4D6-$G$O(B high (38400 baud)$B$^$G$O(BRTS$B$r(BGND$B$X(B
-$B!tMn$H$7$?%1!<%V%k$G$bF0:n$7$^$7$?!#(B
+・Linuxで使っていますが、RTSをGNDに落とすというケーブルの
+  改造を行うと、top 以上での転送がうまくいきません。
+→本来、CTS,DTRを+側電源、RTSを-側電源として接続ケーブル
+  内部の回路は動作しますが、RTSをGNDにしてしまうと、電源
+  電圧が半分程度しかとれないことになってしまいますので、
+  高速通信時に回路が十分に動作していないためと考えられます。
+  top (57600 baud)以上を使う場合は「ケーブルの改造は
+  やらないでください」
+＃林の環境では high (38400 baud)まではRTSをGNDへ
+＃落としたケーブルでも動作しました。
 
-$B!&(BLinux$B$G;H$C$F$$$^$9$,!"(Btty not respond. time up
-  $B$H$$$&%a%C%;!<%8$,=P$F!"$5$C$Q$j;H$($^$;$s!#(B
-$B"*$$$m$$$m$J860x$,9M$($i$l$^$9$,!"(BLinux$BFCM-!)$J$b$N$H$7$F(B
-  setserial$B$G(B UART$B$N@_Dj$,<B:]$N%A%C%W$H$"$C$F$$$J$$(B
-  ($BNc$($P%A%C%W$,(B16550A$B$J$N$K(B16550$B$r@_Dj$7$F$$$?Ey(B)
-  $B>l9g>e5-$N8=>]$,$*$3$k$3$H$,$"$j$^$9!#(B
-$B"*%N!<%H%Q%=%3%sEy$G(Bxbatstat$B$r;H$&$H$J$<$+%7%j%"%k%]!<%H$N(B
-  $BD4;R$,$*$+$7$/$J$k$H$$$&2x8=>]$,$"$j$^$7$?!#(B(?_?)
-  $B$H$j$"$($:%P%C%F%j4F;k4XO"$N%W%m%0%i%`$r;_$a$F;n$7$F$_$F$/$@$5$$!#(B
-  Windows$BEy$G$bEE8;4IM}$,0-1F6A$r$*$h$\$9$3$H$,$"$k$h$&$G$9!#(B
-  $B;n$7$KEE8;4IM}$r(Boff($B>o;~(Bon)$B$K$7$F$_$F$/$@$5$$!#(B
-$B"*%3%s%Q%$%k;~$K;XDj$7$?%G%U%)%k%H$N(Btty$B%]!<%H$r4V0c$($F(B
-  $B$$$k$N$G$O$J$$$G$7$g$&$+!)(B $B3NG'$7$F$_$F$/$@$5$$!#(B
+・Linuxで使っていますが、tty not respond. time up
+  というメッセージが出て、さっぱり使えません。
+→いろいろな原因が考えられますが、Linux特有？なものとして
+  setserialで UARTの設定が実際のチップとあっていない
+  (例えばチップが16550Aなのに16550を設定していた等)
+  場合上記の現象がおこることがあります。
+→ノートパソコン等でxbatstatを使うとなぜかシリアルポートの
+  調子がおかしくなるという怪現象がありました。(?_?)
+  とりあえずバッテリ監視関連のプログラムを止めて試してみてください。
+  Windows等でも電源管理が悪影響をおよぼすことがあるようです。
+  試しに電源管理をoff(常時on)にしてみてください。
+→コンパイル時に指定したデフォルトのttyポートを間違えて
+  いるのではないでしょうか？ 確認してみてください。
 
-$B!&(BLinux$B$G%3%s%Q%$%k$7$h$&$H$7$^$7$?$,!"(B
+・Linuxでコンパイルしようとしましたが、
   [root@localhost linux]# make
   gcc -g -O  -c tty.c
   tty.c: In function `changespeed':
@@ -51,204 +51,204 @@
   tty.c:103: `TIOCM_DTR' undeclared (first use in this function)
   tty.c:104: `TIOCMBIS' undeclared (first use in this function)
   make: *** [tty.o] Error 1
-  $B$N$h$&$J%(%i!<%a%C%;!<%8$,$G$^$9!#(B
-$B"*(Bglibc2$B7O$N(BLinux distribution(RedHat5.X, TurboLinux 3.X$BEy(B)
-  $B$G$O%3%s%Q%$%k;~$K>e5-$N%(%i!<$,$G$^$9!#(B
-   $B$3$N%P%0$O(BVer.0.94$B0J9_$G=$@5$7$^$7$?!#(B
-$B"*(Bconfig.h$B$K0J2<$rDj5A$7$F$_$F$/$@$5$$!#(B
+  のようなエラーメッセージがでます。
+→glibc2系のLinux distribution(RedHat5.X, TurboLinux 3.X等)
+  ではコンパイル時に上記のエラーがでます。
+   このバグはVer.0.94以降で修正しました。
+→config.hに以下を定義してみてください。
   #define HAVE_IOCTL_TYPES_H 1
 
-$B!&(BNEWS-OS 6.0$B$G(Bqvplay$B$r;H$C$F$$$^$9$,!"(B-S$B%*%W%7%g%s$G(B
-  $B%9%T!<%I$r(Bmid$B0J>e$K@_Dj$9$k$H(Btty not respond$B$N%(%i!<(B
-  $B$,=P$F$&$^$/DL?.$G$-$^$;$s!#(B
-$B"*$=$N%P%0$O(BVer.0.09$B$G=$@5$5$l$^$7$?!#(B
-  qvplay$B$N:G?7%P!<%8%g%s$r;n$7$F$_$F2<$5$$!#(B
+・NEWS-OS 6.0でqvplayを使っていますが、-Sオプションで
+  スピードをmid以上に設定するとtty not respondのエラー
+  が出てうまく通信できません。
+→そのバグはVer.0.09で修正されました。
+  qvplayの最新バージョンを試してみて下さい。
 
-$B!&(BX680x0$B$G;H$C$F$^$9$,!"(B-S$B%*%W%7%g%s$K(Bmid$B!"(Bhigh$B$r(B
-  $B;XDj$9$k$H(Btty not respod. time up$B$H$$$&%a%C%;!<%8$,=P$^$9!#(B
-$B"*(BX680x0$B$G$O(B19200baud$B$dFC$K(B38400baud$B$NDL?.B.EY$O$T$C$?$j@53N$K(B
-  $B07$&$3$H$,$G$-$^$;$s!#HsF14|%7%j%"%kDL?.$O>/!9B.EY$,$:$l$F$$$F$b(B
-  $B$J$s$H$J$/F0$/$N$G$9$,!"$=$N$:$l$,$R$I$$$HDL?.$,$&$^$/$$$+$J$/(B
-  $B$J$j$^$9!#(Bcommand.c$B$N(Bchangespeed()$B$G;XDj$7$F$$$k(BQV10$BB&$N(B
-  $BDL?.B.EY%Q%i%a!<%?$r#1DxEYA}$d$7$?$j8:$i$7$?$j$9$k$H$&$^$/$$$/(B
-  $B>l9g$,$"$j$^$9$N$G!";n$7$F$_$F$/$@$5$$!#(B
+・X680x0で使ってますが、-Sオプションにmid、highを
+  指定するとtty not respod. time upというメッセージが出ます。
+→X680x0では19200baudや特に38400baudの通信速度はぴったり正確に
+  扱うことができません。非同期シリアル通信は少々速度がずれていても
+  なんとなく動くのですが、そのずれがひどいと通信がうまくいかなく
+  なります。command.cのchangespeed()で指定しているQV10側の
+  通信速度パラメータを１程度増やしたり減らしたりするとうまくいく
+  場合がありますので、試してみてください。
 
-$B!&%N!<%H%Q%=%3%s$G(BWin95$B$G;H$C$F$$$^$9$,!"$?$^$K(Btty not respod. time up
-  $B$H$$$&%a%C%;!<%8$,=P$F$7$^$$$^$9!#(B
-$B"*%N!<%H%Q%=%3%s$OEE8;4IM}$r;H$&$H(BRS232C$BC<;R$K1F6A$,=P$k$3$H$,$"$j$^$9!#(B
-  QV10$B$N%j%s%/%1!<%V%k$O(BRS232C$B$N(BRTS/CTS$BC<;R$+$iEE8;$r$H$C$F$$$^$9$N$G(B
-  $B>JEENO@_Dj$r9T$&$H$=$N$X$s$,LdBj$K$J$k$+$b$7$l$^$;$s!#$?$a$7$K(B
-  $B>JEENO@_Dj$r(Boff$B$K$7$F$_$F$/$@$5$$!#(B
+・ノートパソコンでWin95で使っていますが、たまにtty not respod. time up
+  というメッセージが出てしまいます。
+→ノートパソコンは電源管理を使うとRS232C端子に影響が出ることがあります。
+  QV10のリンクケーブルはRS232CのRTS/CTS端子から電源をとっていますので
+  省電力設定を行うとそのへんが問題になるかもしれません。ためしに
+  省電力設定をoffにしてみてください。
 
-$B!&FMA32hLL$K$o$1$N$o$+$i$J$$J8;z$,=P$F!"%S!<%W2;$,(B
-  $BLD$jB3$1$k$N$G$9$,!#(B
-$B"*I8=`=PNO$K2hA|%G!<%?$,=PNO$5$l$F$$$^$9!#(B
-  $B$A$c$s$H%j%@%$%l%/%H$9$k$+!"(B-o $B%*%W%7%g%s$r(B-g$B%*%W%7%g%s!"(B
-  -a$B%*%W%7%g%s$h$j$b:8B&$K;XDj$7$F$/$@$5$$!#(B
+・突然画面にわけのわからない文字が出て、ビープ音が
+  鳴り続けるのですが。
+→標準出力に画像データが出力されています。
+  ちゃんとリダイレクトするか、-o オプションを-gオプション、
+  -aオプションよりも左側に指定してください。
 
-$B!&(B-v$B%*%W%7%g%s$N5!G=$O%G%U%)%k%H$G(Bon$B$K$7$?$[$&$,NI$/$J$$$G$9$+!#(B
-$B"*(BUnix$B$N%3%^%s%I$O35$7$F2IL[$J$b$N$G$9!#(B(^^)
-$B"*$J$<%=!<%9$,$"$k$N$+9M$($F$_$?$3$H$,$"$j$^$9$+!)(B(^^)
-$B"*(BWindows$BMQ$KJ?Ln$5$s$,(BGUI$B$r:n@.$7$F$/$@$5$$$^$7$?!#(B
-  Nifty Serve$B$N(B FWINMM LIB-6 $B$K$"$k$h$&$G$9!#(B
+・-vオプションの機能はデフォルトでonにしたほうが良くないですか。
+→Unixのコマンドは概して寡黙なものです。(^^)
+→なぜソースがあるのか考えてみたことがありますか？(^^)
+→Windows用に平野さんがGUIを作成してくださいました。
+  Nifty Serveの FWINMM LIB-6 にあるようです。
 
-$B!&(BWindowsNT/95$B$G;H$C$F$$$^$9$,!"(Bqvplay.exe$B$N%"%$%3%s$r(B
-  $B%/%j%C%/$7$F$b0l=V%&%$%s%I%&$,=P$k$@$1$G$J$K$b5/$3$j$^$;$s!#(B
-$B"*(Bqvplay.exe$B$O%3%^%s%I%i%$%s%"%W%j$G$9!#(BDOS$BAk$+$i;HMQ$7$F$/$@$5$$!#(B
-$B"*J?Ln$5$s$N:n$i$l$?(Bqvplay.exe$BMQ(BGUI$B!"(BQVE.EXE$B$,$"$j$^$9!#(B
-  NIFTY$B$N(BLIB-6$B$K$"$k$h$&$G$9!#(B
+・WindowsNT/95で使っていますが、qvplay.exeのアイコンを
+  クリックしても一瞬ウインドウが出るだけでなにも起こりません。
+→qvplay.exeはコマンドラインアプリです。DOS窓から使用してください。
+→平野さんの作られたqvplay.exe用GUI、QVE.EXEがあります。
+  NIFTYのLIB-6にあるようです。
 
-$B!&(BLinux/FreeBSD$BMQ$N%P%$%J%j$O$J$$$G$9$+!#(B
-$B"*$"$j$^$;$s!#%3%s%Q%$%k$b4JC1$G$9$7<+J,$G(Bmake$B$7$F$/$@$5$$!#(B
+・Linux/FreeBSD用のバイナリはないですか。
+→ありません。コンパイルも簡単ですし自分でmakeしてください。
 
-$B!&(BXXX$B$H$$$&(BUnix$B%7%9%F%`$K$O(BC$B%3%s%Q%$%i$,$D$$$F$$$J$$$N$G$9$,!#(B
-$B"*$=$N%7%9%F%`$O7g4YIJ$G$9!#(B(^^) $B%7%9%F%`4IM}<T$K$4AjCL$/$@$5$$!#(B
+・XXXというUnixシステムにはCコンパイラがついていないのですが。
+→そのシステムは欠陥品です。(^^) システム管理者にご相談ください。
 
-$B!&(BDOS$BMQ$O$J$$$N$G$9$+!#(B
-$B"*?\ED$5$s$,(BMCD$B;HMQ$N(BDOS$BHG$r:n$C$F$/$@$5$$$^$7$?!#(B
-  $B?\ED$5$s$N%[!<%`%Z!<%8$K%P%$%J%j$,$"$j$^$9!#(B
-  MCD$B$r;H$C$F$$$k$N$G(B98/AT$B$I$A$i$G$bF0$/$H;W$$$^$9!#(B
+・DOS用はないのですか。
+→須田さんがMCD使用のDOS版を作ってくださいました。
+  須田さんのホームページにバイナリがあります。
+  MCDを使っているので98/ATどちらでも動くと思います。
 
-$B!&(BMachintosh$BMQ$O$J$$$N$G$9$+!)(B
-$B"*(BOS$B$H$7$F(BNetBSD/Mac$B$d(BMkLinux$B$r;H$($P;H$($^$9!#(B(^^)
+・Machintosh用はないのですか？
+→OSとしてNetBSD/MacやMkLinuxを使えば使えます。(^^)
 
-$B!&(BNetBSD/X680x0$B$GF0$-$^$9$+!)(B
-$B"*$^$@;n$7$F$$$^$;$s$,$?$V$sBg>fIW$G$7$g$&!#(B
+・NetBSD/X680x0で動きますか？
+→まだ試していませんがたぶん大丈夫でしょう。
 
-$B!&(BHP100LX/200LX$BMQ$,$"$k$HJ9$-$^$7$?$,!#(B
-$B"*(Bqvplay$B$G$O$"$j$^$;$s$,!"(BBrahma$B$5$s$N:n$i$l$?(B
-  QVCom $B$H$$$&%7%9%F%`%^%M!<%8%cMQ%"%W%j%1!<%7%g%s$,$"$j$^$9!#(B
-  Nifty Serve$B$N(B FHPPC LIB8 $B$K&BHG$H$7$F8x3+Cf(B(V0.52 $BE>:\6X(B)$B$G$9!#(B
-$B"*?}It$5$s$N:n$i$l$?(BQVremote$B$H$$$&%7%9%F%`%^%M!<%8%cMQ(B
-  $B%"%W%j%1!<%7%g%s$,$"$j$^$9!#$3$A$i$O(BQV100$B$K$bBP1~$7$F$$$^$9!#(B
+・HP100LX/200LX用があると聞きましたが。
+→qvplayではありませんが、Brahmaさんの作られた
+  QVCom というシステムマネージャ用アプリケーションがあります。
+  Nifty Serveの FHPPC LIB8 にβ版として公開中(V0.52 転載禁)です。
+→雀部さんの作られたQVremoteというシステムマネージャ用
+  アプリケーションがあります。こちらはQV100にも対応しています。
   <http://www.geocities.co.jp/SiliconValley/2208/>
-$B"*?\ED$5$s$K$h$k(BDOS$BHG$N(Bqvplay$B$b$"$j$^$9!#(B
+→須田さんによるDOS版のqvplayもあります。
   <http://fujita.kuee.kyoto-u.ac.jp/~suda/qv/>
 
-$B!&(Bqvplay$B$G(BCAM$B7A<0$G=q$-=P$7$?>l9g!"%3%a%s%HMs$N;~9o$N(B
-  $B%U%#!<%k%I$K;~9o$,F~$j$^$9$,!"$3$l$O$$$D$N;~9o$G$9$+!#(B
-$B"*(Bqvplay$B$,$=$N%U%!%$%k$r=q$-=P$7$?;~9o$G$9!#;#1F;~9o$G$O(B
-  $B$"$j$^$;$s!#(B
-$B"*(BQV700$B$N;#1F;~9o5!G=$K$OBP1~$7$F$$$^$;$s!#(B
+・qvplayでCAM形式で書き出した場合、コメント欄の時刻の
+  フィールドに時刻が入りますが、これはいつの時刻ですか。
+→qvplayがそのファイルを書き出した時刻です。撮影時刻では
+  ありません。
+→QV700の撮影時刻機能には対応していません。
 
-$B!&$I$&$d$C$FDL?.%W%m%H%3%k$r2r@O$7$?$N$G$9$+!)(B
-$B"*(BWalnut Creek$B$N(B"SIMTEL MSDOS CDROM October 1993"$B$K<}O?(B
-  $B$5$l$F$$$?(BDLM(Data Line Monitor)$B$H$$$&(BDOS$BMQ%=%U%H(B
-  $B$r;H$$$^$7$?!#$3$N%W%m%0%i%`$r$b$&0lBf$N(BPC/AT$B8_495!(B
-  $B$G$&$4$+$7!"JL$N%^%7%s$N(BWindows NT$B>e$G(BCASIO$B$N(BQVLINK.EXE
-  $B$r$&$4$+$7$F!"(BRS-232C$B$r$J$,$l$k%G!<%?$r(BDLM$B$G%-%c%W%A%c!<(B
-  $B$7!"2r@O$7$?$o$1$G$9!#$$$o$f$k@$4V0lHL$G$$$o$l$F$$$k(B
-  $B%j%P!<%9%(%s%8%K%"%j%s%09T0Y$G$"$kDL?.%W%m%0%i%`$N%G%#%9(B
-  $B%"%;%s%V%k$d(BQV-10$B$N(BROM$B2r@O$H$$$C$?N`$N:n6H$O0l@Z$d$C$F(B
-  $B$$$^$;$s!#(B
+・どうやって通信プロトコルを解析したのですか？
+→Walnut Creekの"SIMTEL MSDOS CDROM October 1993"に収録
+  されていたDLM(Data Line Monitor)というDOS用ソフト
+  を使いました。このプログラムをもう一台のPC/AT互換機
+  でうごかし、別のマシンのWindows NT上でCASIOのQVLINK.EXE
+  をうごかして、RS-232CをながれるデータをDLMでキャプチャー
+  し、解析したわけです。いわゆる世間一般でいわれている
+  リバースエンジニアリング行為である通信プログラムのディス
+  アセンブルやQV-10のROM解析といった類の作業は一切やって
+  いません。
 
-$B!&(BXXX$B<R(B $B$N%G%8%?%k%+%a%i(BZZZZZ$BMQ$N(Bqvplay$B$O$"$j$^$;$s$+!)(B
-$B"*<B5!$r#2=54V$[$IB_$7$F2<$5$l$P:n$C$F$_$^$9$,!#(B(^^)
+・XXX社 のデジタルカメラZZZZZ用のqvplayはありませんか？
+→実機を２週間ほど貸して下されば作ってみますが。(^^)
 
-$B!&(BQV-10A$B!"(BQV-30$B!"(BQV-11$B$G;H$($^$9$+!)(B
-$B"*;n$7$F$$$^$;$s$,$?$V$sBg>fIW$G$7$g$&!#(B
-$B"*(BQV-30$B!"(BQV-10A$B!"(BLK-10DV$B!"(BLK-10NC$B!"(BLK-1
-  $B$K$D$$$F$OF0:nJs9p$r$$$?$@$-$^$7$?!#(B
-  $B$"$j$,$H$&$4$6$$$^$9!d:#0f$5$s!"BgDm$5$s(B
-$B"*(BLK-2$B$*$h$S(BQV-1D$B$bF0:n3NG'$7$^$7$?!#(B
-$B"*(BQV-70$B$G$bF0:n3NG'$7$^$7$?!#(B
+・QV-10A、QV-30、QV-11で使えますか？
+→試していませんがたぶん大丈夫でしょう。
+→QV-30、QV-10A、LK-10DV、LK-10NC、LK-1
+  については動作報告をいただきました。
+  ありがとうございます＞今井さん、大庭さん
+→LK-2およびQV-1Dも動作確認しました。
+→QV-70でも動作確認しました。
 
-$B!&(BQV-100$B$G;H$($^$9$+!)(B
-$B"*(BVer.0.90$B0J9_$G(Bqvplay$B$N$_BP1~$7$^$7$?!#(Bqvrec$B$O$^$@$G$9!#(B
+・QV-100で使えますか？
+→Ver.0.90以降でqvplayのみ対応しました。qvrecはまだです。
 
-$B!&(BQV-300$B$G;H$($^$9$+!)(B
-$B"*(BVer.0.90$B0J9_$G$"$l$P(Bqvplay$B$O;H$($k$H;W$$$^$9!#(B
-  $B$?$@$7(Bqvrec$B$O(BFine$B2hA|(B(640x480)$B$KBP1~$7$F$$$^$;$s!#(B
+・QV-300で使えますか？
+→Ver.0.90以降であればqvplayは使えると思います。
+  ただしqvrecはFine画像(640x480)に対応していません。
 
-$B!&(BQV-700/770$B$G;H$($^$9$+!)(B
-$B"*(BVer.0.93$B$GBP1~$7$^$7$?!#(B0.92$B0JA0$N%P!<%8%g%s$G$b$=$l$J$j(B
-  $B$K;H$($^$9$,!"05=LN($,A4It(Bnormal$BAjEv(B($B%U%!%$%k%5%$%:$,(B50KB$BA08e(B)
-  $B$K$5$l$F$7$^$$$^$9!#(B0.93$B$G$"$l$P!"(Beconomy/nomral/fine$B$N#3$D$N(B
-  $B05=LN($=$N$^$^$G2hA|%G!<%?$r<h$j=P$;$^$9!#(B
+・QV-700/770で使えますか？
+→Ver.0.93で対応しました。0.92以前のバージョンでもそれなり
+  に使えますが、圧縮率が全部normal相当(ファイルサイズが50KB前後)
+  にされてしまいます。0.93であれば、economy/nomral/fineの３つの
+  圧縮率そのままで画像データを取り出せます。
 
-$B!&(BQV-5000SX/7000SX$B$G;H$($^$9$+!)(B
-$B"*$@$a$G$9!#;H$($^$;$s!#(B2000UX$B$b$@$a$G$9!#(B
+・QV-5000SX/7000SXで使えますか？
+→だめです。使えません。2000UXもだめです。
 
-$B!&(BVer.0.95$B$O(BQV-10$B$d(BQV-10A$B!"(BQV-30$B!"(BQV-11$B!"(BQV-70$B$G$b;H$($^$9$+!#(B
-$B"*;H$($^$9!#(BVer.0.10$B$h$j$$$/$D$+%P%0$,8:$C$F$^$9$,(B
-  $B%P%0$,A}$($F$kItJ,$b$"$k$+$b$7$l$^$;$s!#(B(^^;;
+・Ver.0.95はQV-10やQV-10A、QV-30、QV-11、QV-70でも使えますか。
+→使えます。Ver.0.10よりいくつかバグが減ってますが
+  バグが増えてる部分もあるかもしれません。(^^;;
 
-$B!&(BQV-700/770$B$G(B-t($B;#1F(B)$B%*%W%7%g%s$,;H$($J$$$N$G$9$,(B
-$B"*;DG0$J$,$i$=$&$$$&;EMM$G$9!#(BQV-700/770$B$O(BREC$B%b!<%I$G$O(B
-  $BDL?.%3%^%s%I$r$&$1$D$1$J$$$h$&$G$9!#(B
+・QV-700/770で-t(撮影)オプションが使えないのですが
+→残念ながらそういう仕様です。QV-700/770はRECモードでは
+  通信コマンドをうけつけないようです。
 
-$B!&(BQV-100/200/300$B$G(B-t($B;#1F(B)$B%*%W%7%g%s$r;H$&$H2hLL$,(B
-  $BJx$l$?$h$&$J2hA|$,;#1F$5$l$F$7$^$&$N$G$9$,!D(B
-$B"*$3$C$A$O%P%0$G$9!#BP=hK!$O$^$@$h$/$o$+$C$F$$$^$;$s!#(B
+・QV-100/200/300で-t(撮影)オプションを使うと画面が
+  崩れたような画像が撮影されてしまうのですが…
+→こっちはバグです。対処法はまだよくわかっていません。
 
-$B!&(BQV-700/770$B$G(B-V($BEE8;EE05I=<((B)$B%*%W%7%g%s$NCM$,$*$+$7$$$N$G$9$,(B
-$B"*;DG0$J$,$i$=$&$$$&;EMM$G$9!#(BQV-700/770$B$G$OEE8;EE05$rD4$Y$k(B
-  $B%3%^%s%I$N;EMM$,JQ$C$F$7$^$C$?$h$&$G$9!#(B
+・QV-700/770で-V(電源電圧表示)オプションの値がおかしいのですが
+→残念ながらそういう仕様です。QV-700/770では電源電圧を調べる
+  コマンドの仕様が変ってしまったようです。
 
-$B!&(Bqvplay$B$G<h$j=P$7$?2hA|$O(BCASIO$B$N%Q%=%3%s%j%s%/%=%U%H(BQVLINK.EXE
-  $B$G<h$j=P$7$?2hA|$KHf$Y$F2h<A$,0-$$$h$&$K;W$&$N$G$9$,!#(B
-$B"*$O$$!#$=$N$H$*$j$G$9!#(B(^^;;
-  qvplay$B$G$O(BQV-10$B$+$i<h$j=P$7$?2hA|$r0l@ZJd@5$;$:$K(Bjpeg$B2hA|$d(B
-  PPM$B2hA|$KJQ49$7$^$9!#(B
-  $B$=$N$?$a!"(BQVLINK.EXE$B$G9T$J$o$l$F$$$k$h$&$J%"%9%Z%/%HHf!"(B
-  $B?'$K$8$_!"%[%o%$%H%P%i%s%9$N=$@5$,$J$$$V$s!"IT<+A3$J2hA|$K(B
-  $B$J$j$^$9!#(B
-  $B$3$l$i$N2hA|Jd@5$O(Bxv$B$d(Bnetpbm$BEy$N3F<o2hA|%D!<%k$G9T$J$C$F$/$@$5$$!#(B
-  $B$^$?!"2hA|=hM}$K>\$7$$J}$O(Bppm.c$B$NFbMF$r$rE,59=$@5$7$F$_$F(B
-  $B$/$@$5$$!#(B
-$B"*(Bnetpbm$B$,$"$k$J$i!"(B
-  $B?'%P%i%s%9Jd@5(B pnmgamma
-  $B%N%$%:=|5n(B     pnmnlfilt$B!"(Bpnmconvol
-  $B$r;H$C$F$_$k$H$$$$$+$b$7$l$^$;$s!#(B
+・qvplayで取り出した画像はCASIOのパソコンリンクソフトQVLINK.EXE
+  で取り出した画像に比べて画質が悪いように思うのですが。
+→はい。そのとおりです。(^^;;
+  qvplayではQV-10から取り出した画像を一切補正せずにjpeg画像や
+  PPM画像に変換します。
+  そのため、QVLINK.EXEで行なわれているようなアスペクト比、
+  色にじみ、ホワイトバランスの修正がないぶん、不自然な画像に
+  なります。
+  これらの画像補正はxvやnetpbm等の各種画像ツールで行なってください。
+  また、画像処理に詳しい方はppm.cの内容をを適宜修正してみて
+  ください。
+→netpbmがあるなら、
+  色バランス補正 pnmgamma
+  ノイズ除去     pnmnlfilt、pnmconvol
+  を使ってみるといいかもしれません。
 
-$B!&(BX680x0$B$G%=!<%9$+$i%3%s%Q%$%k$7$h$&$H$7$?$N$G$9$,!"(B
-  obj/X68k/siochk.c$B$,$"$j$^$;$s$,!#(B
-$B"*$O$$!#NS$NIT<j:]$K$h$j!"(B96/5/5$BHG$N(Bqvplay-0.10.tar.gz
-  $B$K$O>e5-$N(Bsiochk.c$B$rF~$lK:$l$F$$$^$9!#(B
-  96/5/10$BHG$K$OF~$C$F$^$9$N$G!"$=$A$i$r;H$C$F$/$@$5$$!#(B
-  $B$^$?$O!"$h$j?7$7$$(Bqvplay-0.93.tar.gz$B$r;H$C$F$/$@$5$$!#(B
+・X680x0でソースからコンパイルしようとしたのですが、
+  obj/X68k/siochk.cがありませんが。
+→はい。林の不手際により、96/5/5版のqvplay-0.10.tar.gz
+  には上記のsiochk.cを入れ忘れています。
+  96/5/10版には入ってますので、そちらを使ってください。
+  または、より新しいqvplay-0.93.tar.gzを使ってください。
   
-$B!&(BX680x0$B$G(Bqvplay.x$B!"(Bqvrec.x$B$r;H$*$&$H$7$?$N$G$9$,!"(B
-  -S$B%*%W%7%g%s$G(Bmid$B0J>e$NB.EY$r;XDj$9$k$H!"(B
+・X680x0でqvplay.x、qvrec.xを使おうとしたのですが、
+  -Sオプションでmid以上の速度を指定すると、
   sio driver(c.f. tmsio, bsio, psxio ..) does not exit.
-  $B$H$$$&%(%i!<%a%C%;!<%8$,=P$k$N$G$9$,!#(B
-$B"*(BX680x0$B$G(Bmid$B$b$7$/$O(Bhigh$B$NB.EY$r;H$&>l9g$O!"(B
-  $B$"$i$+$8$a(Btmsio.x$BEy$N%7%j%"%k%I%i%$%P$r>oCs$5$;$k$h$&$K(B
-  $B$7$F$/$@$5$$!#%7%j%"%k%I%i%$%P$H$7$F$O(B
-  tmsio/bsio/psxio/awesio$B$,$*4+$a$G$9!#(B
+  というエラーメッセージが出るのですが。
+→X680x0でmidもしくはhighの速度を使う場合は、
+  あらかじめtmsio.x等のシリアルドライバを常駐させるように
+  してください。シリアルドライバとしては
+  tmsio/bsio/psxio/awesioがお勧めです。
 
-$B!&(B-v$B%*%W%7%g%s$r$D$1$F(B-g$B$d(B-a$B%*%W%7%g%s$G2hA|$rE>Aw$7$F$$$k$N(B
-  $B$G$9$,!"E>Aw%P%$%H?t$,(B200K$B$r1[$($F$b$^$@=*N;$7$^$;$s!#(B
-  $B$3$l$O0[>oF0:n$G$7$g$&$+!)(B
-$B"*0[>o$G$O$"$j$^$;$s!#(B-F$B%*%W%7%g%s$G(BPPM$B!"(BRGB$B!"(BBMP$B$r;XDj$7$?(B
-  $B>l9g!"$^$?$O(BX680x0$B$G(B-X$B%*%W%7%g%s$r;XDj$7$?>l9g!"(Bqvplay$B$O(B
-  YCC$B7A<0$N@8%G!<%?$N7A$G(BQV10$B$+$i2hA|$rE>Aw$7$^$9!#$3$N(B
-  $B%G!<%?7A<0$OHs>o$KBg$-$$$G$9!#E>Aw%P%$%H?t$NL\0B$r(B
-  $B0J2<$K<($7$^$9!#(B
-  (thumbnail$B2hA|$N>l9g(B)
-  2808$B%P%$%H(B
-  (Normal$B2hA|(B(480x240)$B$N>l9g(B)
-  $BLs(B15K$B!A(B30K$B%P%$%H(B(jpeg)
-  153600$B%P%$%H(B(PPM/RGB/BMP/-X$B%*%W%7%g%s(B)
-  (Fine$B2hA|(B(640x480)$B$N>l9g(B)
-  $BLs(B30K$B!A(B70K$B%P%$%H(B(jpeg)$B!"(BQV-700/770$B$N>l9g$OLs(B25K$B!A(B120K$B%P%$%H(B(jpg)
-  460800$B%P%$%H(B(PPM/RGB/BMP/-X$B%*%W%7%g%s(B)
+・-vオプションをつけて-gや-aオプションで画像を転送しているの
+  ですが、転送バイト数が200Kを越えてもまだ終了しません。
+  これは異常動作でしょうか？
+→異常ではありません。-FオプションでPPM、RGB、BMPを指定した
+  場合、またはX680x0で-Xオプションを指定した場合、qvplayは
+  YCC形式の生データの形でQV10から画像を転送します。この
+  データ形式は非常に大きいです。転送バイト数の目安を
+  以下に示します。
+  (thumbnail画像の場合)
+  2808バイト
+  (Normal画像(480x240)の場合)
+  約15K〜30Kバイト(jpeg)
+  153600バイト(PPM/RGB/BMP/-Xオプション)
+  (Fine画像(640x480)の場合)
+  約30K〜70Kバイト(jpeg)、QV-700/770の場合は約25K〜120Kバイト(jpg)
+  460800バイト(PPM/RGB/BMP/-Xオプション)
 
-$B!&(BWin95/Win98/WinNT$B$O7y$$$G$9$+!#(B
-$B"*7y$$$G$9!#(B(^^)
+・Win95/Win98/WinNTは嫌いですか。
+→嫌いです。(^^)
 
-$B!&(BMachintosh$B$O7y$$$G$9$+!#(B
-$B"*?)$Y$?$3$H$"$j$^$;$s!#(B
+・Machintoshは嫌いですか。
+→食べたことありません。
   
-$B!&:#8e$NE8K>$rJ9$+$;$F$/$@$5$$(B
-$B"*$"$s$^$j<{MW$,$J$$$h$&$G$9$N$G(Bqvrec$B$N(BQV100$BBP1~HG$O(B
-  $B:n$i$J$$M=Dj$G$9!#$^$"!"2hA|%G!<%?$N%@%&%s%m!<%I$G$-$l$P(B
-  $B$[$H$s$I$NMQES$OB-$j$F$7$^$$$^$9$,!#(B
-$B"*(BQV700/770$B$O(BREC$B%b!<%I$K$9$k$HDL?.%3%^%s%I$r$$$C$5$$$&$1$D$1$J$$(B
-  $B$_$?$$$G$9!#(BPC$B$G%7%c%C%?!<$r@Z$k$3$H$,$G$-$J$/$J$C$?$N$,;DG0$G$9!#(B
-$B"*(Bnv(Network Video)$B$N%=!<%9$rD/$a$F$$$?$i$J$s$H$+(BQV10$B$r7R$2$=$&(B
-  $B$J5$$,$7$F$-$^$7$?!#$&$^$/$9$k$H(BLinux + QV10 + nv
-  $B$NAH9g$;$G(BCUSeeMe$B$H$*OC$G$-$k$+$b$7$l$^$;$s!#$@$l$+(B
-  $BD)@o$7$^$;$s$+(B?
-$B"*3+H/$O(BVer. 0.95$B$r$b$C$F=*N;$H$7$^$9!#(B
-  $B?75!G=$,I,MW$G$"$l$P<+M3$K2~B$$7$F$/$@$5$$!#(B
+・今後の展望を聞かせてください
+→あんまり需要がないようですのでqvrecのQV100対応版は
+  作らない予定です。まあ、画像データのダウンロードできれば
+  ほとんどの用途は足りてしまいますが。
+→QV700/770はRECモードにすると通信コマンドをいっさいうけつけない
+  みたいです。PCでシャッターを切ることができなくなったのが残念です。
+→nv(Network Video)のソースを眺めていたらなんとかQV10を繋げそう
+  な気がしてきました。うまくするとLinux + QV10 + nv
+  の組合せでCUSeeMeとお話できるかもしれません。だれか
+  挑戦しませんか?
+→開発はVer. 0.95をもって終了とします。
+  新機能が必要であれば自由に改造してください。

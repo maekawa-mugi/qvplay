@@ -1,173 +1,173 @@
-$B!}(BQV-10/10a/11/30/70/100/200/300/700/770 player "QVplay" Ver. 0.95     1999.05.05
+◎QV-10/10a/11/30/70/100/200/300/700/770 player "QVplay" Ver. 0.95     1999.05.05
 
-$B!|$3$l$O$J$s$G$9$+!)(B
+●これはなんですか？
 
-QV-10$B$K;O$^$k(BCASIO$B$N1U>=%G%8%?%k%+%a%i(BQV$B%7%j!<%:$O6aG/$^$l$K$_$k(B
-$BAG@2$i$7$$@=IJ$G$9$,!";DG0$J$3$H$K%Q%=%3%s@\B3%-%C%H$N(B
-$B%Q%=%3%s%j%s%/%=%U%H$O(BWindows$B$^$?$O(BMacintosh$B$G$J$1$l$PF0$-$^$;$s!#(B
+QV-10に始まるCASIOの液晶デジタルカメラQVシリーズは近年まれにみる
+素晴らしい製品ですが、残念なことにパソコン接続キットの
+パソコンリンクソフトはWindowsまたはMacintoshでなければ動きません。
 
-$BF|:"!"<g$K(BFreeBSD$B$d(BLinux$B$J$I$N(BUnix$B4D6-$rMxMQ$7$F$$$k%f!<%6$K$H$C$F!"(B
-$B%+%a%i$+$i%G!<%?$r5[$$>e$2!"(BJPEG$B!"(BTIFF$B7A<0Ey$N2hA|%U%!%$%k$K(B
-$BJQ49$9$k$?$a$K!"(BWindows/Mac$B$r;HMQ$7$J$1$l$P$J$i$J$$$H$$$&>u67$O(B
-$B6lDK$H$b$$$($k$G$7$g$&!#(B(^^)
+日頃、主にFreeBSDやLinuxなどのUnix環境を利用しているユーザにとって、
+カメラからデータを吸い上げ、JPEG、TIFF形式等の画像ファイルに
+変換するために、Windows/Macを使用しなければならないという状況は
+苦痛ともいえるでしょう。(^^)
 
-$B9,$$!"(Bcam$B7A<0%U%!%$%k$+$i$N%U%!%$%kJQ49$K$D$$$F$O!"4d4V$5$s$N2r@O>pJs!"(B
-$B$N$*$+$2$G(Bitojun$B$5$s$N(Bcam2jpeg$B!"@gED$5$s$N(Bcamtoppm.pl$B$rMxMQ$9$k$3$H$,$G(B
-$B$-$k$h$&$K$J$j$^$7$?!#(B
+幸い、cam形式ファイルからのファイル変換については、岩間さんの解析情報、
+のおかげでitojunさんのcam2jpeg、仙田さんのcamtoppm.plを利用することがで
+きるようになりました。
 
-$B$"$H$O%+%a%i$+$i%G!<%?$N5[$$=P$7$5$($G$-$l$P(B...
+あとはカメラからデータの吸い出しさえできれば...
 
-$B$=$l$r9T$J$&$N$,(Bqvplay(qvplay.x, qvplay.exe)$B$G$9!#(B
+それを行なうのがqvplay(qvplay.x, qvplay.exe)です。
 
-$B!t$3$H$o$i$J$/$F$b$o$+$k$H;W$$$^$9$,!"(BX680x0$B$J?M$O0J2<$N@bL@(B
-$B!t$G$N(Bqvplay$B$r(Bqvplay.x$B$K!"(BWindowsNT/95$B$J?M$O(Bqvplay.exe$B$KFI$_$+$($F(B
-$B!t$/$@$5$$!#(B
+＃ことわらなくてもわかると思いますが、X680x0な人は以下の説明
+＃でのqvplayをqvplay.xに、WindowsNT/95な人はqvplay.exeに読みかえて
+＃ください。
 
-$B!t(BVer. 0.90$B$+$i(Bfine mode$B$r$b$D(BQV$B%7%j!<%:$K$bBP1~$7$F$^$9$N$G!"(B
-$B!t0J2<$N@bL@$G$N(BQV-10$B$H$$$&$H$3$m$O(BQV-100/200/300$BEy(B
-$B!t$KFI$_Be$($F$/$@$5$$!#$^$?(BQV-10a/30/11/70$B$O(BQV-10$B$H8_49$N$O$:(B
-$B!t$G$9$N$GF1MM$KFI$_Be$($F$/$@$5$$!#(B
+＃Ver. 0.90からfine modeをもつQVシリーズにも対応してますので、
+＃以下の説明でのQV-10というところはQV-100/200/300等
+＃に読み代えてください。またQV-10a/30/11/70はQV-10と互換のはず
+＃ですので同様に読み代えてください。
 
-$B!t(BVer. 0.95$B$+$i(Beconomy/normal/fine mode$B$r$b$D(BQV$B%7%j!<%:$K(B
-$B!t$bBP1~$7$F$^$9$N$G!"0J2<$N@bL@$G$N(BQV-10$B$H$$$&$H$3$m$O(B
-$B!tE,59(BQV-700/770$B$KFI$_$+$($F$/$@$5$$!#(BQV-700/770$B$K$D$$$F$O(B
-$B!t;#1F!"EE8;EE05$NI=<(Ey!"0lIt;H$($J$$5!G=$,$"$j$^$9!#(B
+＃Ver. 0.95からeconomy/normal/fine modeをもつQVシリーズに
+＃も対応してますので、以下の説明でのQV-10というところは
+＃適宜QV-700/770に読みかえてください。QV-700/770については
+＃撮影、電源電圧の表示等、一部使えない機能があります。
 
-$B!t(BQV-5000SX/QV-7000SX$B!"(BQV-2000UX$BEy$N(BSX$B%7%j!<%:!"(BUX$B%7%j!<%:(B
-$B!t$G$O;H$($^$;$s!#(B
+＃QV-5000SX/QV-7000SX、QV-2000UX等のSXシリーズ、UXシリーズ
+＃では使えません。
 
-qvplay$B$r;H$($P(B
-$B!&(BQV-10$B$+$i$N2hA|%G!<%?$N<h$j=P$7(B
-$B!&(BQV-10$B$N(BLCD$B2hLL$K9%$-$J2hA|HV9f$N2hA|$rI=<($9$k(B
-$B!&(BQV-10$B$K5-O?$5$l$F$$$k2hA|$NKg?t$rI=<($9$k(B
-$B!&(BQV-10$B$K5-O?$5$l$F$$$k2hA|$N$&$A9%$-$J2hA|HV9f$N2hA|$r:o=|$9$k(B
-$B!&(BQV-10$B$N%7%c%C%?!<$r@Z$k(B($B;#1F$9$k(B)
-$B$3$H$,$G$-$^$9!#$^$?!"(Bqvrec$B$r;H$($P(B
-$B!&(BQV-10$B$X(BPPM$B7A<0!"(BRGB$B7A<0!"(BCAM$B7A<0$N2hA|%U%!%$%k$r=q$-$b$I$9(B
-$B$J$I$NA`:n$r9T$J$&$3$H$,$G$-$^$9!#(B
-$B$^$?!"(BVer.0.90$B$+$i(Bqvplay$B$O(BQV-100$B$N(BFine$B2hA|(B(640x480)$B$K(B
-$BBP1~$7$F$$$^$9!#(B(qvrec$B$O=>Mh$N(BNormal$B2hA|$N$_(B)
-$B$^$?!"(BVer.0.95$B$+$i(Bqvplay$B$O(BQV-700/770$B$N(BFine/Normal/Economy$B2hA|(B(640x480)$B$K(B
-$BBP1~$7$F$$$^$9!#(B(qvrec$B$OL$BP1~(B)
+qvplayを使えば
+・QV-10からの画像データの取り出し
+・QV-10のLCD画面に好きな画像番号の画像を表示する
+・QV-10に記録されている画像の枚数を表示する
+・QV-10に記録されている画像のうち好きな画像番号の画像を削除する
+・QV-10のシャッターを切る(撮影する)
+ことができます。また、qvrecを使えば
+・QV-10へPPM形式、RGB形式、CAM形式の画像ファイルを書きもどす
+などの操作を行なうことができます。
+また、Ver.0.90からqvplayはQV-100のFine画像(640x480)に
+対応しています。(qvrecは従来のNormal画像のみ)
+また、Ver.0.95からqvplayはQV-700/770のFine/Normal/Economy画像(640x480)に
+対応しています。(qvrecは未対応)
 
-$B!|:n<T(B
-  $BNS(B $B8,0l(B xg2k-hys@asahi-net.or.jp
-  itojun$B$5$s(B itojun@itojun@itojun.org
+●作者
+  林 謙一 xg2k-hys@asahi-net.or.jp
+  itojunさん itojun@itojun@itojun.org
 
-$B!|Cm0U(B
-$B0J2<$N;v9`$KG<F@$7$?J}$N$_$7$+K\%=%U%H%&%'%"(Bqvplay$B$rMxMQ$7$F$O(B
-$B$$$1$^$;$s!#(B
+●注意
+以下の事項に納得した方のみしか本ソフトウェアqvplayを利用しては
+いけません。
 
-$B!&K\%=%U%H%&%'%"$r;HMQ$9$k$3$H$K$h$C$F(BQV10$B!"$*$h$S$=$NCf$K(B
-  $B<}$a$i$l$F$$$k2hA|%G!<%?Ey$,CWL?E*GK2u$rHo$k2DG=@-$,$"$j$^$9!#(B
-$B!&K\%=%U%H%&%'%"$r;HMQ$9$k$3$H$K$h$C$F@8$8$kB;32!"ITMx1WEy$K(B
-  $B$D$$$F!"NS$O0l@Z$N@UG$$rIi$$$^$;$s!#(B
-$B!&K\%=%U%H%&%'%"$KIU?o$9$k;qNA$NFbMF$K$h$C$F@8$8$kB;32!"ITMx1WEy(B
-  $B$K$D$$$F!"NS$O0l@Z$N@UG$$rIi$$$^$;$s!#(B
-$B!&>l9g$K$h$C$F$O@\B3%1!<%V%k$r2~B$$9$kI,MW$,$"$j$^$9!#(B
-  ($B8E$$(BFreeBSD$B!"(BNEXTSTEP$B$O$3$N2~B$$,I,MW$G$9!#(B)
-$B!&K\%=%U%H%&%'%"$r;HMQ$9$k$3$H$K$h$C$F(BQV10$B!"@\B3%1!<%V%k$,8N>c(B
-  $B$7$?$H$7$F$b(BCASIO$B$5$s$K<ALd$9$k$3$H$O@dBP$K$7$J$$$G$/$@$5$$!#(B
-  ($B=$M}0MMj$9$k$H$-$O(BWindows/Mac$BHG$NDL?.%=%U%H$G8=>]$r(B
-   $B3NG'$7$F$+$i$K$7$F$/$@$5$$(B)
-$B!&DL?.%W%m%H%3%k$ND4::$O(B Windows NT3.51J$B>e$G(B
-  $B%Q%=%3%s%j%s%/%=%U%H%&%'%"(B for Windows$B$r$&$4$+$7$?7k2L$K(B
-  $B4p$E$/$b$N$G$9!#$J$*!"(BCASIO$B$N%Q%=%3%s%j%s%/(B
-  $B%=%U%H%&%'%"(B for Windows$B$O(BWindows NT$B>e$G$NF0:n$OJ]>Z$7$F(B
-  $B$*$j$^$;$s$N$G!"2r@O7k2L$O$"$^$j?.MQ$G$-$^$;$s!#(B(^^;;;
-$B!&(Bqvplay($B$H(Bqvrec$B$H(Bqvalldel)$B$N3+H/$K$O(Bitojun$B$5$s$r$O$8$a$?$/$5$s$NJ}!9(B
-  $B$N8f6(NO$,$"$j$^$7$?$,!"EvA3$N$3$H$J$,$i>e5-$NLH@U;v9`$O(B
-  $B$=$NJ}!9$K$bE,MQ$5$l$^$9!#(B
-$B!&(Bqvplay($B$H(Bqvrec$B$H(Bqvalldel)$B$O$$$o$f$k%U%j!<%=%U%H%&%'%"$G$9!#(B
-  $B;HMQ$K:]$7$F$OFC$K%U%#!<$r@A5a$7$^$;$s!#(B
-  $B$?$@$7!"$/$kJ*$O5q$_$^$;$s!#(B(^^)
-$B!&(Bqvplay($B$H(Bqvrec$B$H(Bqvalldel)$B$r>&MQ%=%U%H%&%'%"$N0lIt$H$7$FG[I[$9$k$3$H$O(B
-  $B6X;_$7$^$;$s$,!"NS$r$O$8$a(Bqvplay$B$N3+H/$K4X78$5$l$?J}!9$O$=$l$K(B
-  $BBP$7$F0l@Z$N%5%]!<%H$*$h$S!"@UG$$rIi$$$^$;$s!#(B
-$B!&(Bqvplay($B$H(Bqvrec$B$H(Bqvalldel)$B$N(BVer 0.95$B$O<+M3$KG[I[$7$F$b$i$C$F(B
-  $B9=$$$^$;$s$7!"%=!<%9$rJL$N%W%m%0%i%`$KAH$_9~$s$G;H$C$F$b(B
-  $B9=$$$^$;$s!#$^$?!"F@$KO"Mm$NI,MW$O$"$j$^$;$s!#(B
-$B!&2?$+%i%$%;%s%9$i$7$-$b$N$,M_$7$$>l9g$O!"(BBSD$B%9%?%$%k$+!"(BLGPL$B$N(B
-  $B9%$-$JJ}$rA*$s$G$/$@$5$$!#(B
-$B!&(BVer 0.10a$B$H(B0.95$B0J30$N%P!<%8%g%s$OF@$K%"%J%&%s%9$,$"$k$b$N$r=|$$$F(B
-  $B3+H/Cf$^$?$O$9$G$K8E$$%P!<%8%g%s$G$9$N$G:FG[I[$r6X;_$7$^$9!#(B
+・本ソフトウェアを使用することによってQV10、およびその中に
+  収められている画像データ等が致命的破壊を被る可能性があります。
+・本ソフトウェアを使用することによって生じる損害、不利益等に
+  ついて、林は一切の責任を負いません。
+・本ソフトウェアに付随する資料の内容によって生じる損害、不利益等
+  について、林は一切の責任を負いません。
+・場合によっては接続ケーブルを改造する必要があります。
+  (古いFreeBSD、NEXTSTEPはこの改造が必要です。)
+・本ソフトウェアを使用することによってQV10、接続ケーブルが故障
+  したとしてもCASIOさんに質問することは絶対にしないでください。
+  (修理依頼するときはWindows/Mac版の通信ソフトで現象を
+   確認してからにしてください)
+・通信プロトコルの調査は Windows NT3.51J上で
+  パソコンリンクソフトウェア for Windowsをうごかした結果に
+  基づくものです。なお、CASIOのパソコンリンク
+  ソフトウェア for WindowsはWindows NT上での動作は保証して
+  おりませんので、解析結果はあまり信用できません。(^^;;;
+・qvplay(とqvrecとqvalldel)の開発にはitojunさんをはじめたくさんの方々
+  の御協力がありましたが、当然のことながら上記の免責事項は
+  その方々にも適用されます。
+・qvplay(とqvrecとqvalldel)はいわゆるフリーソフトウェアです。
+  使用に際しては特にフィーを請求しません。
+  ただし、くる物は拒みません。(^^)
+・qvplay(とqvrecとqvalldel)を商用ソフトウェアの一部として配布することは
+  禁止しませんが、林をはじめqvplayの開発に関係された方々はそれに
+  対して一切のサポートおよび、責任を負いません。
+・qvplay(とqvrecとqvalldel)のVer 0.95は自由に配布してもらって
+  構いませんし、ソースを別のプログラムに組み込んで使っても
+  構いません。また、得に連絡の必要はありません。
+・何かライセンスらしきものが欲しい場合は、BSDスタイルか、LGPLの
+  好きな方を選んでください。
+・Ver 0.10aと0.95以外のバージョンは得にアナウンスがあるものを除いて
+  開発中またはすでに古いバージョンですので再配布を禁止します。
 
-$B!|F0:n(B($B3NG'(B)$B4D6-(B
-$B!v(BUnix$B7O(BOS
-$B!&(BPC/AT$B8_495!(B Linux 1.2.13$B!"(B1.3.20$B!"(B2.0.35$B!"(B2.0.36
-  (RedHat 5.2J$B!"(BOpenLinux 1.3$B!"(BTurboLinux 3.0$B!"(BSlackware 3.1$B!"(B
-   VineLinux 1.1$B!"(BPlamoLinux 1.3)
-$B!&(BPC/AT$B8_495!(B Linux 2.2.X
-  (VineLinux 2.0$B!"(BSlackware7.0$B!"(BLaser5 Linux 6.0 rel.2$B!"(B
-   Laser5 Linux 6.2$B!"(BRed Hat 6.1J$B!"(BRedHat 6.2J$B!"(B
-   TurboLinux 4.2$B!"(BTurboLinux 6.0WS(J)$B!"(BOmoikane Linux 1.1$B!"(B
-   Kondara/MNU Linux 1.1$B!"(BKondara/MNU Linux 1.2)
-$B!&(BPC/AT$B8_495!(B BSD/OS 2.0
-$B!&(BSony NEWS-3150U2 NEWS-OS 4.2.1RN
-$B!&(BSony NEWS-1860 NEWS-OS 4.2C
-$B!&(BSony NEWS-4000 NEWS-OS 6.1.2
-$B!&(BNEC EWS4800 Rel.4.4 Rev01
-$B!&(BSun Sparc Station 20 Solaris2.3(SunOS 5.3)
-$B!&(BSparc$B8_495!(B SunOS 4.1.4
-$B!&(BApple Macintosh SE/30 NetBSD 1.0
-$B!&(BPC/AT$B8_495!(B FreeBSD 2.2.6R
-$B!&(BPC/AT$B8_495!(B FreeBSD 2.0.5R 2.1.0R(*)(**)
-$B!&(BNeXT NeXTcube(M68040-25) NEXTSTEP 3.3J(*)
+●動作(確認)環境
+＊Unix系OS
+・PC/AT互換機 Linux 1.2.13、1.3.20、2.0.35、2.0.36
+  (RedHat 5.2J、OpenLinux 1.3、TurboLinux 3.0、Slackware 3.1、
+   VineLinux 1.1、PlamoLinux 1.3)
+・PC/AT互換機 Linux 2.2.X
+  (VineLinux 2.0、Slackware7.0、Laser5 Linux 6.0 rel.2、
+   Laser5 Linux 6.2、Red Hat 6.1J、RedHat 6.2J、
+   TurboLinux 4.2、TurboLinux 6.0WS(J)、Omoikane Linux 1.1、
+   Kondara/MNU Linux 1.1、Kondara/MNU Linux 1.2)
+・PC/AT互換機 BSD/OS 2.0
+・Sony NEWS-3150U2 NEWS-OS 4.2.1RN
+・Sony NEWS-1860 NEWS-OS 4.2C
+・Sony NEWS-4000 NEWS-OS 6.1.2
+・NEC EWS4800 Rel.4.4 Rev01
+・Sun Sparc Station 20 Solaris2.3(SunOS 5.3)
+・Sparc互換機 SunOS 4.1.4
+・Apple Macintosh SE/30 NetBSD 1.0
+・PC/AT互換機 FreeBSD 2.2.6R
+・PC/AT互換機 FreeBSD 2.0.5R 2.1.0R(*)(**)
+・NeXT NeXTcube(M68040-25) NEXTSTEP 3.3J(*)
 
-$B!vHs(BUnix$B7O(BOS
-$B!&(BSHARP X68030 + Human68k 3.02
-$B!&(BPC/AT$B8_495!(B Windows NT 3.51/4.0(Intel$B7O(B) DOS$B%W%m%s%W%H$GF0$+$7$^$9(B
-$B!&(BPC/AT$B8_495!(B Windows 95 DOS$B%W%m%s%W%H$GF0$+$7$^$9(B
-$B!&(BPC/AT$B8_495!(B OS/2 Warp 3.0(Intel$B7O(B) $B%3%^%s%I%W%m%s%W%H$GF0$+$7$^$9(B
+＊非Unix系OS
+・SHARP X68030 + Human68k 3.02
+・PC/AT互換機 Windows NT 3.51/4.0(Intel系) DOSプロンプトで動かします
+・PC/AT互換機 Windows 95 DOSプロンプトで動かします
+・PC/AT互換機 OS/2 Warp 3.0(Intel系) コマンドプロンプトで動かします
 
-  (*)$B0u$N$"$k$b$N$O8e=R$NDL?.%1!<%V%k$N2~B$$,I,MW$G$9!#(B
- (**) FreeBSD$B$K$D$$$F$O(Bkernel$B$N%=!<%9%Q%C%A$r$"$F$k$H(B
-     RTS$B$,(Boff$B$N$^$^!"DL?.$,$G$-$k$h$&$K$J$j!"%1!<%V%k$N(B
-     $B2~B$$OI,MW$J$/$J$j$^$9!#>\$7$/$O(BREADME.FreeBSD$B$r(B
-     $B;2>H$7$F$/$@$5$$!#(B
-     $B$^$?!"(BFreeBSD 2.2 Release$B0J9_$N$b$N$O>e5-%Q%C%A$O(B
-     $BI,MW$"$j$^$;$s!#(B
+  (*)印のあるものは後述の通信ケーブルの改造が必要です。
+ (**) FreeBSDについてはkernelのソースパッチをあてると
+     RTSがoffのまま、通信ができるようになり、ケーブルの
+     改造は必要なくなります。詳しくはREADME.FreeBSDを
+     参照してください。
+     また、FreeBSD 2.2 Release以降のものは上記パッチは
+     必要ありません。
 
-$B!|%=!<%9%;%C%H$NFbMFJ*(B
-  README $B$3$N%U%!%$%k(B(JIS)
-  README.FreeBSD $B8E$$(BFreeBSD$B%+!<%M%k(B(2.0.X, 2.1.X)$B$X$N%Q%C%A(B(JIS)
-         (FreeBSD$B%+!<%M%k$X$N%Q%C%A$O2<@n$5$s$K$h$k$b$N$G$9!#(B)
-  PROTOCOL.txt QV10$B$H$NDL?.%W%m%H%3%k$N@bL@(B(JIS)
+●ソースセットの内容物
+  README このファイル
+  README.FreeBSD 古いFreeBSDカーネル(2.0.X, 2.1.X)へのパッチ
+         (FreeBSDカーネルへのパッチは下川さんによるものです。)
+  PROTOCOL.txt QV10との通信プロトコルの説明
   PROTOCOL.eng 
-  HISTORY $B3+H/MzNr(B(JIS)
-  FAQ.txt $BNI$/$"$k<ALd(B(JIS)
+  HISTORY 開発履歴
+  FAQ.txt 良くある質問
   install-sh
   setup         
   obj/
      Win32/
          config.h
-         getopt.c (GNU$B$N(Bgetopt$B$G$9!#(B)
-         getopt.h (GNU$B$N(Bgetopt$B$G$9!#(B)
+         getopt.c (GNUのgetoptです。)
+         getopt.h (GNUのgetoptです。)
          tty_w32.c
          tty_w32.h
-         $B$=$NB>I,MW$J%=!<%9$O(Bsrc/$B$+$i%7%s%\%j%C%/%j%s%/(B
-         $B$7$F$$$^$9!#(B
+         その他必要なソースはsrc/からシンボリックリンク
+         しています。
      X68k/
          Makefile
          config.h
-         siochk.c ($BA}ED$5$s$h$j%=!<%9$r$*<Z$j$7$F$*$j$^$9(B(_ _))
+         siochk.c (増田さんよりソースをお借りしております(_ _))
          tty_x68.c
          tty_x68.h
          x68k.c
-         $B$=$NB>I,MW$J%=!<%9$O(Bsrc/$B$+$i%7%s%\%j%C%/%j%s%/(B
-         $B$7$F$$$^$9!#(B
-     os2/         (OS/2$B$X$N0\?"$OBg5WJ]$5$s$K$h$k$b$N$G$9(B)
-         README.OS2 (ver.0.10$B$N(BOS2$BBP1~%Q%C%A$K4^$^$l$F$$$?(BREADME$B$G$9!#(B)
+         その他必要なソースはsrc/からシンボリックリンク
+         しています。
+     os2/         (OS/2への移植は大久保さんによるものです)
+         README.OS2 (ver.0.10のOS2対応パッチに含まれていたREADMEです。)
          os2.mak
          config.h
          qvplay.def
          qvrec.def
          tty_os2.h
          tty_os2.c
-         $B$=$NB>I,MW$J%=!<%9$O(Bsrc/$B$+$i%7%s%\%j%C%/%j%s%/(B
-         $B$7$F$$$^$9!#(B
-     dos/       (DOS(MCD$B%I%i%$%PMxMQ(B)$B$X$N0\?"$O?\ED$5$s$K$h$k$b$N$G$9(B)
-         readme.txt (ver.0.10$B$N(BDOS$BBP1~%Q%C%A$K4^$^$l$F$$$?(BREADME$B$G$9!#(B)
+         その他必要なソースはsrc/からシンボリックリンク
+         しています。
+     dos/       (DOS(MCDドライバ利用)への移植は須田さんによるものです)
+         readme.txt (ver.0.10のDOS対応パッチに含まれていたREADMEです。)
          makefile
          config.h
          mcd_if.h
@@ -175,8 +175,8 @@ qvplay$B$r;H$($P(B
          mcdcall.h
          tty_dos.h
          tty_dos.c
-         $B$=$NB>I,MW$J%=!<%9$O(Bsrc/$B$+$i%7%s%\%j%C%/%j%s%/(B
-         $B$7$F$$$^$9!#(B
+         その他必要なソースはsrc/からシンボリックリンク
+         しています。
   src/
      qvplay.c
      qvrec.c
@@ -203,509 +203,509 @@ qvplay$B$r;H$($P(B
      ppm.c
      bmp.h
      bmp.c
-     cam2jpgtab.h (itojun$B$5$s$N(Bcam2jpg$B$+$i$*<Z$j$7$F$*$j$^$9(B(_ _))
+     cam2jpgtab.h (itojunさんのcam2jpgからお借りしております(_ _))
      jpegtab_f.h
      configure*
      Makefile.in
      configure.in
      config.h.in
 
-$B!|(BX680x0$BMQ%P%$%J%j%;%C%H%;%C%H$NFbMFJ*(B
-  README  $B$3$N%U%!%$%k(B(SJIS)
-  HISTORY $B3+H/MzNr(B(SJIS)
-  FAQ.txt $BNI$/$"$k<ALd(B(SJIS)  
+●X680x0用バイナリセットセットの内容物
+  README  このファイル(SJIS)
+  HISTORY 開発履歴(SJIS)
+  FAQ.txt 良くある質問(SJIS)  
   qvplay.x
   qvrec.x
   qvalldel.x
 
-$B!|(BWindowsNT/95$BMQ%P%$%J%j%;%C%H%;%C%H$NFbMFJ*(B
-  README  $B$3$N%U%!%$%k(B(SJIS)
-  HISTORY $B3+H/MzNr(B(SJIS)
-  FAQ.txt $BNI$/$"$k<ALd(B(SJIS)  
+●WindowsNT/95用バイナリセットセットの内容物
+  README  このファイル(SJIS)
+  HISTORY 開発履歴(SJIS)
+  FAQ.txt 良くある質問(SJIS)  
   qvplay.exe
   qvrec.exe
   qvalldel.exe
 
-$B!|(BUnix$B7O(BOS$B$G%3%s%Q%$%k$9$kJ}K!(B
-tty$B$,$D$+$($k(BUnix$B7O(BOS$B$J$i$[$\LdBj$J$/%3%s%Q%$%k$G$-$k$H;W$$$^$9!#(B
+●Unix系OSでコンパイルする方法
+ttyがつかえるUnix系OSならほぼ問題なくコンパイルできると思います。
 
-1. ./setup os$BL>(B   (os$BL>$OE,Ev$G$$$$$G$9!#(Bc.f. linux, newsos4 ...
-                   uname$B$,;H$($k4D6-$G$"$l$P(B ./setup $B$@$1$G$b$$$$$G$9(B)
-2. cd obj/os$BL>(B
+1. ./setup os名   (os名は適当でいいです。c.f. linux, newsos4 ...
+                   unameが使える環境であれば ./setup だけでもいいです)
+2. cd obj/os名
 3. ./configure
-4. obj/os$BL>(B $B$K=PMh>e$,$k(Bcommon.h $B$N(B #define RSPORT
-   $B$r$*;H$$$K$J$k(Btty$B%G%P%$%9$N%9%Z%7%c%k%U%!%$%k(B
-   $B$KJQ99$7$F$/$@$5$$!#(B
-   $B$^$?$O!"(B
+4. obj/os名 に出来上がるcommon.h の #define RSPORT
+   をお使いになるttyデバイスのスペシャルファイル
+   に変更してください。
+   または、
      ln -s /dev/ttyS0 /dev/qvtty
-   $B$H$7$F!";H$$$?$$(Btty$B%G%P%$%9$K(B/dev/qvtty$B$H$$$&%7%s%\%j%C%/%j%s%/$r(B
-   $B:n$k$h$&$K$7$F$/$@$5$$!#(B
-5. obj/os$BL>(B $B$K=PMh>e$,$k(BMakefile $B$N(B install:$B$N$H$3$m$G!"(B
+   として、使いたいttyデバイスに/dev/qvttyというシンボリックリンクを
+   作るようにしてください。
+5. obj/os名 に出来上がるMakefile の install:のところで、
    $(INSTALL_PROGRAM) -s -o root -g uucp -m 2755 $(PROG1) $(bindir)/$(PROG1)
-   $BEy$H$7$F$$$k$H$3$m$N(B -o root -g uucp $B$NItJ,$,(B
-   $B;H$*$&$H$7$F$$$k(Btty$B%G%P%$%9$N%9%Z%7%c%k%U%!%$%k$N(B
-   owner/group$B$HF1$8$K$J$C$F$$$k$+$I$&$+3NG'$7$F$/$@$5$$!#(B
-   $B$?$H$($P(BLinux$B$N>l9g!"(B
+   等としているところの -o root -g uucp の部分が
+   使おうとしているttyデバイスのスペシャルファイルの
+   owner/groupと同じになっているかどうか確認してください。
+   たとえばLinuxの場合、
    % ls -l /dev/ttyS0
    crw-rw----   1 root     uucp       4,  64 May  6  1998 /dev/ttyS0
-                  $B",(Bowner  $B",(Bgroup
-   $B$G3NG'$G$-$^$9!#(B $B0c$C$F$$$k>l9g!"(BMakefile$B$NFbMF$rJQ99$7$F$/$@$5$$!#(B
+                  ↑owner  ↑group
+   で確認できます。 違っている場合、Makefileの内容を変更してください。
 6. make
 7. su
 8. make install
 
-OS$B$N<oN`$H(BRSPORT$B$N%9%Z%7%c%k%U%!%$%k$NNc(B
-(PC Unix$B$N>l9g!"0J2<$NNc$G$O(BCOM1$B$K$J$j$^$9(B)
-$B!&(BLinux 2.2.X 2.3.X       #define RSPORT "/dev/ttyS0"
-$B!&(BLinux 1.2.X 1.3.X 2.0.X #define RSPORT "/dev/cua0"
-$B!&(BBSD/OS 2.0              #define RSPORT "/dev/tty00"
-$B!&(BNEWS-OS 4.2.1RN         #define RSPORT "/dev/tty00"
-$B!&(BNEWS-OS 4.2C            #define RSPORT "/dev/tty00"
-$B!&(BNEWS-OS 6.1.1           #define RSPORT "/dev/term/00"
-$B!&(BSunOS 4.1.4             #define RSPORT "/dev/ttya"
-$B!&(BSolaris2.3(SunOS 5.3)   #define RSPORT "/dev/ttya"
-$B!&(BNetBSD 1.0              #define RSPORT "/dev/tty00"
-$B!&(BEWS4800 Rel.4.4 Rev01   #define RSPORT "/dev/term/00"
-$B!&(BFreeBSD 2.1.0R 2.2.0R   #define RSPORT "/dev/cuaa0"
-$B!&(BNEXTSTEP 3.3J           #define RSPORT "/dev/ttya"
+OSの種類とRSPORTのスペシャルファイルの例
+(PC Unixの場合、以下の例ではCOM1になります)
+・Linux 2.2.X 2.3.X       #define RSPORT "/dev/ttyS0"
+・Linux 1.2.X 1.3.X 2.0.X #define RSPORT "/dev/cua0"
+・BSD/OS 2.0              #define RSPORT "/dev/tty00"
+・NEWS-OS 4.2.1RN         #define RSPORT "/dev/tty00"
+・NEWS-OS 4.2C            #define RSPORT "/dev/tty00"
+・NEWS-OS 6.1.1           #define RSPORT "/dev/term/00"
+・SunOS 4.1.4             #define RSPORT "/dev/ttya"
+・Solaris2.3(SunOS 5.3)   #define RSPORT "/dev/ttya"
+・NetBSD 1.0              #define RSPORT "/dev/tty00"
+・EWS4800 Rel.4.4 Rev01   #define RSPORT "/dev/term/00"
+・FreeBSD 2.1.0R 2.2.0R   #define RSPORT "/dev/cuaa0"
+・NEXTSTEP 3.3J           #define RSPORT "/dev/ttya"
 
-$B!|(BX680x0$B$G%3%s%Q%$%k$9$kJ}K!(B
-$B%G%#%l%/%H%j(Bobj/X68k$B$N%=!<%9$H(Bsrc/$B$N%=!<%9$r;H$C$F(B
-gcc & gmake & libc $B$G%3%s%Q%$%k$7$F2<$5$$!#(B
-$B6qBNE*$K$O(B
+●X680x0でコンパイルする方法
+ディレクトリobj/X68kのソースとsrc/のソースを使って
+gcc & gmake & libc でコンパイルして下さい。
+具体的には
 
-$B%=!<%9$r(BX680x0$B>e$GE83+(B
+ソースをX680x0上で展開
 cd QVplay\obj\X68k
-copy ..\..\src\*.c . ($BI,MW$K1~$8$F(B)
-copy ..\..\src\*.h . ($BI,MW$K1~$8$F(B)
+copy ..\..\src\*.c . (必要に応じて)
+copy ..\..\src\*.h . (必要に応じて)
 gmake -f Makefile
-qvplay.x$B!"(Bqvrec.x$B!"(Bqvalldel.x$B$,=PMh>e$,$k(B
+qvplay.x、qvrec.x、qvalldel.xが出来上がる
 
-$B$H$$$&<j=g$G$9!#(B
-X68k\$B%G%#%l%/%H%jCf$G%7%s%\%j%C%/%j%s%/$K$J$C$F$$$k(B
-$B%=!<%9$,8+Ev$?$i$J$$$P$"$$!">e5-$N(Bcopy$B%3%^%s%I$,I,MW$G$9!#(B
+という手順です。
+X68k\ディレクトリ中でシンボリックリンクになっている
+ソースが見当たらないばあい、上記のcopyコマンドが必要です。
 
-$B!|(BWindows NT(Intel$B7O(B)$B$G%3%s%Q%$%k$9$kJ}K!(B
-$B%G%#%l%/%H%j(Bobj/Win32$B$N%=!<%9$H(Bsrc/$B$N%=!<%9$r;H$C$F(B
-VisualC++4.1$B$G%3%s%Q%$%k$7$F$/$@$5$$!#(B
-(VisulC++2.0$B$d(B4.0$B$d(B5.0$B!"(B6.0$B$G$bLdBj$J$$$H;W$$$^$9!#$?$V$s!K(B
-$B6qBNE*$K$O(B
+●Windows NT(Intel系)でコンパイルする方法
+ディレクトリobj/Win32のソースとsrc/のソースを使って
+VisualC++4.1でコンパイルしてください。
+(VisulC++2.0や4.0や5.0、6.0でも問題ないと思います。たぶん）
+具体的には
 
-$B%=!<%9$r(BWindows NT$B>e$GE83+(B
+ソースをWindows NT上で展開
 cd QVplay\obj\Win32
-copy ..\..\src\*.c . ($BI,MW$K1~$8$F(B)
-copy ..\..\src\*.h . ($BI,MW$K1~$8$F(B)
+copy ..\..\src\*.c . (必要に応じて)
+copy ..\..\src\*.h . (必要に応じて)
 nmake -f Makefile
-qvplay.exe qvrec.exe qvalldel.exe$B$,=PMh>e$,$k!#(B
+qvplay.exe qvrec.exe qvalldel.exeが出来上がる。
 
-Unix$B7O(BOS$B$HF1MM$K%G%U%)%k%H$N%7%j%"%k%]!<%H$N(B
-$BL>A0$r(Bcommon.h $B$N(B #define RSPORT "COM1"
-$B$KDj5A$7$F$"$j$^$9!#I,MW$K1~$8$FJQ99$7$F2<$5$$!#(B
+Unix系OSと同様にデフォルトのシリアルポートの
+名前をcommon.h の #define RSPORT "COM1"
+に定義してあります。必要に応じて変更して下さい。
 
-Win32\$B%G%#%l%/%H%jCf$G%7%s%\%j%C%/%j%s%/$K$J$C$F$$$k(B
-$B%=!<%9$,8+Ev$?$i$J$$$P$"$$!">e5-$N(Bcopy$B%3%^%s%I$,I,MW$G$9!#(B
+Win32\ディレクトリ中でシンボリックリンクになっている
+ソースが見当たらないばあい、上記のcopyコマンドが必要です。
 
-$B!|(BOS/2 Warp 3.0 (Intel$B7O(B)$B$G%3%s%Q%$%k$9$kJ}K!(B
-EMX$B3+H/4D6-!"(BOS/2$BMQ(BGNU make$B$,I,MW$G$9!#(B
+●OS/2 Warp 3.0 (Intel系)でコンパイルする方法
+EMX開発環境、OS/2用GNU makeが必要です。
 
-$B%=!<%9$r(BOS/2$B>e$GE83+(B
+ソースをOS/2上で展開
 cd QVplay\obj\os2
-copy ..\..\src\*.c . ($BI,MW$K1~$8$F(B)
-copy ..\..\src\*.h . ($BI,MW$K1~$8$F(B)
+copy ..\..\src\*.c . (必要に応じて)
+copy ..\..\src\*.h . (必要に応じて)
 make -f os2.mak
-qvplay.exe$B!"(Bqvrec.exe$B!"(Bqvalldel.exe $B$,=PMh>e$,$k!#(B
+qvplay.exe、qvrec.exe、qvalldel.exe が出来上がる。
 
-$B$H$$$&<j=g$G$9!#(B
+という手順です。
 
-Unix$B7O(BOS$B$HF1MM$K%G%U%)%k%H$N%7%j%"%k%]!<%H$N(B
-$BL>A0$r(Bcommon.h $B$N(B #define RSPORT "COM1"
-$B$KDj5A$7$F$"$j$^$9!#I,MW$K1~$8$FJQ99$7$F2<$5$$!#(B
+Unix系OSと同様にデフォルトのシリアルポートの
+名前をcommon.h の #define RSPORT "COM1"
+に定義してあります。必要に応じて変更して下さい。
 
-os2\$B%G%#%l%/%H%jCf$G%7%s%\%j%C%/%j%s%/$K$J$C$F$$$k(B
-$B%=!<%9$,8+Ev$?$i$J$$$P$"$$!">e5-$N(Bcopy$B%3%^%s%I$,I,MW$G$9!#(B
+os2\ディレクトリ中でシンボリックリンクになっている
+ソースが見当たらないばあい、上記のcopyコマンドが必要です。
 
-$B!|(BDOS (MCD$BDL?.%I%i%$%P;HMQ(B)$B$G%3%s%Q%$%k$9$kJ}K!(B
-  Turbo C++ Ver 4.0$B!"$*$h$S!"(BMCD Version 0.91$B$,(Bt$BI,MW$G$9!#(B
-  $B>\$7$/$O(Breadme.txt$B$r;2>H$7$F$/$@$5$$!#(B
+●DOS (MCD通信ドライバ使用)でコンパイルする方法
+  Turbo C++ Ver 4.0、および、MCD Version 0.91がt必要です。
+  詳しくはreadme.txtを参照してください。
 
-$B%=!<%9$r(BDOS$B>e$GE83+(B
+ソースをDOS上で展開
 cd QVplay\obj\dos
-copy ..\..\src\*.c . ($BI,MW$K1~$8$F(B)
-copy ..\..\src\*.h . ($BI,MW$K1~$8$F(B)
-make $B$9$k(B
-qvplay.exe$B!"(Bqvrec.exe$B!"(Bqvalldel.exe $B$,=PMh>e$,$k!#(B
+copy ..\..\src\*.c . (必要に応じて)
+copy ..\..\src\*.h . (必要に応じて)
+make する
+qvplay.exe、qvrec.exe、qvalldel.exe が出来上がる。
 
-$B$H$$$&<j=g$G$9!#(B
+という手順です。
 
-Unix$B7O(BOS$B$HF1MM$K%G%U%)%k%H$N%7%j%"%k%]!<%H$N(B
-$BL>A0$r(Bcommon.h $B$N(B #define RSPORT "AUX1"
-$B$KDj5A$7$F$"$j$^$9!#I,MW$K1~$8$FJQ99$7$F2<$5$$!#(B
+Unix系OSと同様にデフォルトのシリアルポートの
+名前をcommon.h の #define RSPORT "AUX1"
+に定義してあります。必要に応じて変更して下さい。
 
-dos\$B%G%#%l%/%H%jCf$G%7%s%\%j%C%/%j%s%/$K$J$C$F$$$k(B
-$B%=!<%9$,8+Ev$?$i$J$$$P$"$$!">e5-$N(Bcopy$B%3%^%s%I$,I,MW$G$9!#(B
-($BCm(B)DOS$BHG$O$^$@$^$@F0:n$,IT2:$G$9!#(B(^^;;
+dos\ディレクトリ中でシンボリックリンクになっている
+ソースが見当たらないばあい、上記のcopyコマンドが必要です。
+(注)DOS版はまだまだ動作が不穏です。(^^;;
 
-$B!|(Bqvplay$B!"(Bqvrec$B!"(Bqvalldel$B$r;H$&$?$a$KMQ0U$9$k$b$N(B&$B=`Hw(B
-$B!&(BCASIO $B1U>=%G%8%?%k%+%a%i(B 
-   QV-10$B!"(BQV-10a$B!"(BQV-30$B!"(BQV-11$B!"(BQV-70
-  (QV-11$B$O;n$7$F$$$^$;$s$,$?$V$s;H$($k$H;W$$$^$9(B)
-  QV-100$B!"(BQV-300$B!"(BQV-200
-  (QV-200$B$O;n$7$F$$$^$;$s$,$?$V$s;H$($k$H;W$$$^$9(B)
-  QV-700$B!"(BQV-770
-  (QV-700$B$O;n$7$F$$$^$;$s$,$?$V$s;H$($k$H;W$$$^$9(B)
-  ($B0J2<$N@bL@$G$O$9$Y$F(BQV-10$B$H=q$$$F$$$^$9$,!">e5-$N5!<o$G$b(B
-   $B;H$($^$9(B)
-$B!&(BCASIO $B1U>=%G%8%?%k%+%a%iMQ%Q%=%3%s@\B3%-%C%H(B for Windows
-  (LK-1,LK-10DV,LK-10NC) $B$N@\B3%1!<%V%k(B
-  $B$^$?$O(B
-$B!&(BCASIO $B1U>=%G%8%?%k%+%a%iMQ%Q%=%3%s@\B3%-%C%H(B for Machintosh LK-2
-  $B$N@\B3%1!<%V%k(B
-  $B$^$?$O(B
-$B!&(BCASIO $B1U>=%G%8%?%k%+%a%iMQ%Q%=%3%s%j%s%/%1!<%V%k(B
-  IBM PC/AT$B8_495!MQ(B QC-1D
-  $B$^$?$O(B
-$B!&(BCASIO $B1U>=%G%8%?%k%+%a%iMQ%Q%=%3%s%j%s%/%1!<%V%k(B
-  PC9801$BMQ(B QC-1N
+●qvplay、qvrec、qvalldelを使うために用意するもの&準備
+・CASIO 液晶デジタルカメラ 
+   QV-10、QV-10a、QV-30、QV-11、QV-70
+  (QV-11は試していませんがたぶん使えると思います)
+  QV-100、QV-300、QV-200
+  (QV-200は試していませんがたぶん使えると思います)
+  QV-700、QV-770
+  (QV-700は試していませんがたぶん使えると思います)
+  (以下の説明ではすべてQV-10と書いていますが、上記の機種でも
+   使えます)
+・CASIO 液晶デジタルカメラ用パソコン接続キット for Windows
+  (LK-1,LK-10DV,LK-10NC) の接続ケーブル
+  または
+・CASIO 液晶デジタルカメラ用パソコン接続キット for Machintosh LK-2
+  の接続ケーブル
+  または
+・CASIO 液晶デジタルカメラ用パソコンリンクケーブル
+  IBM PC/AT互換機用 QC-1D
+  または
+・CASIO 液晶デジタルカメラ用パソコンリンクケーブル
+  PC9801用 QC-1N
 
-(LK-$B$H(BLK-2$B$O!"(BQV10$B$H$N@\B3%1!<%V%k$O6&DL$G!"JQ49%3%M%/%?$,(B
-Dsub25-Dsub9$B$+!"(BDsub25-MiniDin$B$+$N0c$$$@$1$N$h$&$G$9(B)
-(CASIO$B$h$j(BLK-10DV$B!"(BLK-10NC$B$NB>$K$b(BLK-2a$B$,H/Gd$5$l$F$$$^$9$,!"(B
- $B$3$l$K$D$$$F$O$^$@F0:n$7$?$H$$$&Js9p$OJ9$$$F$*$j$^$;$s$,!"(B
- $B$?$V$sBg>fIW$@$H;W$$$^$9!#(B)
-(QC-1D$B$d(BQC-1N$B$O%1!<%V%k$N$_$N>&IJ$J$N$G!"(BX680x0$B%f!<%6$d(B
- Unix$B@lMQ%^%7%s$N%f!<%6$O$3$A$i$rGc$C$?$[$&$,$$$$$G$7$g$&!#(B
- QV-1D$B$H(BQV-1N$B$N0c$$$O%3%M%/%?$,(BDsub9$B%T%s$+(BDsub25$B%T%s$+$N0c$$$G$9!#(B
+(LK-とLK-2は、QV10との接続ケーブルは共通で、変換コネクタが
+Dsub25-Dsub9か、Dsub25-MiniDinかの違いだけのようです)
+(CASIOよりLK-10DV、LK-10NCの他にもLK-2aが発売されていますが、
+ これについてはまだ動作したという報告は聞いておりませんが、
+ たぶん大丈夫だと思います。)
+(QC-1DやQC-1Nはケーブルのみの商品なので、X680x0ユーザや
+ Unix専用マシンのユーザはこちらを買ったほうがいいでしょう。
+ QV-1DとQV-1Nの違いはコネクタがDsub9ピンかDsub25ピンかの違いです。
 
- $B@\B3%1!<%V%k$G%Q%=%3%s(Bor$B%o!<%/%9%F!<%7%g%s$H(BQV10$B$r@\B3$7$F$/$@$5$$!#(B
-$B$"$H$O(Bqvplay$B$r;H$&$@$1!A$H$$$-$?$$$H$3$m$G$9$,!"<B$O$3$3$G$R$H$DCm0U(B
-$B$,$"$j$^$9!#(B
+ 接続ケーブルでパソコンorワークステーションとQV10を接続してください。
+あとはqvplayを使うだけ〜といきたいところですが、実はここでひとつ注意
+があります。
 
- $B$4B8CN!)$N$H$*$j!"@\B3%1!<%V%k$K$OEE;R2sO)$,$/$_$3$^$l$F$*$j!"(B
-RS-232C$B%l%Y%k$+$i(BQV10$BMQ$NEE05%l%Y%k$KJQ49$7$F$$$k$H;W$o$l$^$9!#(B
-$B$=$NJQ492sO)$NEE8;$H$7$F!"(BCTS,DTR$B$,(B+$BB&EE8;!"(BRTS$B$,(B-$BB&EE8;$N$h$&(B
-$B$G$9!#$7$?$,$C$F!"!V(BRTS$B$,(Boff$B!"(BCTS,DTR$B$,(Bon$B$G$J$$$H2sO)$,:nF0(B
-$B$;$:!"(BQV10$B$+$i$N%G!<%?$,N.$l$FMh$J$$!W$h$&$G$9!#(B
+ ご存知？のとおり、接続ケーブルには電子回路がくみこまれており、
+RS-232CレベルからQV10用の電圧レベルに変換していると思われます。
+その変換回路の電源として、CTS,DTRが+側電源、RTSが-側電源のよう
+です。したがって、「RTSがoff、CTS,DTRがonでないと回路が作動
+せず、QV10からのデータが流れて来ない」ようです。
 
- qvplay$B$G$O(BRTS$B$r(Boff$B!"(BCTS,DTR$B$r(Bon $B$K$9$k$h$&$K$7$F$$$k$N$G$9$,!"(B
-$B$=$l$G$b2?8N$+$&$^$/%G!<%?$,<h$l$J$$$3$H$,$"$j$^$9!#(B
+ qvplayではRTSをoff、CTS,DTRをon にするようにしているのですが、
+それでも何故かうまくデータが取れないことがあります。
 
- $B$^$?!"(BNEXTSTEP$BEy$N$h$&$K(BRTS$B$r(Boff$B$9$k$H%7%j%"%k%G!<%?$N$d$j$H$j(B
-$B$r;_$a$F$7$^$&(BOS$B$b$"$j$^$9!#(B($B$3$l$O(BRTS$B@~$N0UL#$rN'5A$K@5$7$/(B
-$B<BAu$7$F$$$k$H$$$&$3$H$G$"$j!"(BOS$B$NG=NO!";EMM$,$*$+$7$$$H$$$&(B
-$B$o$1$G$O$"$j$^$;$s!#$A$g$C$HM;DL$N8z$+$J$$E[$@$H$$$&5$$O(B
-$B$7$^$9$,!#(B(^^)
-(FreeBSD$B$K$D$$$F$O(BREADME.FreeBSD$B$r;2>H$7$F$/$@$5$$!#(B)
- $B$b$7!"(Bqvplay$B$r;H$*$&$H$9$k(BOS$B$,(BRTS$B$r(Boff$B$7$?$^$^DL?.$9$k$3$H$,(B
-$B$G$-$J$$$h$&$J$b$N$N>l9g!"0J2<$N$h$&$J2~B$$r9T$J$&I,MW$,$"$j$^$9!#(B
+ また、NEXTSTEP等のようにRTSをoffするとシリアルデータのやりとり
+を止めてしまうOSもあります。(これはRTS線の意味を律義に正しく
+実装しているということであり、OSの能力、仕様がおかしいという
+わけではありません。ちょっと融通の効かない奴だという気は
+しますが。(^^)
+(FreeBSDについてはREADME.FreeBSDを参照してください。)
+ もし、qvplayを使おうとするOSがRTSをoffしたまま通信することが
+できないようなものの場合、以下のような改造を行なう必要があります。
 
-$B!&@\B3%1!<%V%k$N(BRS-232C$BB&$N(B4$BHV%T%s(B(RTS)$B$r(B7$BHV%T%s(B(GND)$B$H(B
-  $B%7%g!<%H$5$;$k(B
+・接続ケーブルのRS-232C側の4番ピン(RTS)を7番ピン(GND)と
+  ショートさせる
    
-$B$3$l$G(BRTS$B$O>o$K(Boff($B87L)$K$O(Boff$B$8$c$J$$$G$9$,(B)$B$K$J$j!"JQ492sO)$,(B
-$B:nF0$9$k$N$G!"(BQV10$B$+$i$N%G!<%?$O>o$KN.$l$F(B
-$BMh$k$h$&$K$J$j$^$9!#@\B3%1!<%V%k$r2~B$$9$k$N$,7y$J>l9g$O(B
-RS-232C$B$N%8%c%s%Q%\%C%/%9Ey$rGc$C$FMh$F!"(B
+これでRTSは常にoff(厳密にはoffじゃないですが)になり、変換回路が
+作動するので、QV10からのデータは常に流れて
+来るようになります。接続ケーブルを改造するのが嫌な場合は
+RS-232Cのジャンパボックス等を買って来て、
 
-             $B%8%c%s%Q%\%C%/%9$N(B
-(WS/PC$BB&(B)    $B!iB&%T%s(B      $B!jB&%T%s(B(QV10$B@\B3%1!<%V%kB&(B)
-        RTS  4         $B(#(!(!(B4  RTS
-        GND  7 $B(!(!(!(!(*(!(!(B7  GND
-($B$=$NB>$N%T%s$O%9%H%l!<%HA47k@~(B)
-($B>e5-$N%T%sHV9f$O(B25$B%T%s%?%$%W$N(BRS-232C$B%3%M%/%?$NHV9f$G$9!#(B
- 9$B%T%s%?%$%W$N>l9g$O!"$=$l$>$l(B7(RTS)$B!"(B5(GND)$B$K$J$j$^$9!#(B)
+             ジャンパボックスの
+(WS/PC側)    ♂側ピン      ♀側ピン(QV10接続ケーブル側)
+        RTS  4         ┌──4  RTS
+        GND  7 ────┴──7  GND
+(その他のピンはストレート全結線)
+(上記のピン番号は25ピンタイプのRS-232Cコネクタの番号です。
+ 9ピンタイプの場合は、それぞれ7(RTS)、5(GND)になります。)
 
-$B$N$h$&$JG[@~$r$7$F!"0J2<$N$h$&$K@\B3$9$l$P$$$$$G$7$g$&!#(B
+のような配線をして、以下のように接続すればいいでしょう。
 
-[WS$B$N%7%j%"%k%]!<%H(B]--[$B%8%c%s%Q%\%C%/%9(B]--[QV10$B@\B3%1!<%V%k(B]--[QV10]
+[WSのシリアルポート]--[ジャンパボックス]--[QV10接続ケーブル]--[QV10]
 
- $B$J$*!">e5-2~B$$r9T$J$C$F$b(BCASIO$B$N%Q%=%3%s%j%s%/%=%U%H(B(Windows$BMQ(B)$B$O(B
-$BF0:n$7$^$7$?!#(B
+ なお、上記改造を行なってもCASIOのパソコンリンクソフト(Windows用)は
+動作しました。
 
-$B!t2?8N$+(BGND$B$X(BRTS$B$rMn$H$5$J$/$F$b!V@\B3%1!<%V%k$N(BRS-232C$BB&$N(B4$BHV%T%s(B
-$B!t(B(RTS)$B$rH4$$$F$7$^$&(B($B@\B3$7$J$$(B)$B!W$G$b$J$s$H$J$/F0$$$F$7$^$&>l9g(B
-$B!t$b$"$j$^$9!#(B
+＃何故かGNDへRTSを落とさなくても「接続ケーブルのRS-232C側の4番ピン
+＃(RTS)を抜いてしまう(接続しない)」でもなんとなく動いてしまう場合
+＃もあります。
 
-$B!t(BQC-1D$B!"(BQC-1N$B$G$OJQ492sO)$,9u$$H"$N$J$+$KF~$C$F$*$j!"$=$l$,%1!<%V%k$N(B
-$B!tESCf$K$"$j$^$9$,!"$=$NH"$r3+$1$F$_$k$H2sO)4pHD$K(BJP1$B$H$$$&ItJ,$,(B
-$B!t$"$j$^$9!#$3$3$r%7%g!<%H$5$;$k$H>e5-$N2~B$$HF1$8$3$H$K$J$j$^$9!#(B
-$B!t(B($BEvA3$G$9$,!"%a!<%+!<J]>Z$O$&$1$i$l$J$/$J$j$^$9!#(B)
+＃QC-1D、QC-1Nでは変換回路が黒い箱のなかに入っており、それがケーブルの
+＃途中にありますが、その箱を開けてみると回路基板にJP1という部分が
+＃あります。ここをショートさせると上記の改造と同じことになります。
+＃(当然ですが、メーカー保証はうけられなくなります。)
 
-$B!|(Bqvplay$B$N;H$$J}(B
+●qvplayの使い方
 
-QV-10$B$NF0:n>u67$O#3<oN`$"$k$h$&$G$9!#(B
- 1. $B%j%;%C%H%b!<%I(B
- 2. $B%3%^%s%IBT5!%b!<%I(B
- 3. $B%3%^%s%I=hM}Cf%b!<%I(B
+QV-10の動作状況は３種類あるようです。
+ 1. リセットモード
+ 2. コマンド待機モード
+ 3. コマンド処理中モード
 
-$B%j%;%C%H%b!<%I$OEE8;EjF~D>8e$N>uBV$G!"(BQV-10$B$N%\%?%sA`:n$,2DG=$G$9!#(B
-$B$^$?!"%j%;%C%H%b!<%I$G$b%[%9%H%3%s%T%e!<%?B&$+$i$NA`:n%3%^%s%I$r(B
-$B<u$1IU$1$^$9!#(B
+リセットモードは電源投入直後の状態で、QV-10のボタン操作が可能です。
+また、リセットモードでもホストコンピュータ側からの操作コマンドを
+受け付けます。
 
-$B%3%^%s%IBT5!%b!<%I$O%[%9%H%3%s%T%e!<%?B&$+$i$N%7%j%"%k2s@~$K$h$k(B
-$BA`:n%3%^%s%I$r<u$1IU$1$k>uBV$G$9!#$3$N>uBV$K$J$C$?;~$K$O!"(BQV-10$B$N(B
-$B%\%?%sA`:n$O8z$+$J$/$J$j$^$9!#(B
+コマンド待機モードはホストコンピュータ側からのシリアル回線による
+操作コマンドを受け付ける状態です。この状態になった時には、QV-10の
+ボタン操作は効かなくなります。
 
-$B%3%^%s%I=hM}Cf%b!<%I$O%[%9%H%3%s%T%e!<%?B&$+$i$N%7%j%"%k2s@~$K$h$k(B
-$BA`:n%3%^%s%I$r=hM}$7$F$$$k>uBV$G!"$3$N>uBV$N4V$O!"%[%9%H%3%s%T%e!<%?B&$+$i(B
-$B$NA`:n%3%^%s%I$O%j%;%C%H%3%^%s%I$r0J30$O$&$1$D$1$J$$$h$&$G$9!#(B
+コマンド処理中モードはホストコンピュータ側からのシリアル回線による
+操作コマンドを処理している状態で、この状態の間は、ホストコンピュータ側から
+の操作コマンドはリセットコマンドを以外はうけつけないようです。
 
-$B%j%;%C%H%3%^%s%I$O$I$&$$$&%b!<%I$G$b$&$1$D$1$k$_$?$$$G$9!#(B
+リセットコマンドはどういうモードでもうけつけるみたいです。
 
-qvplay$B$K$h$C$F(BQV-10$B$K$$$m$$$m$JF0:n$r$5$;$k$3$H$,$G$-$^$9$,!"(B
-$B$=$N7k2L!"%3%^%s%IBT5!%b!<%I$KF~$j$^$9!#$3$N$^$^$G$O(BQV-10$B$N(B
-$B%-!<A`:n$,$G$-$^$;$s$N$G!"$J$k$Y$/8e=R$N(B-r$B%*%W%7%g%s$r:G8e$K(B
-$B$D$1$k$h$&$K$7$FF0:n$N:G8e$K%j%;%C%H%b!<%I$KF~$k$h$&$K$7$?(B
-$B$[$&$,$$$$$G$7$g$&!#(B
+qvplayによってQV-10にいろいろな動作をさせることができますが、
+その結果、コマンド待機モードに入ります。このままではQV-10の
+キー操作ができませんので、なるべく後述の-rオプションを最後に
+つけるようにして動作の最後にリセットモードに入るようにした
+ほうがいいでしょう。
 
-$B$^$?!"(Bqvplay$B$+$i!V(Btty not respond.$B!W$N$h$&$J%a%C%;!<%8$,(B
-$B=P$F$-$?$j!"$I$&$b%G!<%?E>Aw$,$5$l$F$J$$$h$&$J5$$,$9$k(B
-$B>l9g!"ESCf$GCfCG$7$?$$>l9g$O(BCTRL-C$B$GCfCG$7$F2<$5$$!#(B
-$BCfCG$7$?$H$-$K$O(BQV-10$B$bEE8;$rF~$lD>$7$F2<$5$$!#(B
+また、qvplayから「tty not respond.」のようなメッセージが
+出てきたり、どうもデータ転送がされてないような気がする
+場合、途中で中断したい場合はCTRL-Cで中断して下さい。
+中断したときにはQV-10も電源を入れ直して下さい。
 
-$B!&(Busage
-  qvplay $B%*%W%7%g%s(B
+・usage
+  qvplay オプション
 
- $B%*%W%7%g%s$N@bL@(B
- num : $B2hA|HV9f!"(B1$B!A(B96(QV-10/10a/30/11/70)
-                 $B$^$?$O(B1$B!A(B192(QV-100/300/200/770)$B$N@0?t(B
-                 (QV-700$B$O%a%b%j$,5v$98B$j!)(B)
- filename : $B=PNO%U%!%$%kL>(B $BJ8;zNs(B
+ オプションの説明
+ num : 画像番号、1〜96(QV-10/10a/30/11/70)
+                 または1〜192(QV-100/300/200/770)の整数
+                 (QV-700はメモリが許す限り？)
+ filename : 出力ファイル名 文字列
 
- -h           $B4JC1$J%*%W%7%g%s$N@bL@$rI=<($7$^$9!#(B
- -r           QV10$B$K%j%;%C%HF0:n$r9T$J$o$;$^$9!#(B
-              QV10$B$N2hLL$,$$$C$?$s%/%j%"$5$l!"(BQV10$B$N%\%?%sA`:n$,(B
-              $BM-8z$K$J$j$^$9!#%j%;%C%H$5$l$?$+$i$H$$$C$F!"(BQV-10$B$NCf(B
-              $B$N2hA|$,>C$($F$J$/$J$k$o$1$G$O$"$j$^$;$s!#(B
- -n           QV10$B$K5-O?$5$l$F$$$k2hA|$NKg?t$rI8=`=PNO$KI=<($7$^$9!#(B
- -N           QV10$B$K5-O?2DG=$J2hA|$NKg?t(B($B6u$-(B)$B$rI8=`=PNO$KI=<($7$^$9!#(B
-              $B!v(BQV-700/770$B$G$O$3$N5!G=$O@5$7$/F0$-$^$;$s!#(B
- -p num       QV10$B$N(BLCD$B$N2hA|$r2hA|HV9f$N$b$N$K@ZBX$($^$9!#(B
- -o filename  $B=PNO%U%!%$%kL>$N;XDj(B
+ -h           簡単なオプションの説明を表示します。
+ -r           QV10にリセット動作を行なわせます。
+              QV10の画面がいったんクリアされ、QV10のボタン操作が
+              有効になります。リセットされたからといって、QV-10の中
+              の画像が消えてなくなるわけではありません。
+ -n           QV10に記録されている画像の枚数を標準出力に表示します。
+ -N           QV10に記録可能な画像の枚数(空き)を標準出力に表示します。
+              ＊QV-700/770ではこの機能は正しく動きません。
+ -p num       QV10のLCDの画像を画像番号のものに切替えます。
+ -o filename  出力ファイル名の指定
  -F {jpeg,ppm,PPM,rgb,RGB,bmp,BMP,cam} 
-              $B=PNO%U%)!<%^%C%H$N;XDj(B
-              -a $B%*%W%7%g%s$^$?$O(B -g $B%*%W%7%g%s$HF1;~$K;H$$$^$9!#(B
-              -a $B%*%W%7%g%s$^$?$O(B -g $B%*%W%7%g%s$h$j$bA0$K;XDj$7$J$$$H(B
-              $B%U%)!<%^%C%H$N;XDj$,M-8z$K$J$j$^$;$s!#(B
-              jpeg JPEG(JFIF)$B7A<0$G2hA|%G!<%?$r=PNO$7$^$9!#(B
-              ppm  PPM$B7A<0$G(Bthumnail$B2hA|%G!<%?$r=PNO$7$^$9!#(B
-              PPM  PPM$B7A<0$G2hA|%G!<%?$r=PNO$7$^$9!#(B
-              rgb  RGB(Q0)$B7A<0$G(Bthumnail$B2hA|%G!<%?$r=PNO$7$^$9!#(B
-              RGB  RGB(Q0)$B7A<0$G2hA|%G!<%?$r=PNO$7$^$9!#(B
-              bmp  BMP(24bit)$B7A<0$G(Bthumnail$B2hA|%G!<%?$r=PNO$7$^$9!#(B
-              BMP  BMP(24bit)$B7A<0$G2hA|%G!<%?$r=PNO$7$^$9!#(B
-              cam  CAM$B7A<0$G(Bthumnail$B2hA|$H2hA|%G!<%?$r=PNO$7$^$9!#(B
-              $B%G%U%)%k%H$O(Bjpeg$B$,;XDj$5$l$F$$$k>uBV$K$J$j$^$9!#(B
-              $B%U%)!<%^%C%HL>$O!"<B:]$OF,#1J8;z$7$+H=JL(B
-              $B$7$F$$$^$;$s$N$G!"(Bphoto$B$G$b(Bpicture$B$G$b(Bppm$B$HF1$8(B
-              $B$G$9!#(B
-              QV-100$B$N>l9g!"(BFine$B2hA|!"(BNormal$B2hA|$O<+F0E*$KG'<1(B
-              $B$7!"$=$l$>$l$N%U%)!<%^%C%H(B(jpeg$B!"(BPPM$B!"(BRGB$B!"(Bcam)$B$G(B
-              $B=q$-=P$5$l$^$9!#(B
-              QV-700/770$B$N>l9g!"2hA|$NBg$-$5$O$9$Y$F(B640x480$B$G$9$,!"(B
-              $B2h<A(B(Fine/Normal/Economy)$B$O<+F0E*$KG'<1$7!"(B
-              $B$=$l$>$l$N%U%)!<%^%C%H(B(jpeg$B!"(BPPM$B!"(BRGB$B!"(Bcam)$B$G(B
-              $B=q$-=P$5$l$^$9!#(B
-              DOS$BMQ(Bqvplay.exe$B$G$O%U%)!<%^%C%H;XDj$K(BPPM, RGB, BMP
-              $B$O;HMQ$G$-$^$;$s!#(B
- -g num       $B2hA|HV9f$N2hA|$r$r(B-F$B%*%W%7%g%s$G;XDj$7$?7A<0$K(B
-              $BJQ49$7$F=PNO$7$^$9!#(B
-              -o $B%*%W%7%g%s$,;XDj$5$l$F$$$l$P!"$=$N%U%!%$%kL>$G!"(B
-              -o $B%*%W%7%g%s$,;XDj$5$l$F$$$J$1$l$P!"I8=`=PNO$X(B
-              $B=PNO$7$^$9!#(B
- -a           QV10$B$K5-O?$5$l$F$$$k$9$Y$F$N2hA|$r(B-F$B%*%W%7%g%s$G(B
-              $B;XDj$7$?7A<0$KJQ49$7$F=PNO$7$^$9!#(B
-              -F $B%*%W%7%g%s$,;XDj$5$l$F$$$J$$$H$-!"(B
-              -o $B%*%W%7%g%s$,;XDj$5$l$F$$$l$P!"(B
+              出力フォーマットの指定
+              -a オプションまたは -g オプションと同時に使います。
+              -a オプションまたは -g オプションよりも前に指定しないと
+              フォーマットの指定が有効になりません。
+              jpeg JPEG(JFIF)形式で画像データを出力します。
+              ppm  PPM形式でthumnail画像データを出力します。
+              PPM  PPM形式で画像データを出力します。
+              rgb  RGB(Q0)形式でthumnail画像データを出力します。
+              RGB  RGB(Q0)形式で画像データを出力します。
+              bmp  BMP(24bit)形式でthumnail画像データを出力します。
+              BMP  BMP(24bit)形式で画像データを出力します。
+              cam  CAM形式でthumnail画像と画像データを出力します。
+              デフォルトはjpegが指定されている状態になります。
+              フォーマット名は、実際は頭１文字しか判別
+              していませんので、photoでもpictureでもppmと同じ
+              です。
+              QV-100の場合、Fine画像、Normal画像は自動的に認識
+              し、それぞれのフォーマット(jpeg、PPM、RGB、cam)で
+              書き出されます。
+              QV-700/770の場合、画像の大きさはすべて640x480ですが、
+              画質(Fine/Normal/Economy)は自動的に認識し、
+              それぞれのフォーマット(jpeg、PPM、RGB、cam)で
+              書き出されます。
+              DOS用qvplay.exeではフォーマット指定にPPM, RGB, BMP
+              は使用できません。
+ -g num       画像番号の画像をを-Fオプションで指定した形式に
+              変換して出力します。
+              -o オプションが指定されていれば、そのファイル名で、
+              -o オプションが指定されていなければ、標準出力へ
+              出力します。
+ -a           QV10に記録されているすべての画像を-Fオプションで
+              指定した形式に変換して出力します。
+              -F オプションが指定されていないとき、
+              -o オプションが指定されていれば、
               filename_001.jpg
               filename_002.jpg
               filename_003.jpg
               .....
-              $B$H$$$&%U%!%$%kL>$G=PNO$5$l$^$9!#(B
-              -o $B%*%W%7%g%s$,;XDj$5$l$F$$$J$1$l$P!"(B
+              というファイル名で出力されます。
+              -o オプションが指定されていなければ、
               qv_001.jpg
               qv_002.jpg
               qv_003.jpg
               .....
-              $B$H$$$&%U%!%$%kL>$G=PNO$5$l$^$9!#(B
-              -F $B%*%W%7%g%s$,;XDj$5$l$F$$$k;~$O$=$l$>$l!"(B
-              *.ppm$B!"(B*.cam $BEy$N$h$&$K$J$j$^$9!#(B
-              -s$B!"(B-e$B%*%W%7%g%s$r;H$&$3$H$G!"A4It$N2hA|$G$O$J$/$F!"(B
-              $B=PNO$9$k2hA|$N2hA|HV9f$N:G=i$H:G8e$r;XDj$9$k$3$H$,$G$-$^$9!#(B
- -s num       -a$B!"(B-I $B%*%W%7%g%s$HF1;~$K;H$$$^$9!#(B
-              -a$B!"(B-I $B%*%W%7%g%s$h$j$bA0$K;XDj$7$J$$$HM-8z$K$J$j$^$;$s!#(B
-              $B=PNO!"%l%]!<%H$9$k:G=i$N2hA|HV9f$r;XDj$7$^$9!#(B
- -e num       -a$B!"(B-I $B%*%W%7%g%s$HF1;~$K;H$$$^$9!#(B
-              -a$B!"(B-I $B%*%W%7%g%s$h$j$bA0$K;XDj$7$J$$$HM-8z$K$J$j$^$;$s!#(B
-              $B=PNO!"%l%]!<%H$9$k:G8e$N2hA|HV9f$r;XDj$7$^$9!#(B
- -v           -a $B%*%W%7%g%s$^$?$O(B -g $B%*%W%7%g%s$HF1;~$K;H$$$^$9!#(B
-              -a $B%*%W%7%g%s$^$?$O(B -g $B%*%W%7%g%s$h$j$bA0$K;XDj$7$J$$$H(B
-              $BM-8z$K$J$j$^$;$s!#(B
-              $B%G!<%?E>AwF0:n$rI8=`%(%i!<=PNO$K4JC1$K%l%]!<%H$7$^$9!#(B
-              $BI=<($5$l$k?t;z$O2hA|HV9f$H%G!<%?E>Aw%P%$%H?t$r<($7$^$9!#(B
-              ($B$G$-$"$,$k(BJPEG$B!"(BCAM$BEy$N%U%!%$%k$NBg$-$5$G$O$"$j$^$;$s!#(B
-               $B%U%!%$%k7A<0$K$h$j$^$9$,!"%U%!%$%k%5%$%:$h$j>/$7>.$5$$(B
-               $B?t;z$,I=<($5$l$^$9!#(B)
- -d num       $B2hA|HV9f$N2hA|$r(BQV10$B$+$i:o=|$7$^$9!#(B
+              というファイル名で出力されます。
+              -F オプションが指定されている時はそれぞれ、
+              *.ppm、*.cam 等のようになります。
+              -s、-eオプションを使うことで、全部の画像ではなくて、
+              出力する画像の画像番号の最初と最後を指定することができます。
+ -s num       -a、-I オプションと同時に使います。
+              -a、-I オプションよりも前に指定しないと有効になりません。
+              出力、レポートする最初の画像番号を指定します。
+ -e num       -a、-I オプションと同時に使います。
+              -a、-I オプションよりも前に指定しないと有効になりません。
+              出力、レポートする最後の画像番号を指定します。
+ -v           -a オプションまたは -g オプションと同時に使います。
+              -a オプションまたは -g オプションよりも前に指定しないと
+              有効になりません。
+              データ転送動作を標準エラー出力に簡単にレポートします。
+              表示される数字は画像番号とデータ転送バイト数を示します。
+              (できあがるJPEG、CAM等のファイルの大きさではありません。
+               ファイル形式によりますが、ファイルサイズより少し小さい
+               数字が表示されます。)
+ -d num       画像番号の画像をQV10から削除します。
  -4 num1,num2,num3,num4
-              QV10$B$N(BLCD$B$r#4J,3d2hLL$K$7!";XDj$7$?#4$D$N2hA|HV9f(B
-              $B$N$b$N$rI=<($7$^$9!#2hA|HV9f$OF1$8$b$N$G$b$+$^$$$^(B
-              $B$;$s!#$^$?!"2hA|HV9f$N;XDj$O#1!A#4$D$N$$$/$D$G$b$+(B
-              $B$^$$$^$;$s$,!"#3$D0J2<$N>l9g$O>JN,$7$?ItJ,$O:G8e$K(B
-              $B;XDj$7$?2hA|HV9f$N<!$N$b$N$K$J$j$^$9!#(B
-              $BNc$($P(B -4 4,6 $B$H;XDj$7$?>l9g(B -4 4,6,7,8$B$H;XDj$7$?(B
-              $B$3$H$HF1$8$3$H$K$J$j!"(BQV10$B$N(BLCD$B$K$O(B
+              QV10のLCDを４分割画面にし、指定した４つの画像番号
+              のものを表示します。画像番号は同じものでもかまいま
+              せん。また、画像番号の指定は１〜４つのいくつでもか
+              まいませんが、３つ以下の場合は省略した部分は最後に
+              指定した画像番号の次のものになります。
+              例えば -4 4,6 と指定した場合 -4 4,6,7,8と指定した
+              ことと同じことになり、QV10のLCDには
                  4  6
                  7  8
-              $B$N=g$K2hA|$,I=<($5$l$^$9!#(B
-              QV10$BFb$N2hA|$,#4$D0J2<$N>l9g!":G8e$N2hA|$,7+$jJV$7$F(B
-              $BI=<($5$l$^$9!#(B
+              の順に画像が表示されます。
+              QV10内の画像が４つ以下の場合、最後の画像が繰り返して
+              表示されます。
  -9 num1,num2,....num9
-              QV10$B$N(BLCD$B$r#9J,3d2hLL$K$7!";XDj$7$?#9$D$N2hA|HV9f(B
-              $B$N$b$N$rI=<($7$^$9!#2hA|HV9f$OF1$8$b$N$G$b$+$^$$$^(B
-              $B$;$s!#$^$?!"2hA|HV9f$N;XDj$O#1!A#9$D$N$$$/$D$G$b$+(B
-              $B$^$$$^$;$s$,!"#8$D0J2<$N>l9g$O>JN,$7$?ItJ,$O:G8e$K(B
-              $B;XDj$7$?2hA|HV9f$N<!$N$b$N$K$J$j$^$9!#(B
-              $BNc$($P(B -9 4,6 $B$H;XDj$7$?>l9g(B -9 4,6,7,8,9,10,11,12,13
-              $B$H;XDj$7$?$3$H$HF1$8$3$H$K$J$j!"(BQV10$B$N(BLCD$B$K$O(B
+              QV10のLCDを９分割画面にし、指定した９つの画像番号
+              のものを表示します。画像番号は同じものでもかまいま
+              せん。また、画像番号の指定は１〜９つのいくつでもか
+              まいませんが、８つ以下の場合は省略した部分は最後に
+              指定した画像番号の次のものになります。
+              例えば -9 4,6 と指定した場合 -9 4,6,7,8,9,10,11,12,13
+              と指定したことと同じことになり、QV10のLCDには
                  4  6  7
                  9  9 10
                 11 12 13
-               $B$N=g$K2hA|$,I=<($5$l$^$9!#(B                 
-              QV10$BFb$N2hA|$,#9$D0J2<$N>l9g!":G8e$N2hA|$,7+$jJV$7$F(B
-              $BI=<($5$l$^$9!#(B
- -P num       $B;XDj$7$?2hA|HV9f$N2hA|$K%W%m%F%/%H$r$+$1$^$9!#(B
- -U num       $B;XDj$7$?2hA|HV9f$N2hA|$N%W%m%F%/%H$r2r=|$7$^$9!#(B
- -i num       $B;XDj$7$?2hA|HV9f$N2hA|$K%W%m%F%/%H$,$+$1$i$l$F$$$k$+(B
-              $B$I$&$+$rI8=`=PNO$K%l%]!<%H$7$^$9!#(B
-	      QV100$B$N>l9g(B640x480$B2hA|$+(B480x240$B2hA|$+$b%l%]!<%H$7$^$9!#(B
- -I           QV10$B$K5-O?$5$l$F$$$k$9$Y$F$N2hA|$N%W%m%F%/%H>uBV(B
-              $B$r%l%]!<%H$7$^$9!#(B
-	      QV100$B$N>l9g(B640x480$B2hA|$+(B480x240$B2hA|$+$b%l%]!<%H$7$^$9!#(B
-              -s$B!"(B-e$B%*%W%7%g%s$r;H$&$3$H$G!"A4It$N2hA|$G$O$J$/$F!"(B
-              $B%l%]!<%H$9$k2hA|$N2hA|HV9f$N:G=i$H:G8e$r;XDj$9$k(B
-              $B$3$H$,$G$-$^$9!#(B
- -t           $B;#1F$7$^$9!#(B(QV10$B$N%U%!%s%/%7%g%s%9%$%C%A$r(B
-	       REC$B$N0LCV$K$7$F$/$@$5$$(B)
-              $B!v(BQV700/770$B$G$O$3$N5!G=$O;H$($^$;$s!#(B
- -V           QV10$B$NEE8;$N>uBV$r%l%]!<%H$7$^$9!#(B
-              ($BI=<($5$l$kCM$O35;;$G$9!#@53N$G$O$"$j$^$;$s!#(B)
-              $B!v(BQV700/770$B$G$O$3$N5!G=$O;H$($^$;$s!#(B
- -0           $B%*!<$G$O$"$j$^$;$s!#%<%m$G$9!#(B
-              QV10$B$NEE8;$r(BOFF$B$7$^$9!#(B
- -1           $B%*!<%H%Q%o!<%*%U5!G=$rL58z$K$7$^$9!#(B
- -7           QV10$B$N(BLCD$B$K#7?'$N%+%i!<%P!<$r=P$7$^$9!#(B
-              $B%+%i!<%P!<$,=P$F$$$k>uBV$G$OB>$NA`:n$,$G$-$J$$>uBV$K(B
-              $B$J$j$^$9$N$G(B-r$B%3%^%s%I$dEE8;(BON/OFF$B$K$h$C$F(BQV-10$B$r(B
-              $B%j%;%C%H%b!<%I$K$9$kI,MW$,$"$j$^$9!#(B
- -D ttydevice QV10$B$HDL?.$r9T$J$&(Btty$B%G%P%$%9$rJQ99$7$^$9!#(B
-              WindowsNT/Windows95$B$N>l9g$O(B COM1$B!A(BCOM4$B$r(B
-              $B;XDj$7$F2<$5$$!#(B
-              $B%G%U%)%k%H$N(Btty$B%G%P%$%9$O%=!<%9$N(Bcommon.h$B$K(B
-              $BDj5A$7$?$b$N$K$J$j$^$9!#(B(/dev/qvtty)      
-              X680x0$B$N>l9g$OFbB"%7%j%"%k%]!<%H0J30$OA*$Y(B
-              $B$^$;$s$N$G$3$N%*%W%7%g%s$OL58z$G$9!#(B
- -S {normal,mid,high,top,light} $B$^$?$O(B {1,2,3,4,5}
-              QV10$B$H$NDL?.B.EY$rJQ99$7$^$9!#(B
-              1 normal   $BI8=`B.(B     9600 baud
-              2 mid      $BCfB.(B      19200 baud
-              3 high     $B9bB.(B      38400 baud
-              4 top      $BD69bB.(B    57600 baud
-              5 light    $B8wB.(B(^^; 115200 baud
-              $BB.EYL>$O!"<B:]$OF,#1J8;z$7$+H=JL(B
-              $B$7$F$$$^$;$s$N$G!"(Bhyper$B$G$b(Bhogehoge$B$G$b(Bhigh$B$HF1$8(B
-              $B$G$9!#(B
-              (top$B0J>e$N%9%T!<%I$O4D6-$K$h$C$F$O;H$($^$;$s(B)
-              (X680x0$B$G$O(Bmid$B0J>e$NB.EY$r;H$&>l9g$O(Btmsio.x$BEy$N(B
-               $B9bB.%7%j%"%k%I%i%$%P$r>oCs$9$k$h$&$K$7$F$/$@$5$$!#(B )
-(X680x0$B$N$_(B)
- -X num       $B2hA|HV9f$N2hA|$r(BX680x0$B$N%0%i%U%#%C%/2hLL$K(B
-              $BI=<($7$^$9!#I=<(NN0h$O(B480x480$B$G$9!#(B
-              X680x0$B$N%0%i%U%#%C%/2hLL$NET9g>e!"(B
-              5,5,5$B$N(B15bit color$B$K8:?'$5$l$FI=<($5$l$^$9!#(B
-              QV100$B$N(BFine$B2hA|$N>l9g$bI=<(2hA|$O(B480x480$B$G$9!#(B
- -z           REC/PLAY SW$B$N>uBV$d(BCCD$B%+%a%iItJ,$N>uBV$rI=<($7$^$9!#(B
-              $B!v(BQV700/770$B$G$O$3$N5!G=$O;H$($^$;$s!#(B
- -Z           $BK\BN%P!<%8%g%s$H;W$o$l$kCM$r#4%P%$%H$N(B16$B?J?t$GI=<($7$^$9!#(B
-              $B>\:Y$O(BPROTOCOL.txt$B$r;2>H$7$F$/$@$5$$!#(B
+               の順に画像が表示されます。                 
+              QV10内の画像が９つ以下の場合、最後の画像が繰り返して
+              表示されます。
+ -P num       指定した画像番号の画像にプロテクトをかけます。
+ -U num       指定した画像番号の画像のプロテクトを解除します。
+ -i num       指定した画像番号の画像にプロテクトがかけられているか
+              どうかを標準出力にレポートします。
+	      QV100の場合640x480画像か480x240画像かもレポートします。
+ -I           QV10に記録されているすべての画像のプロテクト状態
+              をレポートします。
+	      QV100の場合640x480画像か480x240画像かもレポートします。
+              -s、-eオプションを使うことで、全部の画像ではなくて、
+              レポートする画像の画像番号の最初と最後を指定する
+              ことができます。
+ -t           撮影します。(QV10のファンクションスイッチを
+	       RECの位置にしてください)
+              ＊QV700/770ではこの機能は使えません。
+ -V           QV10の電源の状態をレポートします。
+              (表示される値は概算です。正確ではありません。)
+              ＊QV700/770ではこの機能は使えません。
+ -0           オーではありません。ゼロです。
+              QV10の電源をOFFします。
+ -1           オートパワーオフ機能を無効にします。
+ -7           QV10のLCDに７色のカラーバーを出します。
+              カラーバーが出ている状態では他の操作ができない状態に
+              なりますので-rコマンドや電源ON/OFFによってQV-10を
+              リセットモードにする必要があります。
+ -D ttydevice QV10と通信を行なうttyデバイスを変更します。
+              WindowsNT/Windows95の場合は COM1〜COM4を
+              指定して下さい。
+              デフォルトのttyデバイスはソースのcommon.hに
+              定義したものになります。(/dev/qvtty)      
+              X680x0の場合は内蔵シリアルポート以外は選べ
+              ませんのでこのオプションは無効です。
+ -S {normal,mid,high,top,light} または {1,2,3,4,5}
+              QV10との通信速度を変更します。
+              1 normal   標準速     9600 baud
+              2 mid      中速      19200 baud
+              3 high     高速      38400 baud
+              4 top      超高速    57600 baud
+              5 light    光速(^^; 115200 baud
+              速度名は、実際は頭１文字しか判別
+              していませんので、hyperでもhogehogeでもhighと同じ
+              です。
+              (top以上のスピードは環境によっては使えません)
+              (X680x0ではmid以上の速度を使う場合はtmsio.x等の
+               高速シリアルドライバを常駐するようにしてください。 )
+(X680x0のみ)
+ -X num       画像番号の画像をX680x0のグラフィック画面に
+              表示します。表示領域は480x480です。
+              X680x0のグラフィック画面の都合上、
+              5,5,5の15bit colorに減色されて表示されます。
+              QV100のFine画像の場合も表示画像は480x480です。
+ -z           REC/PLAY SWの状態やCCDカメラ部分の状態を表示します。
+              ＊QV700/770ではこの機能は使えません。
+ -Z           本体バージョンと思われる値を４バイトの16進数で表示します。
+              詳細はPROTOCOL.txtを参照してください。
 
--r$B%*%W%7%g%s$r$N$>$-!"(Bqvplay$B$K$h$kF0:n$r9T$J$C$?7k2L!"(BQV10$B$O(B
-$B%3%^%s%IBT5!%b!<%I$KF~$j$^$9!#F0:n$5$;$?$"$H!"(BQV10$B$N%\%?%sA`:n(B
-$B$rM-8z$K$7$?$$$P$"$$$O!"I,$:(B-r$B%*%W%7%g%s$r$D$1$k$+!"(BQV10$B$NEE8;(B
-$B$r$$$C$?$s(BOFF$B$K$7$FEE8;$r:FEjF~$7$F$/$@$5$$!#(B
-$B$^$?!"0lIt$N%*%W%7%g%s$O(B-r$B%*%W%7%g%s$r8e$K$D$1$F%j%;%C%H$7$J$$$H(B
-$B$=$N8z2L$,$o$+$i$J$$$b$N(B(-d$B$N:o=|Ey(B)$B$b$"$j$^$9!#(B
+-rオプションをのぞき、qvplayによる動作を行なった結果、QV10は
+コマンド待機モードに入ります。動作させたあと、QV10のボタン操作
+を有効にしたいばあいは、必ず-rオプションをつけるか、QV10の電源
+をいったんOFFにして電源を再投入してください。
+また、一部のオプションは-rオプションを後につけてリセットしないと
+その効果がわからないもの(-dの削除等)もあります。
 
-$B%*%W%7%g%s$O=q$$$?=gHV$I$*$j$K:8$+$i1&$K2r<a!"<B9T$5$l$^$9!#(B
-$BF1$8%*%W%7%g%s$r2?EY=q$$$F$b$+$^$$$^$;$s!#(B
-$B$?$@$7!"(B-s -e -o -v  $B%*%W%7%g%s$K$D$$$F$O$=$l$,8z2L$r$*$h$\$9(B
-$B%*%W%7%g%s(B(-a -g -I)$B$h$j$b:8B&$K=q$+$J$$$H8z2L$,$"$j$^$;$s!#(B
+オプションは書いた順番どおりに左から右に解釈、実行されます。
+同じオプションを何度書いてもかまいません。
+ただし、-s -e -o -v  オプションについてはそれが効果をおよぼす
+オプション(-a -g -I)よりも左側に書かないと効果がありません。
 
--h $B%*%W%7%g%s$O<B9T$5$l$?=V4V!"(Busage$B$rI=<($7$F(Bqvplay$B$r=*N;(B
-$B$7$^$9!#0J9_$K=q$+$l$?%*%W%7%g%s$OL5;k$5$l$^$9!#(B
+-h オプションは実行された瞬間、usageを表示してqvplayを終了
+します。以降に書かれたオプションは無視されます。
  
-QV10$B$+$i=PNO$5$l$k(BJPEG$B7A<0!"(BPPM$B7A<0!"(BRGB$B7A<0!"(BBMP$B7A<0$N(B
-$B%U%!%$%k$O2hA|$,(BNormal$B2hA|$N>l9g!"(B480x240$B$N2#D9%5%$%:$K(B
-$B$J$C$F$$$^$9$N$GDL>o$N;HMQ$N$?$a$K$O!"(Bxv$BEy$N2hA|=hM}%D!<%k$G(B
-$B%"%9%Z%/%HHf$r(B4$BBP(B3$B$KJd@5$9$kI,MW$,$"$j$^$9!#(B
-QV100/QV770$B$N(B640x480$B2hA|$N>l9g$O!"%"%9%Z%/%HHf$,(B1:1$B$J$N$G!"(B
-$BJd@5$9$kI,MW$O$"$j$^$;$s!#(B
+QV10から出力されるJPEG形式、PPM形式、RGB形式、BMP形式の
+ファイルは画像がNormal画像の場合、480x240の横長サイズに
+なっていますので通常の使用のためには、xv等の画像処理ツールで
+アスペクト比を4対3に補正する必要があります。
+QV100/QV770の640x480画像の場合は、アスペクト比が1:1なので、
+補正する必要はありません。
 
-X680x0$B$N>l9g!"%"%9%Z%/%HHf$,ET9gNI$/(B4$BBP(B3$B$K6a$$$N$G!"(B
--X$B%*%W%7%g%s$G%0%i%U%#%C%/2hLL$KI=<($7$?2hA|$OJd@5$7$J$/$F$b(B
-$B$=$l$J$j$K8+$($^$9!#(B($B87L)$K$O(B4:3$B$8$c$J$$$N$G5$$K$J$k>l9g$O(B
-$BJd@5$7$F$/$@$5$$!#(B)
+X680x0の場合、アスペクト比が都合良く4対3に近いので、
+-Xオプションでグラフィック画面に表示した画像は補正しなくても
+それなりに見えます。(厳密には4:3じゃないので気になる場合は
+補正してください。)
 
-$BDL?.B.EY;XDj%*%W%7%g%s$h$j1&$N%*%W%7%g%s$+$i;XDj$7$?DL?.B.EY$,(B
-$BM-8z$K$J$j$^$9$N$G!"(B $BDL?.B.EY$N;XDj$O$J$k$Y$/:8B&$K=q$$$F2<$5$$!#(B
-$B$^$?!"5!<o!"(BOS$B$K$h$j!"DL?.B.EY$N8B3&$O$5$^$6$^$G$9!#(B
-($BNc$($P(BNEWS-OS4.2C$B$H$+$O(B9600baud$B$,8B3&(B)
+通信速度指定オプションより右のオプションから指定した通信速度が
+有効になりますので、 通信速度の指定はなるべく左側に書いて下さい。
+また、機種、OSにより、通信速度の限界はさまざまです。
+(例えばNEWS-OS4.2Cとかは9600baudが限界)
  
--r$B%*%W%7%g%s$O<B9T$5$l$k$HDL?.B.EY$rI8=`B.(B(9600baud)$B$KLa$7$^$9!#(B
+-rオプションは実行されると通信速度を標準速(9600baud)に戻します。
 
-$B$^$?!"$9$Y$F$N%*%W%7%g%s$r<B9T$7=*$C$?8e!"(Bqvplay$B$,=*N;$9$k;~$b(B
-$BDL?.B.EY$rI8=`B.(B(9600baud)$B$KLa$7$^$9!#(B
+また、すべてのオプションを実行し終った後、qvplayが終了する時も
+通信速度を標準速(9600baud)に戻します。
  
-$B8E$$(BLinux$B4D6-(B(glibc2$B0JA0$N$b$N(B)$B$J$I$G$O!"DL?.B.EY$N$&$A!"(B
-high$B0J>e$r;H$&>l9g$OCm0U$,I,MW$G$9!#(B
+古いLinux環境(glibc2以前のもの)などでは、通信速度のうち、
+high以上を使う場合は注意が必要です。
 
-$B8E$$(BUnix$B7O(BOS$B$G$O!"%7%j%"%k%]!<%H$NDL?.B.EY$O(BB38400$B$^$G$G$9$N$G!"(B
--S high $B$^$G$7$+;H$($^$;$s!#(B
-$B$^$?!"8E$$(BLinux$B4D6-$G$O(BLinux$B$N(Bsetserial$B%3%^%s%IEy$N$h$&$K(B
-38400baud$B$K@_Dj$9$k$H<B:]$K$O(B57600baud$B$d!"(B115200baud$B$,(B
-$B;H$($k$b$N$b$"$j$^$9!#$3$N$h$&$J>l9g(B($B%3%s%Q%$%k$9$k$H!"(B
-B57600$B!"(BB115200$B$,L$Dj5A$G$"$k!"Ey$N%(%i!<$,=P$k>l9g(B)$B!"(B
-Makefile$B$N(BCFLAGS = $B$K(B -DCANNOTUSEHIGHSPEED$B$rDI2C$7$F(B
-$B%3%s%Q%$%k$7$F$/$@$5$$!#(B
-$B$3$N>l9g!"(Bqvplay$B$NFbIt$G$O(Bhigh$B$b!"(Btop$B$b!"(Blight$B$b(B
-B38400$B$K@_Dj$7$F$$$^$9$N$G!"(Btop$B!"(Blight$B$r;H$&>l9g$O!"$"$i$+$8$a(B
-setserial$B%3%^%s%IEy$r;H$C$F%7%j%"%k%]!<%H$N@_Dj$r9T$J$C$F2<$5$$!#(B
-(FreeBSD$B$d:G6a$N(BLinux$B$K$D$$$F$OAGD>$K(BB57600$B!"(BB115200$B$,;H$($k$N$G!"(B
- $B$=$N$h$&$K@_Dj$7$F$$$^$9!#(Bsetserial$BEy$N%3%^%s%I$OI,MW$"$j$^$;$s!#(B)
- $BNc(B1
-    setserial /dev/cua1 spd_hi        57600baud$B$K@_Dj(B
+古いUnix系OSでは、シリアルポートの通信速度はB38400までですので、
+-S high までしか使えません。
+また、古いLinux環境ではLinuxのsetserialコマンド等のように
+38400baudに設定すると実際には57600baudや、115200baudが
+使えるものもあります。このような場合(コンパイルすると、
+B57600、B115200が未定義である、等のエラーが出る場合)、
+MakefileのCFLAGS = に -DCANNOTUSEHIGHSPEEDを追加して
+コンパイルしてください。
+この場合、qvplayの内部ではhighも、topも、lightも
+B38400に設定していますので、top、lightを使う場合は、あらかじめ
+setserialコマンド等を使ってシリアルポートの設定を行なって下さい。
+(FreeBSDや最近のLinuxについては素直にB57600、B115200が使えるので、
+ そのように設定しています。setserial等のコマンドは必要ありません。)
+ 例1
+    setserial /dev/cua1 spd_hi        57600baudに設定
     qvplay -S top -o hoge.jpg -g 1 
- $BNc(B2
-    setserial /dev/cua1 spd_vhi      115200baud$B$K@_Dj(B
+ 例2
+    setserial /dev/cua1 spd_vhi      115200baudに設定
     qvplay -S light -o hoge.jpg -g 1 
-(115200baud$B$G$NE>Aw$O%(%i!<$,H/@8$9$k>l9g$,B?$/!"(B
- $B7k9=%7%j%"%k%+!<%I$NAj@-!)$K0MB8$7$^$9!#(B)
+(115200baudでの転送はエラーが発生する場合が多く、
+ 結構シリアルカードの相性？に依存します。)
 
-$B$^$?!"(BPC/AT$B8_495!$N>l9g!"%7%j%"%k%+!<%I$O(B16550A$B8_49$N$b$N(B
-$B$G$J$$$H(Bmid$B0J>e$N%9%T!<%I$r;XDj$7$F$b==J,$JB.EY$,=P$^$;$s!#(B
+また、PC/AT互換機の場合、シリアルカードは16550A互換のもの
+でないとmid以上のスピードを指定しても十分な速度が出ません。
 
-$B4D6-JQ?t(BQVPLAYTTY$B$G$O!"%3%^%s%I%i%$%s%*%W%7%g%s(B -D $B$G(B
-$B;XDj$7$J$+$C$?>l9g$N%G%U%)%k%H$N%7%j%"%k%]!<%H$N@_Dj$,$G$-$^$9!#(B
-Unix$B7O(BOS$B$N>l9g$O!V(B/dev/ttyS0$B!WEy$N%9%Z%7%c%k%U%!%$%k$N%Q%9L>$r(B
-WindowsNT/95$B$N>l9g$O!V(BCOM1$B!W!A!V(BCOM4$B!W$r;XDj$7$F$/$@$5$$!#(B
-X680x0$B$N>l9g$O%7%j%"%k%]!<%H$OFbB"%7%j%"%k%]!<%H$K8GDj$G$9(B
-$B$N$G4D6-JQ?t(BQVPLAYTTY$B$bL5;k$5$l$^$9!#(B
+環境変数QVPLAYTTYでは、コマンドラインオプション -D で
+指定しなかった場合のデフォルトのシリアルポートの設定ができます。
+Unix系OSの場合は「/dev/ttyS0」等のスペシャルファイルのパス名を
+WindowsNT/95の場合は「COM1」〜「COM4」を指定してください。
+X680x0の場合はシリアルポートは内蔵シリアルポートに固定です
+ので環境変数QVPLAYTTYも無視されます。
 
-$B!&NcBj(B
-    cjpeg/djpeg$B$O(BIndependent JPEG Group$B$N(BJPEG$B%i%$%V%i%j(B
-    $B$N%5%s%W%k%W%m%0%i%`!"(B
-    pnm*$B$H$+(Bppm*$B$O(Bpbmplus/netpbm $B$N(B $B%D!<%kN`$G$9!#(B
+・例題
+    cjpeg/djpegはIndependent JPEG GroupのJPEGライブラリ
+    のサンプルプログラム、
+    pnm*とかppm*はpbmplus/netpbm の ツール類です。
 
- 1. $B4J0W%9%i%$%I%7%g!<(B
+ 1. 簡易スライドショー
     qvplay -p 1 
     sleep 5
     qvplay -p 2
@@ -715,355 +715,355 @@ X680x0$B$N>l9g$O%7%j%"%k%]!<%H$OFbB"%7%j%"%k%]!<%H$K8GDj$G$9(B
     .....
     qvplay -r
 
- 2. $B$H$j$"$($:#1Kg%G!<%?$r$H$j$@$9(B
+ 2. とりあえず１枚データをとりだす
     qvplay -o hoge.jpg -g 10
 
- 3. $B$H$j$"$($:#1Kg%G!<%?$r$H$j$@$7$F%"%9%Z%/%HHf$NJd@5$7$F(B
-    interlace gif$B$XJQ49(B(Unix$B7O(BOS$B$N>l9g(B)
-    (Normal$B2hA|$N>l9g(B)
+ 3. とりあえず１枚データをとりだしてアスペクト比の補正して
+    interlace gifへ変換(Unix系OSの場合)
+    (Normal画像の場合)
     qvplay -g 10 | djpeg |  pnmscale -xsize 320 -ysize 240 \
                  | ppmquant 256 | ppmtogif -interlace >hoge.gif
-    (Fine$B2hA|$N>l9g(B)
+    (Fine画像の場合)
     qvplay -g 10 | djpeg -gif >hoge.gif
 
- 4. $B$H$j$"$($:%G!<%?A4It$H$j$@$9(B(JPEG$B7A<0(B)
+ 4. とりあえずデータ全部とりだす(JPEG形式)
     qvplay -o hoge -a
  
-    hoge_001.jpg, hoge_002.jpg ....$B$H$$$&%U%!%$%k$,=PMh>e$,$j$^$9!#(B
+    hoge_001.jpg, hoge_002.jpg ....というファイルが出来上がります。
 
- 5. 4$BKgL\$N%G!<%?$+$i(B10$BKgL\$N%G!<%?$r$H$j$@$7$F%j%;%C%H(B
-    $B<h$j=P$7>u67$b8+$?$$(B
+ 5. 4枚目のデータから10枚目のデータをとりだしてリセット
+    取り出し状況も見たい
     qvplay -v -s 4 -e 10 -a -r
     
     qv_004.jpg, qv_005.jpg, ...... qv_009.jpg, qv_010.jpg, 
-    $B$H$$$&%U%!%$%k$,=PMh>e$,$j$^$9!#(B
+    というファイルが出来上がります。
 
- 6. 6$BKgL\$N%G!<%?$r(Brokuban.jpg$B!"(B12$BHVL\$N%G!<%?$r(Bjuuniban.jpg
-    $B$H$7$F<h$j=P$7$?$$(B
+ 6. 6枚目のデータをrokuban.jpg、12番目のデータをjuuniban.jpg
+    として取り出したい
     qvplay -o rokuban.jpg -g 6 -o juuniban.jpg -g 12
 
- 7. $BA4It$N%G!<%?$N(Bthumbnail$BItJ,$r<h$j=P$7$?$$(B
+ 7. 全部のデータのthumbnail部分を取り出したい
     qvplay -F ppm -a
    
-    qv_001.ppm, qv_002.ppm ....$B$H$$$&%U%!%$%k$,=PMh>e$,$j$^$9!#(B
+    qv_001.ppm, qv_002.ppm ....というファイルが出来上がります。
 
- 8. 8$BKgL\$N%G!<%?$r(BCAM$B7A<0$G<h$j=P$7$?$$!#(B
+ 8. 8枚目のデータをCAM形式で取り出したい。
     qvplay -F cam -g 8 > No8.ppm
 
- 9. TV$BEEOC$4$C$3!)(B(^^)
-    (QV-700/770$B$G$O;H$($^$;$s(B)
-    QV10$B$N2hA|A4It>C$7$F$+$i(B
+ 9. TV電話ごっこ？(^^)
+    (QV-700/770では使えません)
+    QV10の画像全部消してから
     qvplay -t
-    qvplay -g 1 | $B$I$&$K$+$7$FAj<j$KAw$k(B ($B$r$$$r$$(B^^)
+    qvplay -g 1 | どうにかして相手に送る (をいをい^^)
     qvplay -d 1 
-    $B;#1F(B(-t)$B$X$b$I$k(B
+    撮影(-t)へもどる
 
-10. $BCfB.%b!<%I$r;H$C$F#1Kg%G!<%?$r(BJPEG$B7A<0$G<h$j=P$9!#(B
+10. 中速モードを使って１枚データをJPEG形式で取り出す。
     qvplay -S mid -v -o 10.jpg -g 10 
 
-11. $B8wB.%b!<%I$r;H$C$F%G!<%?$r(BJPEG$B7A<0$GA4It$H$j$@$9!#(B 
-    (Linux$B!"(BFreeBSD$B!"(BOS2$B!"(BWinNT/95 only)
-    setserial /dev/cua1 spd_vhi  $B"+(BLinux$B$N>l9g(B
+11. 光速モードを使ってデータをJPEG形式で全部とりだす。 
+    (Linux、FreeBSD、OS2、WinNT/95 only)
+    setserial /dev/cua1 spd_vhi  ←Linuxの場合
     qvplay -S light -v -a
 
     qv_004.jpg, qv_005.jpg, ...... qv_009.jpg, qv_010.jpg, 
-    $B$H$$$&%U%!%$%k$,=PMh>e$,$j$^$9!#(B
+    というファイルが出来上がります。
 
-12. (X680x0 only) X680x0$B$N%0%i%U%#%C%/2hLL$K#6KgL\$N%G!<%?$rI=<((B
+12. (X680x0 only) X680x0のグラフィック画面に６枚目のデータを表示
     qvplay -X 6
 
-$B!|(Bqvrec$B$N;H$$J}(B
+●qvrecの使い方
  
-$B!&(Busage
-  qvrec [$B%*%W%7%g%s(B] $B=q$-9~$_$?$$%U%!%$%k(B1 $B=q$-9~$_$?$$%U%!%$%k(B2 ...
+・usage
+  qvrec [オプション] 書き込みたいファイル1 書き込みたいファイル2 ...
 
-  $B;XDj$7$?2hA|%U%!%$%k$r=gHV$K(BQV-10$B$X=q$-9~$s$@8e$K!"(B
-  QV-10$B$r%j%;%C%H$7$^$9!#(B
-  $B2hA|%U%!%$%k$O(BQV-10$B$K$9$G$K5-O?$5$l$F$$$k2hA|$KDI2C$5$l$k7A(B
-  $B$G=q$-9~$^$l$^$9!#(B
-  $B%U%!%$%k$r;XDj$7$J$+$C$?>l9g!"I8=`F~NO$+$i$NF~NO$r2hA|%U%!%$%k$H(B
-  $B$7$F=q$-9~$_$^$9!#(B(1$BKg$V$s$@$1$G$9(B)
+  指定した画像ファイルを順番にQV-10へ書き込んだ後に、
+  QV-10をリセットします。
+  画像ファイルはQV-10にすでに記録されている画像に追加される形
+  で書き込まれます。
+  ファイルを指定しなかった場合、標準入力からの入力を画像ファイルと
+  して書き込みます。(1枚ぶんだけです)
 
- $B%*%W%7%g%s$N@bL@(B
- -h           $B4JC1$J%*%W%7%g%s$N@bL@$rI=<($7$^$9!#(B
- -v           $B%G!<%?E>AwF0:n$rI8=`%(%i!<=PNO$K4JC1$K%l%]!<%H$7$^$9!#(B
-              $BI=<($5$l$k?t;z$O2hA|HV9f$H%G!<%?E>Aw%P%$%H?t$r<($7$^$9!#(B
-              ($BE>Aw$9$k(BCAM$B7A<0$N2hA|%U%!%$%k$NBg$-$5$G$O$"$j$^$;$s!#(B
-               $B%U%!%$%k%5%$%:$h$j>/$7>.$5$$?t;z$,I=<($5$l$^$9!#(B)
+ オプションの説明
+ -h           簡単なオプションの説明を表示します。
+ -v           データ転送動作を標準エラー出力に簡単にレポートします。
+              表示される数字は画像番号とデータ転送バイト数を示します。
+              (転送するCAM形式の画像ファイルの大きさではありません。
+               ファイルサイズより少し小さい数字が表示されます。)
  -F {ppm,PPM,rgb,RGB,cam,CAM} 
-              $B2hA|%U%)!<%^%C%H$N;XDj(B
-              ppm $B$^$?$O(B PPM     $B2hA|$r(BPPM$B7A<0$H$_$J$7$^$9!#(B
-              rgb $B$^$?$O(B RGB     $B2hA|$r(BRGB(Q0)$B7A<0$H$_$J$7$^$9!#(B
-                                 FAL/IPR$B%U%!%$%k$O9MN8$7$^$;$s!#(B
-              cam $B$^$?$O(B CAM     $B2hA|$r(BCAM$B7A<0$H$_$J$7$^$9!#(B
-              $B%G%U%)%k%H$O(BPPM$B$,;XDj$5$l$F$$$k>uBV$K$J$j$^$9!#(B
-              $B%U%)!<%^%C%HL>$O!"<B:]$OF,#1J8;z$7$+H=JL(B
-              $B$7$F$$$^$;$s$N$G!"(Bphoto$B$G$b(Bpicture$B$G$b(BPPM$B$HF1$8(B
-              $B$G$9!#(B
-              ($B!*!*(BQV100$B$N(BFine$B2hA|$K$OBP1~$7$F$$$^$;$s!#!*!*(B)
-              ($B!*!*(BQV700/770$B$K$bBP1~$7$F$$$^$;$s!#!*!*(B)
-              DOS$BMQ(Bqvrec$B$G$O%U%)!<%^%C%H;XDj$K(BPPM, RGB
-              $B$O;HMQ$G$-$^$;$s!#(B
- -D ttydevice QV10$B$HDL?.$r9T$J$&(Btty$B%G%P%$%9$rJQ99$7$^$9!#(B
-              $B>\$7$/$O(Bqvplay$B$N%*%W%7%g%s$N@bL@$r;2>H$7$F2<$5$$!#(B
- -S {normal,mid,high,top,light} $B$^$?$O(B {1,2,3,4,5}
-              QV10$B$H$NDL?.B.EY$rJQ99$7$^$9!#>\$7$/$O(Bqvplay$B$N(B
-              $B%*%W%7%g%s$N@bL@$r;2>H$7$F2<$5$$!#(B
+              画像フォーマットの指定
+              ppm または PPM     画像をPPM形式とみなします。
+              rgb または RGB     画像をRGB(Q0)形式とみなします。
+                                 FAL/IPRファイルは考慮しません。
+              cam または CAM     画像をCAM形式とみなします。
+              デフォルトはPPMが指定されている状態になります。
+              フォーマット名は、実際は頭１文字しか判別
+              していませんので、photoでもpictureでもPPMと同じ
+              です。
+              (！！QV100のFine画像には対応していません。！！)
+              (！！QV700/770にも対応していません。！！)
+              DOS用qvrecではフォーマット指定にPPM, RGB
+              は使用できません。
+ -D ttydevice QV10と通信を行なうttyデバイスを変更します。
+              詳しくはqvplayのオプションの説明を参照して下さい。
+ -S {normal,mid,high,top,light} または {1,2,3,4,5}
+              QV10との通信速度を変更します。詳しくはqvplayの
+              オプションの説明を参照して下さい。
 
-$B!JCm0U!K(B $B=q$-9~$`2hA|$O!#(B
-         PPM$B7A<0$N>l9g$O(Braw(P6)$B%U%)!<%^%C%H$G!"(BRGB$B3F(B256$B3,D4$N(B24bit
-         $B%+%i!<!"Bg$-$5(B480x240$B%I%C%H$N$b$N$7$+$&$1$D$1$^$;$s!#(B
-         RGB$B7A<0$N>l9g$b(BPPM$B7A<0$HF1MM(B(480x240$B$N$_(B)$B$G$9$,!"Bg$-$5!"(B
-         $B3,D4Ey$N%A%'%C%/$r0l@Z9T$J$o$J$$$N$G!"Cm0U$7$F$/$@$5$$!#(B
+（注意） 書き込む画像は。
+         PPM形式の場合はraw(P6)フォーマットで、RGB各256階調の24bit
+         カラー、大きさ480x240ドットのものしかうけつけません。
+         RGB形式の場合もPPM形式と同様(480x240のみ)ですが、大きさ、
+         階調等のチェックを一切行なわないので、注意してください。
 
-$B!&NcBj(B
- 1. PPM$B7A<0$N2hA|%U%!%$%k$r(BQV-10$B$X=q$-9~$`(B
+・例題
+ 1. PPM形式の画像ファイルをQV-10へ書き込む
     qvrec file1.ppm file2.ppm file3.ppm
-    $B$9$G$K(BQV-10$B$K(B4$BKg$N2hA|$,5-O?$5$l$F$$$?>l9g!"(B
-    file1.ppm$B$O2hA|HV9f(B5$B$K!"(B
-    file2.ppm$B$O2hA|HV9f(B6$B$K!"(B
-    file3.ppm$B$O2hA|HV9f(B7$B$K!"(B
-    $B5-O?$5$l$^$9!#(B
+    すでにQV-10に4枚の画像が記録されていた場合、
+    file1.ppmは画像番号5に、
+    file2.ppmは画像番号6に、
+    file3.ppmは画像番号7に、
+    記録されます。
 
- 2. $B9bB.%b!<%I$r;H$C$F(BPPM$B7A<0$N2hA|%U%!%$%k$r(BQV-10$B$X=q$-9~$`(B
-    $B2hA|%U%!%$%k$NE>Aw>u67$b8+$?$$(B
+ 2. 高速モードを使ってPPM形式の画像ファイルをQV-10へ書き込む
+    画像ファイルの転送状況も見たい
     qvrec -v -S h file.ppm
 
- 3. $BI8=`F~NO$+$i(BPPM$B7A<0$N2hA|%U%!%$%k$r(BQV-10$B$X=q$-9~$`(B
+ 3. 標準入力からPPM形式の画像ファイルをQV-10へ書き込む
     cat file.ppm | qvrec
 
- 4. CAM$B7A<0$N2hA|%U%!%$%k$r(BQV-10$B$X=q$-9~$`(B
+ 4. CAM形式の画像ファイルをQV-10へ書き込む
     qvrec -F cam file1.cam
 
-$B!|(Bqvalldel$B$N;H$$J}(B
+●qvalldelの使い方
  
-$B!&(Busage
-  qvalldel [$B%*%W%7%g%s(B]
+・usage
+  qvalldel [オプション]
 
-  QV10$B$K5-O?$5$l$F$$$k2hA|$rA4It:o=|$7$?8e$K!"(BQV10$B$r%j%;%C%H$7$^$9!#(B
-  $B!JCm0U!*!*!K%W%m%F%/%H$r$+$1$?2hA|$b:o=|$5$l$^$9!#(B
-  $B5/F0$9$k$H!"(BAre you sure? $B$HJ9$$$F$-$^$9$N$G(By$B$rF~NO$9$k$H!"(B
-  $BA42hA|$,:o=|$5$l$^$9!#(B
+  QV10に記録されている画像を全部削除した後に、QV10をリセットします。
+  （注意！！）プロテクトをかけた画像も削除されます。
+  起動すると、Are you sure? と聞いてきますのでyを入力すると、
+  全画像が削除されます。
 
-  FATAL ERROR$B$K$J$C$F"v$-$`$i$+$:$7$5$s$N(Bqv10faq$B$K$"$k(B
-  $B%j%;%C%HA`:n$b8z$+$J$$(BQV10$B$N>l9g!"$3$N(Bqvalldel$B$r;H$&(B
-  $B$3$H$G(BQV10$B$,I|3h$9$k>l9g$,$"$j$^$9!#(B
+  FATAL ERRORになって♪きむらかずしさんのqv10faqにある
+  リセット操作も効かないQV10の場合、このqvalldelを使う
+  ことでQV10が復活する場合があります。
                       ~~~~~~~~~~~~~~
 
-  qvalldel $B$O%@%a%b%H$G(BFATAL ERROR$B$+$i$NI|3h$K;HMQ$9$k$?$a$K(B
-  $B:n$C$?$b$N$G$9!#DL>o$N;HMQ$K$*$$$F$NA42hA|$N:o=|$O!"AGD>$K(BQV10$B$N(B
-  [DEL$B%\%?%s(B][-]$B%\%?%s$K$h$kA`:n$G9T$J$C$F$/$@$5$$!#(B
+  qvalldel はダメモトでFATAL ERRORからの復活に使用するために
+  作ったものです。通常の使用においての全画像の削除は、素直にQV10の
+  [DELボタン][-]ボタンによる操作で行なってください。
 
- $B%*%W%7%g%s$N@bL@(B
- -h           $B4JC1$J%*%W%7%g%s$N@bL@$rI=<($7$^$9!#(B
- -f           Are you sure?$B$N%a%C%;!<%8$r=P$5$:!"$$$-$J$j(B
-              $BA42hA|$r:o=|$7$^$9!#(B
- -D ttydevice QV10$B$HDL?.$r9T$J$&(Btty$B%G%P%$%9$rJQ99$7$^$9!#(B
-              $B>\$7$/$O(Bqvplay$B$N%*%W%7%g%s$N@bL@$r;2>H$7$F2<$5$$!#(B
+ オプションの説明
+ -h           簡単なオプションの説明を表示します。
+ -f           Are you sure?のメッセージを出さず、いきなり
+              全画像を削除します。
+ -D ttydevice QV10と通信を行なうttyデバイスを変更します。
+              詳しくはqvplayのオプションの説明を参照して下さい。
 
-$B!|2hA|%U%)!<%^%C%H$K$D$$$F(B
+●画像フォーマットについて
 
-$B!&(BPPM$B7A<0(B
-Unix$B7O(BOS$B$N%U%j!<%=%U%H(Bnetpbm/pbmplus$B$G07$o$l$kI8=`%U%)!<%^%C%H$G$9!#(B
-P3$B7A<0$H(BP6$B7A<0$,$"$j$^$9$,!"(Bqvplay$B$G$O(BP6$B7A<0$G=PNO$7$^$9!#(B
-$B@hF,$K(BASCII$BJ8;z$G(B
+・PPM形式
+Unix系OSのフリーソフトnetpbm/pbmplusで扱われる標準フォーマットです。
+P3形式とP6形式がありますが、qvplayではP6形式で出力します。
+先頭にASCII文字で
 P6\n
-$BI}%I%C%H?t(B\n
-$B9b$5%I%C%H?t(B\n
+幅ドット数\n
+高さドット数\n
 255\n
-$B$N#39T$NJ8;zNs$r=q$$$?8e$m$K#1%I%C%H$:$D(BRGB$B#3%P%$%H(B
-$B$N%G!<%?$r%P%$%J%j$GB3$1$?$b$N$G$9!#(B
-($B87L)$K$O(B\n$B$O%9%Z!<%9$d(BTAB$B$G$b$+$^$$$^$;$s$7!"(B
- '#'$B0J9_(B\n$B$^$G$O%3%a%s%H$K$J$j$^$9!#(B)
+の３行の文字列を書いた後ろに１ドットずつRGB３バイト
+のデータをバイナリで続けたものです。
+(厳密には\nはスペースやTABでもかまいませんし、
+ '#'以降\nまではコメントになります。)
 
-$B!&(BRGB(Q0)$B7A<0(B
-$B<B$ONI$/CN$i$J$$$N$G$9$,(B(^^;;$B!"(BNifty$B$N(BFQLD$B%U%)!<%i%`$G(B
-$BNI$/;H$o$l$F$$$k2hA|%U%)!<%^%C%H$G$9!#(B
-$BI}!"9b$5!"?'$N?<$_Ey$N>pJs$O0l@Z$J$/!"C1=c$K(B
-RGB$B#3%P%$%H$N%G!<%?$rJB$Y$?$b$N$G$9!#(B
-$B$3$N$^$^$G$OI}!"9b$5$N>pJs$,$J$$$N$G!"IaDL$O(BFAL$B%U%!%$%k(B
-$B$^$?$O(BIPR$B%U%!%$%k$H8F$P$l$k%U%!%$%k$HAH$G07$o$l$^$9!#(B
-qvplay$B$G$O(BFAL/IPR$B%U%!%$%k$O=PNO$7$^$;$s$N$G!"0J2<$N$h$&$J(B
-$BFbMF$N(BFAL/IPR$B%U%!%$%k$r%F%-%9%H%(%G%#%?Ey$G:n@.$7$FMxMQ(B
-$B$7$F2<$5$$!#(B
+・RGB(Q0)形式
+実は良く知らないのですが(^^;;、NiftyのFQLDフォーラムで
+良く使われている画像フォーマットです。
+幅、高さ、色の深み等の情報は一切なく、単純に
+RGB３バイトのデータを並べたものです。
+このままでは幅、高さの情報がないので、普通はFALファイル
+またはIPRファイルと呼ばれるファイルと組で扱われます。
+qvplayではFAL/IPRファイルは出力しませんので、以下のような
+内容のFAL/IPRファイルをテキストエディタ等で作成して利用
+して下さい。
 
-*.FAL$B$NFbMF(B
-(thumbnail$B2hA|$N>l9g$O(B480 240$B$NItJ,$r(B52 36$B$KJQ99$7$F$/$@$5$$(B)
-(Fine$B2hA|$N>l9g$O(B480 240$B$NItJ,$r(B640 480$B$KJQ99$7$F$/$@$5$$(B)
+*.FALの内容
+(thumbnail画像の場合は480 240の部分を52 36に変更してください)
+(Fine画像の場合は480 240の部分を640 480に変更してください)
 F_ALL(V1.00)
   480   240     0     0
    1.00   255   255   255   0
-*.IPR$B$NFbMF(B
-(thumbnail$B2hA|$N>l9g$O(B480 240$B$NItJ,$r(B52 36$B$KJQ99$7$F$/$@$5$$(B)
-(Fine$B2hA|$N>l9g$O(B480 240$B$NItJ,$r(B640 480$B$KJQ99$7$F$/$@$5$$(B)
+*.IPRの内容
+(thumbnail画像の場合は480 240の部分を52 36に変更してください)
+(Fine画像の場合は480 240の部分を640 480に変更してください)
 480 240 0 0
 
-$B!&(BBMP$B7A<0(B
-Windows/OS2$BEy$G;H$o$l$k2hA|%U%)!<%^%C%H$G$9!#(B
-qvplay$B$G$O(BWindows 3.x$B7A<0!"(B24bit$B%+%i!<$N(BBMP$B7A<0$G%U%!%$%k(B
-$B=PNO$7$^$9!#(B
+・BMP形式
+Windows/OS2等で使われる画像フォーマットです。
+qvplayではWindows 3.x形式、24bitカラーのBMP形式でファイル
+出力します。
 
-$B!&(BJPEG$B7A<0(B
-$B$$$o$f$k(BJFIF$B$G$9$,!"(BQV-10/100$B7O$N>l9g(BNormal$B2hA|$O!"(B
-$BI}!"9b$5$,(B480x240$B!"%N%s%$%s%?!<%j!<%V7A<0!"2hA|@:EY(B8$B!"(B
-$B%3%s%]!<%M%s%H(B3$B!"?'@.J,4V0zN((B2:3$B$H$$$&$A$g$C$HJQ$o$C$?(B
-$B%U%!%$%k7A<0$G$9$N$GBP1~$7$F$$$J$$(BJPEG$B%"%W%j%1!<%7%g%s(B
-$B$b7k9=$"$j$^$9!#(B
-QV-100$B7O$N(BFine$B2hA|$^$?$O!"(BQV-700/700$B7O$N$9$Y$F$N2hA|$O!"(B
-$BI}!"9b$5$,(B640x480$B!"%3%s%]!<%M%s%H(B3$B!"?'@.J,4V0zN((B2:2$B$N0lHLE*!)(B
-$B$J$b$N$G$9$N$G!"$[$\$9$Y$F$N(BJPEG$B%"%W%j%1!<%7%g%s$G(B
-$B07$&$3$H$,$G$-$^$9!#(B
+・JPEG形式
+いわゆるJFIFですが、QV-10/100系の場合Normal画像は、
+幅、高さが480x240、ノンインターリーブ形式、画像精度8、
+コンポーネント3、色成分間引率2:3というちょっと変わった
+ファイル形式ですので対応していないJPEGアプリケーション
+も結構あります。
+QV-100系のFine画像または、QV-700/700系のすべての画像は、
+幅、高さが640x480、コンポーネント3、色成分間引率2:2の一般的？
+なものですので、ほぼすべてのJPEGアプリケーションで
+扱うことができます。
 
-$B!|B>$K$"$k$H4r$7$$%U%j!<%&%'%"!?%7%'%"%&%'%"(B
+●他にあると嬉しいフリーウェア／シェアウェア
 
- $B>R2p$7$F$$$k(BURL$B$OE,Ev$K(Barchie$B$GC5$7$?$b$N$G$9!#(B
- $B$3$N%I%-%e%a%s%H$rFI$s$G$$$k;~$K$O$9$G$KB8:_$7$F$$$J$$(B
- $B$+$bCN$l$^$;$s$N$G!"Cm0U$7$F$/$@$5$$!#(B
+ 紹介しているURLは適当にarchieで探したものです。
+ このドキュメントを読んでいる時にはすでに存在していない
+ かも知れませんので、注意してください。
 
-$B!&(BUnix$B7O(BOS$B$N>l9g(B
-  cam2jpeg        (CAM$B7A<0$+$i(BJPEG$B7A<0$X$NJQ49%U%#%k%?(B)
-                  $B:G6a$N%P!<%8%g%s$O(BQV100$B$N(BFine$B2hA|$d!"(B
-                  QV700/770$B$N(BCAM$B%U%!%$%k$KBP1~$7$F$$$^$9!#(B
-                  $B8e=R$N(Bxv3.10a$B$H%;%C%H$G;H$&$HNI$$$G$7$g$&!#(B
+・Unix系OSの場合
+  cam2jpeg        (CAM形式からJPEG形式への変換フィルタ)
+                  最近のバージョンはQV100のFine画像や、
+                  QV700/770のCAMファイルに対応しています。
+                  後述のxv3.10aとセットで使うと良いでしょう。
  <ftp://ftp.itojun.org/pub/digi-cam/QV10/unix/>
 
-  netpbm$B$+(Bpbmplus ($B%U%!%$%k%U%)!<%^%C%HJQ49%U%#%k%?=8(B)
+  netpbmかpbmplus (ファイルフォーマット変換フィルタ集)
  <ftp://ftp.info.eng.niigata-u.ac.jp/pub/X11/client/netpbm/>
-  djpeg           (Independent JPEG Group$B$N(Bjpeg$B%i%$%V%i%j(B
-                   $B$N%5%s%W%k$H$7$FF~$C$F$$$^$9!#(Bjpeg$B%i%$%V%i%j(B
-                  $B<+BN$O2<$N(Bxv-3.10a$B$KImB0$7$F$$$^$9!#(B)
+  djpeg           (Independent JPEG Groupのjpegライブラリ
+                   のサンプルとして入っています。jpegライブラリ
+                  自体は下のxv-3.10aに附属しています。)
 
-  xv-3.10a        ($BK|G=2hA|%S%e!<%"(B $B%7%'%"%&%'%"!"%"%9%Z%/%HHf!"(B
-                   $B?'Jd@5$b4JC1$K$G$-$k$N$G=EJu$7$F$$$^$9!#(B
-                   $B%7%'%"%&%'%"Be6b$OM9JX6I$N9q:]Aw6b$r;H$C$F(B
-                   $BAw$k$3$H$,$G$-$^$9!#(B)
+  xv-3.10a        (万能画像ビューア シェアウェア、アスペクト比、
+                   色補正も簡単にできるので重宝しています。
+                   シェアウェア代金は郵便局の国際送金を使って
+                   送ることができます。)
  <ftp://ftp.airlab.cs.ritsumei.ac.jp/pub/X/xv-3.10a.tar.gz>
 
   xv-310a-jp-extension
-                  (xv$B$K(BPIC$B!"(BPIC2$BEy$NF|K\$G$h$/N.DL$7$F$$$k(B
-                   $B2hA|%U%)!<%^%C%H$rFI$_=q$-$G$-$k$h$&$K$9$k(B
-                   $B%Q%C%A!#(Bitojun$B$5$s$N(Bcamtojpeg$B$,$"$l$P!"(B
-                   CAM$B7A<0$b07$($k$h$&$K$J$k$N$G!"$3$l$H(B
-                   qvplay$B$,$"$l$PD66K3Z$G$9!#(B^^)
+                  (xvにPIC、PIC2等の日本でよく流通している
+                   画像フォーマットを読み書きできるようにする
+                   パッチ。itojunさんのcamtojpegがあれば、
+                   CAM形式も扱えるようになるので、これと
+                   qvplayがあれば超極楽です。^^)
  <ftp://ftp.airlab.cs.ritsumei.ac.jp/pub/X/xv-jp-extension/>
 
-$B!&(BX680x0$B$N>l9g(B
-  PIC.X$B$+(BAPIC.X   ($B8@$o$:$HCN$l$?(BPIC$B2hA|%m!<%@!u%;!<%P!#(B
-                   qvplay.x$B$N(B-X$B%*%W%7%g%s$G2hLL$KI=<($5$;$F$+$i(B
-                   PIC.X$B$G%;!<%V$9$k$H(BPIC$B7A<0$N%U%!%$%k$,:n$l$^$9(B)
+・X680x0の場合
+  PIC.XかAPIC.X   (言わずと知れたPIC画像ローダ＆セーバ。
+                   qvplay.xの-Xオプションで画面に表示させてから
+                   PIC.XでセーブするとPIC形式のファイルが作れます)
  <ftp://ring.vector.co.jp/archives/common/x68/graphics/>
 
-  VIEWCAM.X       (CAM$B7A<0$rI=<($G$-$k2hA|%m!<%@$G$9!#$3$l$G(B
-                   X680x0$B$G$b(Bcam$B7A<0$G2hA|$rJ]B8$7$F$*$1$P$$$D$G$b(B
-                   $B2hA|$r8+$k$3$H$,$G$-$^$9!#(B)
+  VIEWCAM.X       (CAM形式を表示できる画像ローダです。これで
+                   X680x0でもcam形式で画像を保存しておけばいつでも
+                   画像を見ることができます。)
  <http://www.vector.co.jp/authors/VA004839/>
 
-  TMSIO.X$BEy(B       ($B$$$o$:$HCN$l$?9bB.%7%j%"%k%I%i%$%P!#(B
-                   mid(19200baud)$B0J>e$NB.EY$GE>Aw$r9T$J$&>l9g$O(B
-                   $B$"$i$+$8$a>oCs$9$k$h$&$K$7$F$/$@$5$$!#(B)
+  TMSIO.X等       (いわずと知れた高速シリアルドライバ。
+                   mid(19200baud)以上の速度で転送を行なう場合は
+                   あらかじめ常駐するようにしてください。)
  <ftp://ring.vector.co.jp/archives/common/x68/comm/tmn/>
                    
-$B!&(BWindowsNT/95$B$N>l9g(B
-  Susie32         ($BK|G=2hA|%S%e!<%"!"%W%i%0%$%s$rDI2C$9$k$3$H$G(B
-                   $B$$$m$$$m$J%U%)!<%^%C%H$N2hA|$r07$($^$9!#(B
-                   $B&B%P!<%8%g%s$J$,$i(BCAM$B7A<0$N%W%i%0%$%s$b$"$j$^$9(B
-                   $B$N$G!"$3$l$H(Bqvplay.exe$B$,$"$l$PD66K3Z$G$9!#(B^^)
-                   Susie$B$H(BCAM$BMQ%W%i%0%$%s$O%[!<%`%Z!<%8(B
+・WindowsNT/95の場合
+  Susie32         (万能画像ビューア、プラグインを追加することで
+                   いろいろなフォーマットの画像を扱えます。
+                   βバージョンながらCAM形式のプラグインもあります
+                   ので、これとqvplay.exeがあれば超極楽です。^^)
+                   SusieとCAM用プラグインはホームページ
                    <http://www.st.rim.or.jp/~otake/>
-                   $B$+$i<h$C$FMh$l$^$9!#(B
+                   から取って来れます。
 
-  QVE.EXE         (qvplay.exe$BMQ$N(BWindows$BMQ(BGUI$B$G$9!#(B)
-                  NIFTY $B$N(B FWINMM LIB-6$B$K$"$k$h$&$G$9!#(B
+  QVE.EXE         (qvplay.exe用のWindows用GUIです。)
+                  NIFTY の FWINMM LIB-6にあるようです。
 
-$B!&$=$NB>(B
-  $BEE;R9):n$N<qL#$N$"$kJ}$O;3K\$5$s$N(B"QV10$B!c(BURA$B!d(BInfo"$B$,(B
-  $B;29M$K$J$k$+$b$7$l$^$;$s!#(B
+・その他
+  電子工作の趣味のある方は山本さんの"QV10＜URA＞Info"が
+  参考になるかもしれません。
   <http://www.kiwi-us.com/~mohyama/article/QV10/>
 
-  DOS$BMQ$r;H$&>l9g$O!"?\ED$5$s$N%[!<%`%Z!<%8$,;29M$K$J$j$^$9!#(B
-  MCD$B$bCV$$$F$"$j$^$9!#(B
+  DOS用を使う場合は、須田さんのホームページが参考になります。
+  MCDも置いてあります。
   <http://http://fujita.kuee.kyoto-u.ac.jp/~suda/qv/>
 
-  OS/2$B$NJ}$O(BSterm$B$H$$$&DL?.%=%U%H$KImB0$N(BSTCOM.SYS$B$r;H$&$H(B
-  -S light$B$,;H$($k$i$7$$$G$9!#(B
+  OS/2の方はStermという通信ソフトに附属のSTCOM.SYSを使うと
+  -S lightが使えるらしいです。
 
-  $B$I$&$7$F$b(BRTS$B$,(BOFF$B$K$J$i$J$$(BOS$B$r;H$C$F$$$k>l9g$d!"(B
-  $B8wB.(B(115200baud)$B%b!<%I$r;H$$$?$$>l9g$OKYK\$5$s$d(B
-  GAMMA$B5\K\$5$s$N%[!<%`%Z!<%8$G>R2p$5$l$F$$$k(BMAX232$B$r(B
-  $B;H$C$?%7%j%"%k%$%s%?%U%'!<%9$r;H$C$F$_$k$H$$$$$+$bCN$l$^$;$s!#(B
+  どうしてもRTSがOFFにならないOSを使っている場合や、
+  光速(115200baud)モードを使いたい場合は堀本さんや
+  GAMMA宮本さんのホームページで紹介されているMAX232を
+  使ったシリアルインタフェースを使ってみるといいかも知れません。
   <http://www.bekkoame.or.jp/~horimoto/QV-MAX/>
   <http://home.interlink.or.jp/~gamma/qv10.html>
 
-$B!|%G!<%?E>Aw$K$+$+$k;~4V(B($B;29M(B)
-  QV-10$B$N(BNormal$B2hA|(B96$BKg$N%G!<%?$r(BJPEG$B7A<0$GA4It<h$j=P$9$N(B
-  $B$K$+$+$C$?;~4V$G$9!#(B
-  (486DX4 Linux 1.2.8 $B$G(B qvplay -S n -v -a $B$H$7$F7WB,(B)
-    $BB.EY(B               $B;~4V(B
-  1 normal   $BI8=`B.(B    $B#3#8J,#3#1IC(B
-  2 mid      $BCfB.(B      $B#3#1J,#3#2IC(B
-  3 high     $B9bB.(B      $B#1#1J,#5#2IC(B
-  4 top      $BD69bB.(B      $B#9J,#2#7IC(B
-  5 light    $B8wB.(B        $B#7J,#0#1IC(B
-  $B$$$C$?$s8wB.%b!<%I$K47$l$k$H$b$&I8=`B.$O;H$($^$;$s!#(B(^^)
+●データ転送にかかる時間(参考)
+  QV-10のNormal画像96枚のデータをJPEG形式で全部取り出すの
+  にかかった時間です。
+  (486DX4 Linux 1.2.8 で qvplay -S n -v -a として計測)
+    速度               時間
+  1 normal   標準速    ３８分３１秒
+  2 mid      中速      ３１分３２秒
+  3 high     高速      １１分５２秒
+  4 top      超高速      ９分２７秒
+  5 light    光速        ７分０１秒
+  いったん光速モードに慣れるともう標準速は使えません。(^^)
 
-$B!|<U<-(B
-$B!&(Bcam$B7A<0$N2r@O$r9T$J$C$F2<$5$C$?4d4V$5$s(B
-$B!&(Bcam$B$+$i(Bjpeg$B$X$NJQ49%=%U%H%&%'%"$r$D$/$C$F2<$5$C$?(Bitojun$B$5$s!"@gED$5$s(B
-$B!&(Bqv10faq.txt$B$r:n@.$7$F$/$@$5$C$?"v$-$`$i$+$:$7$5$s(B
-$B!&DL?.%W%m%H%3%k$K$D$$$FHs>o$KM-1W$J>pJs$r$/$@$5$C$?(B
-  Brahma$B$5$s!"(BGoto$B$5$s!"(Bmario$B$5$s!"(BYato$B$5$s(B
-$B!&(BX680x0$BHG$K$D$$$FF0:n%F%9%H!u%"%I%P%$%9$r$$$?$@$$$?A}ED$5$s!"Lx@n$5$s(B
-$B!&(BNT/95$BHG$K$D$$$FF0:n%F%9%H!u%"%I%P%$%9$r$$$?$@$$$?$P$+$j$+!"(B
-  GUI$B%W%m%0%i%`(BQVW.EXE$B$^$G:n$C$F$/$@$5$C$?J?Ln$5$s(B
-$B!&(BOS/2$BHG$r:n@.$7$F$/$@$5$C$?Bg5WJ]$5$s(B
-$B!&(BDOS$BHG$r:n@.$7$F$/$@$5$C$??\ED$5$s(B
-$B!&(BX680x0$BMQ(BCAM$B2hA|%m!<%@(Bviewcam.x$B$r3+H/$7$F$/$@$5$C$?$"$5$H$5$s(B
-$B!&(BFreeBSD$B$N(BRTS$BC<;R$NLdBj$r2r7h$9$kJ}K!$r65$($F$/$@$5$C$?2<@n$5$s!#(B
-$B!&EECSEE05%l%]!<%H5!G=$N$?$a$N>\$7$$%G!<%?$r7WB,$7$F$/$@$5$C$?7,ED$5$s(B
-$B!&(BQV100$B$rB_$7$F$/$@$5$C$?LZB<$5$s!#(B($BLZB<$5$s$N$46(NO$J$7$G$O(Bqvplay$B$N(B
-  QV100$BBP1~$O$"$j$($J$+$C$?$G$7$g$&!#(B)
-$B!&(BHP100/200LX$BMQ(Bqvplay$B$N(BQVRemote$B$r:n@.$7$F$/$@$5$$$C$??}It$5$s(B
-$B!&(Bqvplay$B$NF0:n%F%9%HJs9p!u%"%I%P%$%9$r$$$?$@$$$?(B
-  itojun$B$5$s!"5WED$5$s!"Ln3~$5$s!""v$-$`$i$+$:$7$5$s!"(B
-  $BBgFb$5$s!"0BED$5$s!"0l?'$5$s!">>;3$5$s!"A}ED$5$s!"(B
-  $BJ?Ln$5$s!"F#ED$5$s!":#0f$5$s!"BgDm$5$s!"I1Ln$5$s!"(B
-  $BB<0f$5$s!"$O$M$5$s!"K7G@$5$s!"B<Hx$5$s!"Bg5WJ]$5$s(B
-  $BED^<$5$s!"$R$P$i$5$s!"Lx@n$5$s!"1|Ln$5$s!"=j$5$s!"(B
-  $B;3K\$5$s!"552,$5$s!"5\K\$5$s!"(BLinus Jin$B$5$s!"(B
-  $BB?ED$5$s!"0MED$5$s!"5WLg$5$s!"(BRobert Bunting$B$5$s!"(B
-  Stuart Inglis$B$5$s!"(BEd Wang$B$5$s!"Cf0f$5$s!"(B
-  Emerson Brasil Gomes$B$5$s!"(BJohan Verner Olsen$B$5$s!"(B
-  Brian Fahrlander$B$5$s!"$*$b$F$5$s!"(BJason Froebe$B$5$s!"(B
-  $B?9$5$s!"8Q:j$5$s!"(B $B:4!9LZ$5$s!":4F#$5$s!"(B
-  Ed Grimm$B$5$s!"(BFerenc Papai$B$5$s!"(BJean-Baptiste Nivoit$B$5$s!"(B
-  Jason Froebe$B$5$s!"(BMagnus Therning$B$5$s!"(BEd Grimm$B$5$s!"(B
-  $BB>!"Bt;3$NJ}!9!#(B($B=gITF1(B)
-$B!&DL?.%W%m%H%3%k@bL@1Q8lHG$N;d$N%"%d%7%2$J1Q8l$r6:@5$7$F$/$@$5$C$?(B
-  Erica Sadun$B$5$s(B
-$B!&1Q8lHG(Bman page $B$r=q$$$F$/$@$5$$$^$7$?(BBob Hepple$B$5$s!"(B
-$B!&2x$7$$1Q8lHG$N(BREADME$B$r9;@5$7$F$/$@$5$C$?(BEd Grimm$B$5$s(B
-$B!&$=$7$F!"(BQV-10$B$r4k2h@_7W@8;:HNGd=$M}(B(^^;$B$7$F$/$@$5$C$?(BCASIO$B$N3'MM(B
+●謝辞
+・cam形式の解析を行なって下さった岩間さん
+・camからjpegへの変換ソフトウェアをつくって下さったitojunさん、仙田さん
+・qv10faq.txtを作成してくださった♪きむらかずしさん
+・通信プロトコルについて非常に有益な情報をくださった
+  Brahmaさん、Gotoさん、marioさん、Yatoさん
+・X680x0版について動作テスト＆アドバイスをいただいた増田さん、柳川さん
+・NT/95版について動作テスト＆アドバイスをいただいたばかりか、
+  GUIプログラムQVW.EXEまで作ってくださった平野さん
+・OS/2版を作成してくださった大久保さん
+・DOS版を作成してくださった須田さん
+・X680x0用CAM画像ローダviewcam.xを開発してくださったあさとさん
+・FreeBSDのRTS端子の問題を解決する方法を教えてくださった下川さん。
+・電池電圧レポート機能のための詳しいデータを計測してくださった桑田さん
+・QV100を貸してくださった木村さん。(木村さんのご協力なしではqvplayの
+  QV100対応はありえなかったでしょう。)
+・HP100/200LX用qvplayのQVRemoteを作成してくださいった雀部さん
+・qvplayの動作テスト報告＆アドバイスをいただいた
+  itojunさん、久田さん、野萱さん、♪きむらかずしさん、
+  大内さん、安田さん、一色さん、松山さん、増田さん、
+  平野さん、藤田さん、今井さん、大庭さん、姫野さん、
+  村井さん、はねさん、坊農さん、村尾さん、大久保さん
+  田渕さん、ひばらさん、柳川さん、奥野さん、所さん、
+  山本さん、亀岡さん、宮本さん、Linus Jinさん、
+  多田さん、依田さん、久門さん、Robert Buntingさん、
+  Stuart Inglisさん、Ed Wangさん、中井さん、
+  Emerson Brasil Gomesさん、Johan Verner Olsenさん、
+  Brian Fahrlanderさん、おもてさん、Jason Froebeさん、
+  森さん、狐崎さん、 佐々木さん、佐藤さん、
+  Ed Grimmさん、Ferenc Papaiさん、Jean-Baptiste Nivoitさん、
+  Jason Froebeさん、Magnus Therningさん、Ed Grimmさん、
+  他、沢山の方々。(順不同)
+・通信プロトコル説明英語版の私のアヤシゲな英語を矯正してくださった
+  Erica Sadunさん
+・英語版man page を書いてくださいましたBob Heppleさん、
+・怪しい英語版のREADMEを校正してくださったEd Grimmさん
+・そして、QV-10を企画設計生産販売修理(^^;してくださったCASIOの皆様
 
-$B!|$o$+$C$F$$$k%P%0!?;EMM(B
-$B!&(BQV-100/300$B$G(Bqvplay$B$N(B -t($B;#1F(B)$B%*%W%7%g%s$,@5$7$/:nF0$7$J$$(B
-$B!&(Bqvrec$B$O(BQV-100$B7O$N(BFine$B%b!<%I$d(BQV-700/770$B$KBP1~$7$F$$$J$$(B
-$B!&(BDOS$BHG$O$$$^$$$A(B($BFC$K(Bfine$B%b!<%I(B)$B$^$H$b$KF0$+$J$$(B(^^;;;;
+●わかっているバグ／仕様
+・QV-100/300でqvplayの -t(撮影)オプションが正しく作動しない
+・qvrecはQV-100系のFineモードやQV-700/770に対応していない
+・DOS版はいまいち(特にfineモード)まともに動かない(^^;;;;
 
-$B!|:#8e$N2]Bj(B
- qvplay$B%7%j!<%:$O$3$N%P!<%8%g%s$r$b$C$F3+H/$r=*N;$7$^$9!#(B
- $B0J2<$N2]Bj$,$^$@;D$C$F$$$^$9$,$@$l$+D)@o$7$^$;$s$+(B?
-$B!&DL?.%W%m%H%3%k$N$5$i$J$k2rL@(B
-$B!&(B-t$B%*%W%7%g%s(B($B;#1F(B)$B$N0BDj2TF/(B
-$B!&(Bqvrec$B$N(BQV-100/300/700/770$B$X$NBP1~(B
-$B!&(BDOS$BHG$NF0:n0BDj2=(B
-$B!&(Bnv$B$KBP1~$5$;$F(BCUSeeMe$B$9$k!#(B(3$B%3%^!?J,$0$i$$$J$i$$$1$=$&(B)
+●今後の課題
+ qvplayシリーズはこのバージョンをもって開発を終了します。
+ 以下の課題がまだ残っていますがだれか挑戦しませんか?
+・通信プロトコルのさらなる解明
+・-tオプション(撮影)の安定稼働
+・qvrecのQV-100/300/700/770への対応
+・DOS版の動作安定化
+・nvに対応させてCUSeeMeする。(3コマ／分ぐらいならいけそう)
 
-$B!|3'MM$X$NMWK>(B
-$B!&%P%0%l%]!<%H!"2~A1MW5a$OBg4?7^$G$9!#(B
-  (xg2k-hys@asahi-net.or.jp$B$^$G$I$&$>(B)
-$B!&3F<o(BUnix$B%W%i%C%H%U%)!<%`$G$NF0:n3NG'$bBg4?7^$G$9!#(B
-$B!&3F<o4D6-$X$N0\?"$bBg4?7^$G$9!#(B
-  ($B2?8N$+(BQV-10$B$N2r@bK\$@$1=P$F$k(BB-TRON$B$C$F!D$$$C$?$$!)(B)
-$B!&(BNEXTSTEP$B$G(BRTS$B$r(Boff$B$K$7$?$^$^%7%j%"%kDL?.$9$kJ}K!!"(B
-  $BC/$+65$($F2<$5$$(B
+●皆様への要望
+・バグレポート、改善要求は大歓迎です。
+  (xg2k-hys@asahi-net.or.jpまでどうぞ)
+・各種Unixプラットフォームでの動作確認も大歓迎です。
+・各種環境への移植も大歓迎です。
+  (何故かQV-10の解説本だけ出てるB-TRONって…いったい？)
+・NEXTSTEPでRTSをoffにしたままシリアル通信する方法、
+  誰か教えて下さい
 

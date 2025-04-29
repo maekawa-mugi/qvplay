@@ -2,19 +2,19 @@ This patch is needed for old versions of FreeBSD.
 (older than 2.2)
 
 ---
-RTS$B$r(Boff$B$K$7$?$^$^(BFreeBSD$B$G%O!<%I%U%m!<$J$7DL?.$r9T$J$($k$h$&$K(B
-$B$9$k$?$a$N%Q%C%A$G$9!#$3$N%Q%C%A$r%+!<%M%k$K$"$F$k$3$H$G!"(BFreeBSD
-$B$G$b%1!<%V%k$N2~B$$J$7$G(Bqvplay$B$,;H$($k$h$&$K$J$k!V$O$:!W$G$9!#(B
-$B!J>pJsDs6!$"$j$,$H$&$4$6$$$^$9!#!d2<@n!wElBg$5$s!K(B
-$B$J$*!"$3$N%Q%C%A$O(BRTS$B@)8f$N$?$a$N(Bofficial$B$J%Q%C%A$G$O$"$j$^$;$s$7!"(B
-$B40A4$J%Q%C%A$G$b$"$j$^$;$s!#$3$N%Q%C%A$N$?$a$KM=4|$;$LF0:n$r(B
-$B$R$-5/$3$92DG=@-$b==J,$K$"$j$^$9!#(B
-$B3F<+$N@UG$$K$*$$$FMxMQ$7$F$/$@$5$$!#(B
+RTSをoffにしたままFreeBSDでハードフローなし通信を行なえるように
+するためのパッチです。このパッチをカーネルにあてることで、FreeBSD
+でもケーブルの改造なしでqvplayが使えるようになる「はず」です。
+（情報提供ありがとうございます。＞下川＠東大さん）
+なお、このパッチはRTS制御のためのofficialなパッチではありませんし、
+完全なパッチでもありません。このパッチのために予期せぬ動作を
+ひき起こす可能性も十分にあります。
+各自の責任において利用してください。
 
-$B!*!*$J$*!"(BFreeBSD$B$N(B2.2 Release$B$G$O0J2<$N%Q%C%A$OI,MW$"$j$^$;$s!#(B
+！！なお、FreeBSDの2.2 Releaseでは以下のパッチは必要ありません。
 ----
 
-$B%Q%C%A$r$"$F$k%=!<%9(B/sys/i386/isa/sio.c
+パッチをあてるソース/sys/i386/isa/sio.c
 *** sio.c~~	Mon Nov  4 03:21:16 1996
 --- sio.c	Thu Nov 14 01:29:13 1996
 ***************

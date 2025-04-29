@@ -1,253 +1,253 @@
-Ver ??  qvlink$B$H$$$&L>A0$G3+H/3+;O!#(B
-        $B$s$G$b(BWindows$BMQ%=%U%H$NL>A0$,(BQVLINK.EXE$B$@$C$?(B
-        $B$N$r;W$$=P$7$FL>A0$r(Bqvplay$B$KJQ99(B
-        RTS$BLdBj$,2r7h$7$F$J$$$1$I!"$H$j$"$($:@\B3%1!<%V%k$K(B
-        $B:Y9)$r9T$J$&$H$$$&A0Ds$G:n@.$9$k$3$H$K$7$?!#(B
+Ver ??  qvlinkという名前で開発開始。
+        んでもWindows用ソフトの名前がQVLINK.EXEだった
+        のを思い出して名前をqvplayに変更
+        RTS問題が解決してないけど、とりあえず接続ケーブルに
+        細工を行なうという前提で作成することにした。
 
-ver.0.00            $B$H$j$"$($:2hA|%G!<%?$r@8$GEG$-=P$9%P!<%8%g%s(B
-ver.0.01(95.10.24)  itojun$B$5$s$N(Bcam2jpeg$B$N5!G=$rAH$_9~$s$G(B
-                    $B$$$-$J$j(Bjpeg$BEG$/$h$&$K$7$?(B
-                    PTPC-ML$B$G8BDj8x3+3+;O(B
-ver.0.02(95.10.25) NEWS-OS$B$GF0:n3NG'$7$h$&$H$7$?$i!"(B
-                   jpeg$B=PNOItJ,$,$*$b$$$C$-$j%P%0$C$F$?(B(^^)$B$N$,(B
-                   $BH/3P$7$?$N$G=$@5!#(B
-                   ver 0.01$BAw$jIU$1$i$l$?3'MM$I$&$b$9$$$^$;$s!#(B
-                   $B=P6PA0$K$A$g$$$A$g$$$HD>$7$?$N$,$^$:$+$C$?(B
-                   $B$h$&$G$9!#(B
-ver.0.03(95.10.31) itojun$B$5$s$K$h$k(Bautoconf$B2=!J$"$j$,$H$&$4$6$$$^$9!K(B
-ver.0.04(95.11.03) itojun$B$5$s$K$h$k%?%$%_%s%0D4@0!"%(%i!<%j%+%P%j!"(B
-                   qvplay$B$N(Buid$B$8$c$J$/$F5/F0$7$?%f!<%6$N(Buid$B$G(B
-                   $B%U%!%$%k$r=PNO!"(B
-                    $B$J$I$J$I$NBg2~NI(B
-                   ($B$&$&!"86:n<T$N5;=Q$r1[$($?40@.EY$K>e$,$C$F$k(B^^)
-ver.0.05(95.11.14) $B@\B3%1!<%V%k$K9):n(B($B%O!<%IE*$K(BRTS off)$B$7$J$/$F$b(B
-                   $BF0$/$h$&$K$"$kDxEY%j%H%i%$$9$k$h$&$K$7$?!#(B
-                   RSPORT$B$N@_Dj$O$d$C$Q$j(BMakefile$B$G$O$J$/$F(B
-                   common.h$B$rD>$9$h$&$KJQ99(B
-                   $B$J$<$+(BNEWS-OS6.1$B$G$O$&$^$/F0$+$J$/$J$C$?(B(;_;)
-                   NEWS-OS4.2$B$N%P%$%J%j$@$HF0$/$H$f!<!DFf!#(B
-                   setreuid$B$H$+$O(B setuid$B!"(Bseteuid$B$KBe$($^$7$?!d(Bitojun$B$5$s(B
-ver.0.06(95.11.21) ppm$B7A<0$G$N(Bthumnail$B2hA|$N=q$-=P$75!G=DI2C(B
-                   cam$B7A<0$G$N2hA|$N=q$-=P$75!G=DI2C(B
-                   $B2hA|$N=gHVF~$l49$($bBP1~$9$kM=Dj$@$C$?$,!"(B
-                   $B%F%9%HCf$K!V(BFATAL ERROR$B!W$N$?$aCGG0!#$&$&$&$&$&!#(B
-                   CASIO$B$5$s$4$a$s$J$5$$$H$$$&$3$H$G(BQV10$B$O=$M}Cf(B
-        (95.12.29) $B$d$C$H=$M}40N;!#$J$s$H=$M}$r0MMj$7$?!?%8%^EE4o(B
-                   $B$N%*%*%\%1O"Mm%_%9$G#1%+7n$b(BCASIO$B$5$s$N=$M}(B
-                   $B%;%s%?!<$GK:$l$i$l$F$?$H$f!<!#(B(--#)
-ver.0.07(95.12.31) Brahma$B$5$s(B(QVCOM$B$N:n<T(B)$B$5$s$+$i$N>pJs$r$b$H$K(B
-                   $B5!G=6/2=!#(B
-                   $B2hA|E>Aw;~$N%A%'%C%/%5%`$r8+$k$h$&$K$7$?!#(B
-                   $B%a%$%s2hA|$N(Bppm$B7A<0$G$N<h$j=P$75!G=DI2C!#(B
-                   over 9600$B$N9bB.E>Aw5!G=DI2C!#(B
-                   $B$d$C$Q$j(B(^^)cam$B7A<0$G$N2hA|$N=q$-=P$7$O(B
-                   $B%P%0$C$F$?$N$G=$@5!#(B
-                   setreuid$B$,$"$k>l9g$O(Bsetreuid$B$r!"$J$$>l9g$O(Bsetuid$B!"(B
-                   seteuid$B$GBeMQ$9$k$h$&$K$7$?!#(B
+ver.0.00            とりあえず画像データを生で吐き出すバージョン
+ver.0.01(95.10.24)  itojunさんのcam2jpegの機能を組み込んで
+                    いきなりjpeg吐くようにした
+                    PTPC-MLで限定公開開始
+ver.0.02(95.10.25) NEWS-OSで動作確認しようとしたら、
+                   jpeg出力部分がおもいっきりバグってた(^^)のが
+                   発覚したので修正。
+                   ver 0.01送り付けられた皆様どうもすいません。
+                   出勤前にちょいちょいと直したのがまずかった
+                   ようです。
+ver.0.03(95.10.31) itojunさんによるautoconf化（ありがとうございます）
+ver.0.04(95.11.03) itojunさんによるタイミング調整、エラーリカバリ、
+                   qvplayのuidじゃなくて起動したユーザのuidで
+                   ファイルを出力、
+                    などなどの大改良
+                   (うう、原作者の技術を越えた完成度に上がってる^^)
+ver.0.05(95.11.14) 接続ケーブルに工作(ハード的にRTS off)しなくても
+                   動くようにある程度リトライするようにした。
+                   RSPORTの設定はやっぱりMakefileではなくて
+                   common.hを直すように変更
+                   なぜかNEWS-OS6.1ではうまく動かなくなった(;_;)
+                   NEWS-OS4.2のバイナリだと動くとゆー…謎。
+                   setreuidとかは setuid、seteuidに代えました＞itojunさん
+ver.0.06(95.11.21) ppm形式でのthumnail画像の書き出し機能追加
+                   cam形式での画像の書き出し機能追加
+                   画像の順番入れ換えも対応する予定だったが、
+                   テスト中に「FATAL ERROR」のため断念。ううううう。
+                   CASIOさんごめんなさいということでQV10は修理中
+        (95.12.29) やっと修理完了。なんと修理を依頼した／ジマ電器
+                   のオオボケ連絡ミスで１カ月もCASIOさんの修理
+                   センターで忘れられてたとゆー。(--#)
+ver.0.07(95.12.31) Brahmaさん(QVCOMの作者)さんからの情報をもとに
+                   機能強化。
+                   画像転送時のチェックサムを見るようにした。
+                   メイン画像のppm形式での取り出し機能追加。
+                   over 9600の高速転送機能追加。
+                   やっぱり(^^)cam形式での画像の書き出しは
+                   バグってたので修正。
+                   setreuidがある場合はsetreuidを、ない場合はsetuid、
+                   seteuidで代用するようにした。
 
-ver.0.08(96.2.3)   -F $B%*%W%7%g%s$G(B cam $B$r;XDj$7$F$b(B -o$B%*%W%7%g%s$G(B
-                   $B;XDj$7$?=PNO%U%!%$%k$N%U%!%$%kL>$,(B*.cam$B$K$J$i$:(B
-                   *.jpg$B$K$J$C$F$7$^$&%P%0$N=$@5!#(B
-                   RGB(Q0)$B7A<0!"(BBMP(24bit Windows3.x)$B7A<0$N%5%]!<%H!#(B
-                   X680x0(Human68k 3.0)$BMQ(Bqvplay.x$B$N:n@.!#(B
-                   Windows NT/95(Intel$B7O(B)$BMQ(Bqvplay.exe$B$N:n@.!#(B
-                   -X $B%*%W%7%g%s(B(X680x0$B$N$_(B)$B$NDI2C!#(B
-                   -S $B%*%W%7%g%s$NB.EY;XDj$G(Blinux$B0J30$O(Btop, light
-                   $B$r;H$($J$$$h$&$K$7$?!#(B
-                   usage$B$r$A$g$C$H4V0c$($F$$$?$N$r=$@5!#(B
-                   $B4D6-JQ?t(BQVPLAYTTY$B$G(BTTY$B%G%P%$%9$N;XDj$,(B
-                   $B$G$-$k$h$&$K$7$?!#(B
+ver.0.08(96.2.3)   -F オプションで cam を指定しても -oオプションで
+                   指定した出力ファイルのファイル名が*.camにならず
+                   *.jpgになってしまうバグの修正。
+                   RGB(Q0)形式、BMP(24bit Windows3.x)形式のサポート。
+                   X680x0(Human68k 3.0)用qvplay.xの作成。
+                   Windows NT/95(Intel系)用qvplay.exeの作成。
+                   -X オプション(X680x0のみ)の追加。
+                   -S オプションの速度指定でlinux以外はtop, light
+                   を使えないようにした。
+                   usageをちょっと間違えていたのを修正。
+                   環境変数QVPLAYTTYでTTYデバイスの指定が
+                   できるようにした。
 
-ver.0.09(96.3.16)  NEWS-OS 6.0$B$GI8=`B.0J30$,$D$+$($J$$$H$$$&%P%0$r(B
-                   $B=$@5!#(B(tty$B$NB.EY$rJQ$($k$H(BRTS/CTS$B$N>uBV$,%j%;%C%H(B
-                   $B$5$l$F$7$^$&$H$O!D(B)
-                   $B2hA|%G!<%?=q$-$b$I$7%W%m%0%i%`(Bqvrec$B$N:n@.(B
-                   X680x0$B$G(B38400baud$B$G$NDL?.;~$K(Btty not respond$B$K(B
-                   $B$J$k%P%0$r=$@5(B($B$7$?$D$b$j(B)
-                   $B$3$l$r$b$C$F8x3+D>A0(BFinal$B&B$H$9$k!#(B
-                   $B<!$G8x3+$G$-$k$H$$$$$J$!!#(B
-                   $B>!$F!">!$D$N$@8^NXBeI=(B(^^)
+ver.0.09(96.3.16)  NEWS-OS 6.0で標準速以外がつかえないというバグを
+                   修正。(ttyの速度を変えるとRTS/CTSの状態がリセット
+                   されてしまうとは…)
+                   画像データ書きもどしプログラムqvrecの作成
+                   X680x0で38400baudでの通信時にtty not respondに
+                   なるバグを修正(したつもり)
+                   これをもって公開直前Finalβとする。
+                   次で公開できるといいなぁ。
+                   勝て、勝つのだ五輪代表(^^)
 
-         (96.3.30) jpeg$B%i%$%V%i%j(Bver6 $B$r;H$C$F(B ppmtocam$B$r$H$j$"$($:(B
-                   $B:n$C$F$_$k!#(BQVLINK.EXE$B$O:n@.$7$?(BCAM$B2hA|$rI=<($7$F(B
-                   $B$/$l$?$1$I!"(BQV10$B<+?H$O%@%a!#(B(;_;)
-                   ppmtocam$B$O%\%D$K$9$k$3$H$K$7$F(BYCC$B$G=q$-9~$`J}K!(B
-                   $B$r2r@O$9$k$3$H$K$9$k!#(B
+         (96.3.30) jpegライブラリver6 を使って ppmtocamをとりあえず
+                   作ってみる。QVLINK.EXEは作成したCAM画像を表示して
+                   くれたけど、QV10自身はダメ。(;_;)
+                   ppmtocamはボツにすることにしてYCCで書き込む方法
+                   を解析することにする。
 
 ver.0.10pre(96.4.19)
-                  qvrec$B$G(BPPM$B7A<0(B(YCC)$B$N2hA|$N=q$-9~$_$KBP1~!#(B(^^)v
-                  $BJ?Ln$5$s$+$i$N>pJs$G!"(BWin32$BHG$G(BRTS$B$r(BOFF$B$9$k(B
-                  $B$3$H$,$G$-$k$h$&$K$J$C$?!#(B57600baud$B$b(BOK$B!#(B
-                  PalmtopPC ML$B$G$N$_8BDj8x3+3+;O(B
+                  qvrecでPPM形式(YCC)の画像の書き込みに対応。(^^)v
+                  平野さんからの情報で、Win32版でRTSをOFFする
+                  ことができるようになった。57600baudもOK。
+                  PalmtopPC MLでのみ限定公開開始
         (96.4.21)
-                X68k$BHG$K(B19200baud$B0J>e$N>l9g$O!"(Btmiso.x$BEy$N(B
-                $BDL?.%I%i%$%P$N>oCs%A%'%C%/$r$9$k$h$&$K$7$?!#(B
-                             $B$"$j$,$H$&$4$6$$$^$9!dA}ED$5$s!#(B
-                $B$*$*$)!AE>$V$J!A!"0$ItE5;K!#$,$s$P$l!A$h!A$7!#(Bv(^^)v
-                Win32$BHG$b(Btty not respond$B$N%A%'%C%/$r;~9o$G(B
-                $B$9$k$h$&$K$7$?!#!J$b$A$g$C$H$$$$J}K!$J$$$N$+$J$"!K(B
-                X68k$BHG!"(BWin32$BHG$G(Bstdin,stdout$B$K(Bsetmode()$B$9$k$h$&$K$7$?!#(B
-                VC++$B$N%W%m%8%'%/%H%U%!%$%k$O%=!<%9%U%!%$%k$N>l=j$r(B
-                $B@dBP%Q%9$GJ]B8$7$F$k$h$&$J$N$G!"%W%m%8%'%/%H%U%!%$%k$r(B
-                $BG[I[$9$k$N$r$d$a$?!#$&!A$`!D!#(B(--;
+                X68k版に19200baud以上の場合は、tmiso.x等の
+                通信ドライバの常駐チェックをするようにした。
+                             ありがとうございます＞増田さん。
+                おおぉ〜転ぶな〜、阿部典史。がんばれ〜よ〜し。v(^^)v
+                Win32版もtty not respondのチェックを時刻で
+                するようにした。（もちょっといい方法ないのかなあ）
+                X68k版、Win32版でstdin,stdoutにsetmode()するようにした。
+                VC++のプロジェクトファイルはソースファイルの場所を
+                絶対パスで保存してるようなので、プロジェクトファイルを
+                配布するのをやめた。う〜む…。(--;
 
 ver.0.10(96.5.5)
-                $B%I%-%e%a%s%H$N@0M}!#(B
-                $B:FG[I[#O#K8x3+%P!<%8%g%s!#(B
+                ドキュメントの整理。
+                再配布ＯＫ公開バージョン。
 ver.0.10(96.5.10)
-                $B<B$O%=!<%9%;%C%H(B(qvplay-0.10.tar.gz)$B$K(B
-                obj/X68k/siochk.c$B$rF~$lK:$l$F$$$k$NA}ED$5$s$K(B
-                $B;XE&$5$l$k!#(B(^^;;;;;;;
-                $B$"$o$F$F(Bsiochk.c$B$r<}O?$7$J$*$7$?$b$N$r:n$C$F(B
-                $B:9$7BX$($k!#(B
-                (X680x0$B$G%=!<%9$+$i%3%s%Q%$%k$7$J$$8B$jLdBj$"$j$^$;$s!#(B)
+                実はソースセット(qvplay-0.10.tar.gz)に
+                obj/X68k/siochk.cを入れ忘れているの増田さんに
+                指摘される。(^^;;;;;;;
+                あわててsiochk.cを収録しなおしたものを作って
+                差し替える。
+                (X680x0でソースからコンパイルしない限り問題ありません。)
        (96.7.22)
-                $B$R$($($($(!">!$C$A$^$C$?%V%i%8%k$K!D!#(Bv(^^)v
+                ひええええ、勝っちまったブラジルに…。v(^^)v
 ver.0.10a pre1(96.8.16)
-                $BBg5WJ]$5$s$N(BOS/2$B%Q%C%A$r<h$j9~$`(B
-                qvrec$B$G(B-h$B$G(Busage$B$r=P$7$?$N$A(Btty$B$,$*$+$7$/$J$k(B($BM>7W$J(B
-                close)$B$N$r=$@5(B
-                qvrec$B$G(BPPM$B7A<0$NFI$_9~$_$K<:GT$9$k>l9g$,$"$k$N$r=$@5(B
-                NEXTSTEP$BEy(Bstrdup$B$N$J$$(BOS$B$N$?$a$K(Bstrdup$B$r;H$&$N$r$d$a$?!#(B
-                Goto$B$5$s$N>pJs$K$h$j2hA|%W%m%F%/%H5!G=!"#4J,3d!"#9J,3d(B
-                $B2hLL5!G=!"$rAH$_9~$`!#$5$i$K(Ball delete$B5!G=$N$_$r$b$D(B
-                qvalldel$B$r:n$k(B
+                大久保さんのOS/2パッチを取り込む
+                qvrecで-hでusageを出したのちttyがおかしくなる(余計な
+                close)のを修正
+                qvrecでPPM形式の読み込みに失敗する場合があるのを修正
+                NEXTSTEP等strdupのないOSのためにstrdupを使うのをやめた。
+                Gotoさんの情報により画像プロテクト機能、４分割、９分割
+                画面機能、を組み込む。さらにall delete機能のみをもつ
+                qvalldelを作る
         
-                $BM'C#$+$i<Z$j$?Bh#4<!%9!<%Q!<%m%\%C%HBP@o#S$K(B
-                $B%I%C%W%j$H%O%^$k!#$&$&!"$^$@%7%J%j%*$N(B1/3$B$^$G$7$+(B
-                $B=*$C$F$J$$!D!#(B
-        (96.8.24)$B$I$&$d$i9+$G$O(BQV-100$B$,H/Gd$K$J$C$?$i$7$$(B(^^)
+                友達から借りた第４次スーパーロボット対戦Ｓに
+                ドップリとハマる。うう、まだシナリオの1/3までしか
+                終ってない…。
+        (96.8.24)どうやら巷ではQV-100が発売になったらしい(^^)
 ver.0.10a pre2(96.8.26)
-                mario$B$5$s$N>pJs$K$h$jEE8;>uBV$N%l%]!<%H5!G=$rAH$_9~$`(B
-                $B$J$s$+(BAC$B%"%@%W%?$@$HL/$KBg$-$JCM$K$J$k$s$G$9$1$I!D(B(?_?)
-                $BEECS$@$H0BDj$7$?CM$,=P$F$/$k$J$"(B
+                marioさんの情報により電源状態のレポート機能を組み込む
+                なんかACアダプタだと妙に大きな値になるんですけど…(?_?)
+                電池だと安定した値が出てくるなあ
 
-                $B$"$k$+$J!A$H;W$C$FF#Bt$NEE4o20$rJ*?'$9$k$,!"(B
-                QV-100$B$O$_$"$?$i$:!#(B(^^;;
-                $B$?$V$s8E$$%j%s%/%=%U%H$O;H$($J$$$@$m$&$J$"!#(B
-                qvplay$B$b2hA|E>Aw7O%3%^%s%I0J30$O;H$($k$H;W$&$1$I!#(B
-                $B$=!<$$$($P!"%1!<%V%k$N;EMM$b$I$&$J$C$F$k$s$@$m!#(B
-                $BC1IJGd$j$K$J$C$F$k$h$&$@$+$i!"%O!<%I;EMM$,JQ$o$C$F(B
-                $B$J$1$l$P(BUnix$B$J?M$O$A$g$C$H9,$;$+$b!#(B
+                あるかな〜と思って藤沢の電器屋を物色するが、
+                QV-100はみあたらず。(^^;;
+                たぶん古いリンクソフトは使えないだろうなあ。
+                qvplayも画像転送系コマンド以外は使えると思うけど。
+                そーいえば、ケーブルの仕様もどうなってるんだろ。
+                単品売りになってるようだから、ハード仕様が変わって
+                なければUnixな人はちょっと幸せかも。
 
-                $B%3%^%s%IAwIU$N8e$N%A%'%C%/%5%`$r3NG'$9$k$h$&$K(B
-                $B$7$?!#3NG'$9$k$@$1$G%j%+%P!<$G$-$J$$$1$I!#(B(^^;;;
-                qvrec$B$N(Bcam$B=q$-9~$_$,$A$g$C$H%P%0$C$F$?$N$r=$@5!#(B
-                $B:#$^$G%P%l$J$+$C$?$H$f!<$3$H$O(Bqvrec$B$C$FC/$b(B
-                $B;H$C$F$J$$$C$F$3$H$@$J(B(^^;
+                コマンド送付の後のチェックサムを確認するように
+                した。確認するだけでリカバーできないけど。(^^;;;
+                qvrecのcam書き込みがちょっとバグってたのを修正。
+                今までバレなかったとゆーことはqvrecって誰も
+                使ってないってことだな(^^;
 
-                itojun$B$5$s$N;XE&$K$h$j(Bqvrec$B$G!"(Bcheck sum error$B$,(B
-                $B=P$k$3$H$,H/3P!#$I$&$d$C$F$b860x$,$o$+$i$J$$$N$G(B
-                $BBP>INEK!$G2sHr!#(B($B<e5$!D(B)
+                itojunさんの指摘によりqvrecで、check sum errorが
+                出ることが発覚。どうやっても原因がわからないので
+                対症療法で回避。(弱気…)
 
-                $B2#IM!??7=I!?=)MU86$K$$$C$F$b(BQV-100$B$_$D$+$i$:!#A4IJ(B
-                $B2~=$$+$J$!!#$3$l$O%=%K!<$N$,=P$k$^$G$K$O;T>l$K=P$J$$(B
-                $B$+$b!#%=%K!<$NGc$*$&$+$J$!(B(^^;;;
+                横浜／新宿／秋葉原にいってもQV-100みつからず。全品
+                改修かなぁ。これはソニーのが出るまでには市場に出ない
+                かも。ソニーの買おうかなぁ(^^;;;
 
-                X680x0$BMQ(BCAM$B%S%e!<%"(Bviewcam.x$B$N:n<T$N$"$5$H$5$s(B
-                $B$+$i(Bmail$B!#$5$C$=$/;n$7$F$_$k!#(B
-                $B$3$l$G(BX680x0$B$b%S%e!<%"$G6lO+$7$J$/$F$9$`!#(Bv(^^)v
+                X680x0用CAMビューアviewcam.xの作者のあさとさん
+                からmail。さっそく試してみる。
+                これでX680x0もビューアで苦労しなくてすむ。v(^^)v
 
-      (96.9.23) $BBfIw$NMbF|!"$H$/$KHo32$J$$$h$J!A$H;W$C$?$i(BGPz$B$N(B
-                $B%V%l!<%-%l%P!<$,@^$l$F$?!#(B(;_;) $B@^$l$?%l%P!<$,(B
-                $BCzG+$K%7!<%H$N>e$K$*$$$F$"$C$?$+$i!":rF|$N6/Iw$N(B
-                $BCf:n6H$7$F$$$?EE5$20$5$s$,%_%9$C$FE]$7$?$s$@$H;W$&!#(B
-                $B$^$"E7:R$@$H;W$C$F$"$-$i$a$k$7$+$J$$$C$9!#(B
-                $B$J$<$+%l%P!<$NM=Hw$,$"$C$?$N$GB(8r49!#(B
+      (96.9.23) 台風の翌日、とくに被害ないよな〜と思ったらGPzの
+                ブレーキレバーが折れてた。(;_;) 折れたレバーが
+                丁寧にシートの上においてあったから、昨日の強風の
+                中作業していた電気屋さんがミスって倒したんだと思う。
+                まあ天災だと思ってあきらめるしかないっす。
+                なぜかレバーの予備があったので即交換。
 
-                $B6a$/$NEE4o20$G2~Au$N$?$a$NJDE9%;!<%k$r$d$C$F$?!#(B
-                $B$N$>$$$F$_$?$i!"(BMachintosh$BMQ@\B3%-%C%H$N(BLK-2$B$,(B
-                500$B1_$GGd$i$l$F$$$?$N$GJ]8n$9$k!#(B(^^;
-                500$B1_$G%1!<%V%k$,Gc$($?$H;W$($P0B$$$b$N$G$"$k!#(B
+                近くの電器屋で改装のための閉店セールをやってた。
+                のぞいてみたら、Machintosh用接続キットのLK-2が
+                500円で売られていたので保護する。(^^;
+                500円でケーブルが買えたと思えば安いものである。
 
-                QV100$B$r#1=54VB_$7$F$/$@$5$k$"$j$,$?$$J}$,(B(__)
-                $B$$$i$C$7$c$$$^$7$?$N$GB.96$G2r@O!#(B 
-                $B$"$j$,$H$&$4$6$$$^$9!#!dLZB<$5$s!#(B
-                ($B%+%a%i9%$-$N?M$OLZB<@+$,B?$$$N$@$m$&$+!D(B(^^))
+                QV100を１週間貸してくださるありがたい方が(__)
+                いらっしゃいましたので速攻で解析。 
+                ありがとうございます。＞木村さん。
+                (カメラ好きの人は木村姓が多いのだろうか…(^^))
 
-                $B$r$r!"%]%$%s%H$O>.J8;z7O%3%^%s%I$G$9$M!#(B
-                $B$H$j$"$($:(BQV-100$BBP1~(Bqvplay$B;n:nIJ$,$G$-$"$,$k!#(B
-                qvrec$B$N$[$&$O!D$h$/$o$+$j$^$;$s!#$&!A$s!"$"$C$F$k(B
-                $B$O$:$J$s$@$1$I=q$-9~$s$G$/$l$J$$!#(B
+                をを、ポイントは小文字系コマンドですね。
+                とりあえずQV-100対応qvplay試作品ができあがる。
+                qvrecのほうは…よくわかりません。う〜ん、あってる
+                はずなんだけど書き込んでくれない。
 
-                $B$&$&$&$`$%!"(BWin95$B$@$H(Bqvplay$B$,F0$+$s!A!"(BNT$B$J$iLdBj$J$/(B
-                $BF0$/$N$K$#$#$$!A!#$J$<$@$!!#(B
+                うううむぅ、Win95だとqvplayが動かん〜、NTなら問題なく
+                動くのにぃぃい〜。なぜだぁ。
 
 ver.0.90 (96.10.11)                
-                $B$H$j$"$($:%I%-%e%a%s%H$r$6$C$H$^$H$a$FE>:\6X$G%=!<%9$N$_(B
-                $B8x3+$9$k$3$H$K$9$k!#40@.HG$,(BVer 1.00$B$K$J$k$3$H$r5'$C$F(B
-                $B%P!<%8%g%s$O(BVer 0.90$B$H$$$&$3$H$K$9$k!#(B
-                (Ver 0.10a$B8x3+HG$O$*B"F~$j$NM=Dj(B)
+                とりあえずドキュメントをざっとまとめて転載禁でソースのみ
+                公開することにする。完成版がVer 1.00になることを祈って
+                バージョンはVer 0.90ということにする。
+                (Ver 0.10a公開版はお蔵入りの予定)
 
-                Ver 0.10a pre2$B$+$i$NJQ99!?DI2CE@$O(B
-                $B$A$g$C$H$@$1%=!<%9$N@0M}(B
-                FreeBSD$B$G$b(B-S top$B!"(B-S light$B$r;H$($k$h$&$KJQ99(B
-                QV100$BBP1~(B
-                -i$B!"(B-I $B%*%W%7%g%s(B($B2hA|>pJs$NI=<((B)$B$NDI2C(B
-                $BE>Aw%V%m%C%/%5%$%:$r(B128$B%P%$%H$+$i(B1536$B%P%$%H$XJQ99(B
-                -z $B%*%W%7%g%s(B($B<B83MQ(B)$B$NDI2C(B
-                -Z $B%*%W%7%g%s(B($B<B83MQ(B)$B$NDI2C(B
+                Ver 0.10a pre2からの変更／追加点は
+                ちょっとだけソースの整理
+                FreeBSDでも-S top、-S lightを使えるように変更
+                QV100対応
+                -i、-I オプション(画像情報の表示)の追加
+                転送ブロックサイズを128バイトから1536バイトへ変更
+                -z オプション(実験用)の追加
+                -Z オプション(実験用)の追加
 
-Ver0.91         10.18 $B7,ED$5$s$N;XE&$K$h$j(BDS$B%3%^%s%I$N%I%-%e%a%s%H=$@5(B
-                $B[X86$5$s$N;XE&$K$h$k%P%0=$@5(B(-I$B%*%W%7%g%s!"%W%m%F%/%H4XO"(B
-                README$BCf$N$b!<$d$^$5$s$N%[!<%`%Z!<%8$N(BURL$B$,8E$/$J$C$F(B
-                $B$$$?$N$r@5$7$/=$@5(B
-                -z$B%*%W%7%g%s$N7k2L$r?M4V$,FI$a$k7A$K$7$?(B
-                -D$B%*%W%7%g%s$N=hM}$rJQ99!J#12s$@$1%*!<%W%s$9$k$h$&$KD>$7$?!K(B
-                $B?\ED$5$s$N(BDOS$B$X$N0\?"%Q%C%A$rE}9g$7$?(B
-                DOS$BMQ$K(Bjpeg, CAM$B$N(BFine$B%b!<%I$K8B$j!"%o!<%/%U%!%$%k(B
-                $B$r$D$+$C$F=q$-=P$9$h$&$K$7$?!#(B
-                $B2<@n$5$s$N;XE&$K$h$k(BFreeBSD$B4XO"ItJ,$N=$@5(B
-                X68$B$G(BCTRL+C$B$G$O$J$/$F(BOPT1+C$B$G;_$^$k$h$&$K$J$C$F$$$?(B
-                $B$N$r=$@5(B
+Ver0.91         10.18 桑田さんの指摘によりDSコマンドのドキュメント修正
+                檜原さんの指摘によるバグ修正(-Iオプション、プロテクト関連
+                README中のもーやまさんのホームページのURLが古くなって
+                いたのを正しく修正
+                -zオプションの結果を人間が読める形にした
+                -Dオプションの処理を変更（１回だけオープンするように直した）
+                須田さんのDOSへの移植パッチを統合した
+                DOS用にjpeg, CAMのFineモードに限り、ワークファイル
+                をつかって書き出すようにした。
+                下川さんの指摘によるFreeBSD関連部分の修正
+                X68でCTRL+CではなくてOPT1+Cで止まるようになっていた
+                のを修正
 
-                $B$&!A$`!"%=!<%9$r$+$J$jJQ$($A$c$C$?$N$G(B
-                $B%(%s%P%0$7$F$=$&$@$J$!!#(B
-Ver0.92         QV-300$BF3F~(B(^^;;; $B$+!"6b$,!D!#(B
-                X680x0$B$G(BQV100/300$B$G(B-S h$B$,$&$^$/;H$($J$$$H$$$&(B
-                $B%P%0$r=$@5(B
-                VC++1.5$B$G(BDOS$BHG:n$C$F$_$k$b$$$^$$$AF0$+$:(B
-                $B$d$C$Q$j(BDOS$B$N%W%m%0%i%`$OFq$7$$(B(;_;)
+                う〜む、ソースをかなり変えちゃったので
+                エンバグしてそうだなぁ。
+Ver0.92         QV-300導入(^^;;; か、金が…。
+                X680x0でQV100/300で-S hがうまく使えないという
+                バグを修正
+                VC++1.5でDOS版作ってみるもいまいち動かず
+                やっぱりDOSのプログラムは難しい(;_;)
 
-                QV-700$B$,H/Gd$K$J$C$?$i$7$$!#$G$+$$$J$!!#(B
+                QV-700が発売になったらしい。でかいなぁ。
 
-                QV-770$B$,H/Gd$K$J$C$?$i$7$$!#$J$+$J$+$+$o$$$$!#(B
+                QV-770が発売になったらしい。なかなかかわいい。
 
-                QV-5000SX$B$,H/Gd$K$J$C$?$i$7$$!#%l%s%:$,2s$i$J$$$J$s$F!D(B
+                QV-5000SXが発売になったらしい。レンズが回らないなんて…
 
-                QV-770$BF3F~(B(^^;;
-                $B86?'%U%#%k%?$K$J$C$?$N$G?'$,A/$d$+$@$J$!!#(B
-                $B$A$g$C$H%T%s%H$,4E$$$1$I!#%`!<%S!<$H%Q%N%i%^$,M7$Y$k!#(B
+                QV-770導入(^^;;
+                原色フィルタになったので色が鮮やかだなぁ。
+                ちょっとピントが甘いけど。ムービーとパノラマが遊べる。
 
-Ver 0.93(980720)QV-770$BBP1~(B($B2hA|FI$_=P$7(B)
-                Yuzuru Goto$B$5$s$NH/8+$7$?%*!<%H%Q%o!<%*%U5!G=(B
-                $B$N2r=|%3%^%s%I$rDI2C(B(-1$B%*%W%7%g%s(B)
-                Bob Happle $B$5$s:n@.$N(Bman page$B$rDI2C(B
-                PROTOCOL.txt/PROTOCOL.eng$B$K(BQV-700/770$B$N%3%^%s%I$rDI2C(B
-                No space left on device$B$G(B segmentation fault$B$,5/$-$k(B
-                $B>l9g$,$"$k$N$rBP:v(B
-                glibc6$BBP:v!)(B ($BL$%F%9%H(B)
+Ver 0.93(980720)QV-770対応(画像読み出し)
+                Yuzuru Gotoさんの発見したオートパワーオフ機能
+                の解除コマンドを追加(-1オプション)
+                Bob Happle さん作成のman pageを追加
+                PROTOCOL.txt/PROTOCOL.engにQV-700/770のコマンドを追加
+                No space left on deviceで segmentation faultが起きる
+                場合があるのを対策
+                glibc6対策？ (未テスト)
 
-                $B$&$o!<!"A0$N%j%j!<%9$+$i#1G/6a$/$?$C$F$k$h!#(B                
-                $B$=$N4V$N$G$-$4$H(B
-                WGP$B$O%I%%!<%O%s!"%+%T%m%C%7!"(BV.$B%m%C%7(B
-                J$B%j!<%0$O</Eg%"%s%H%i!<%:!"E79DGU$O2#IM%U%j%e!<%2%k%9(B
-                $B$"$^$j$NK;$7$5$KK\6H$N2q<R$rB`<R(B $B!"Nm:Y4k6H$X0\@R(B
-                $B$J$s$H@$3&%f!<%9A*<j8"!"F|K\$O=`M%>!$N2w5s(B
-                $B=K0lJ?;a!"K~3+0l9f$N40@.$r8+$:$K@B5n(B
+                うわー、前のリリースから１年近くたってるよ。                
+                その間のできごと
+                WGPはドゥーハン、カピロッシ、V.ロッシ
+                Jリーグは鹿島アントラーズ、天皇杯は横浜フリューゲルス
+                あまりの忙しさに本業の会社を退社 、零細企業へ移籍
+                なんと世界ユース選手権、日本は準優勝の快挙
+                祝一平氏、満開一号の完成を見ずに逝去
                  
-Ver 0.94(990505)RedHat$B7O(BLinux$B$G(Bconfigure$B$,$&$^$/$$$+$J$$LdBj$N=$@5(B
-                RedHat$B7O(BLinux$B$G(Bmake install$B$7$F$b(Btty$B$,3+$1$J$$(B
-                $BLdBj$N=$@5!#(B
-                (qvplay$B$N(Bowner$B$r(Broot$B!"(Bgroup$B$r(Buucp$B$K$7$?!#(B
-                 RedHat$B7O(BLinux$B$K$"$o$;$?(B)
-                common.h$BFb$GDj5A$5$l$F$$$k%G%U%)%k%H$N(BTTY$B$rA4It(B
-                $B$$$o$f$k(BCOM1$B$KE}0l(B
-                $B<!$0$i$$$G:FG[I[2DG=HG$H$7$?$$$J$!!#(B
-Ver 0.95(000829)$B:G=*HG!"3+H/=*N;(B    
-                common.h$BFb$GDj5A$5$l$F$$$k%G%U%)%k%H$N(BTTY$B$r(B
-                Unix$B0lB2$N>l9g(B/dev/qvtty$B$H$7$?!#(B
-                ($B%7%s%\%j%C%/%j%s%/$GBP1~(B)
-                README/README.eng$B!"(Bman$B$ND>$7(B  
-                -h$B$N=PNO$r(Bstderr$B$+$i(Bstdout$B$KJQ99(B  
-                $B:G6a$N(BLinux distribution$B$G$NF0:n%A%'%C%/(B
+Ver 0.94(990505)RedHat系Linuxでconfigureがうまくいかない問題の修正
+                RedHat系Linuxでmake installしてもttyが開けない
+                問題の修正。
+                (qvplayのownerをroot、groupをuucpにした。
+                 RedHat系Linuxにあわせた)
+                common.h内で定義されているデフォルトのTTYを全部
+                いわゆるCOM1に統一
+                次ぐらいで再配布可能版としたいなぁ。
+Ver 0.95(000829)最終版、開発終了    
+                common.h内で定義されているデフォルトのTTYを
+                Unix一族の場合/dev/qvttyとした。
+                (シンボリックリンクで対応)
+                README/README.eng、manの直し  
+                -hの出力をstderrからstdoutに変更  
+                最近のLinux distributionでの動作チェック
