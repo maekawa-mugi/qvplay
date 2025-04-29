@@ -1,4 +1,5 @@
 #include "config.h"
+#include "version.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -69,7 +70,7 @@ static u_char	buf[YCC_MAXSIZ_VGA];
 void usage()
 {
   static	char	*usagestr[] =  {
-    "qvrec (Ver 0.95) (c)1996-2000 ken-ichi HAYASHI, itojun\n",
+    QVREC_USAGE_HEADER,
     "qvrec [options] filename1.cam filename2.cam ...\n",
     "\t -h           : show this usage.\n",
 #if defined(__linux__) || defined(WIN32) || defined(OS2) || defined(__FreeBSD__) || defined(DOS)

@@ -1,4 +1,5 @@
 #include "config.h"
+#include "version.h"
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
@@ -50,7 +51,7 @@ static	int	uidswapped = 0;
 void usage()
 {
   static	char	*usagestr[] =  {
-    "qvalldel (Ver 0.95) (c)1996-2000 ken-ichi HAYASHI\n",
+    QVALLDEL_USAGE_HEADER,
     "qvalldel [options]\n",
     "\t -h           : show this usage.\n",
     "\t -f           : not show 'Are you sure ?' message.\n",
