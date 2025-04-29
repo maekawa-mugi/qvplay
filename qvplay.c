@@ -80,6 +80,18 @@ static gid_t gid, egid;
 static int uidswapped = 0;
 #endif
 
+void version() {
+  static char *usagestr[] = {
+      QVPLAY_USAGE_HEADER,
+      (char *)NULL,
+  };
+  char **p;
+
+  p = usagestr;
+  while (*p)
+    fprintf(stdout, *p++);
+}
+
 void usage() {
   static char *usagestr[] = {
       QVPLAY_USAGE_HEADER,
@@ -120,6 +132,7 @@ void usage() {
 #else
       "\t -S speed       : serial speed. [normal middle high]\n",
 #endif
+      "\t -V             : show version information.\n",
 #ifndef X68
       "\t -D ttydevice   : set tty(cua) device.\n",
 #endif
@@ -1093,11 +1106,15 @@ char **argv;
     Exit(1);
 
   while ((c = getopt(argc, argv,
-                     "D:p:o:g:rRnNas:e:d:tvF:S:X:4:9:P:U:10V7i:IzZy:Y:h")) !=
+                     "D:p:o:g:rRnNas:e:d:tvF:S:X:4:9:P:U:10V7i:IzZy:Y:hV")) !=
          EOF) {
+    if (c == 'V') {
+      version();
+      exit(0);
+    }
     if (c == 'h') {
       usage();
-      Exit(-1);
+      Exit(0);
     }
     if (!(QVgetfd() < 0)) {
       all_pic_num = QVhowmany();
@@ -1315,7 +1332,7 @@ char **argv;
       break; /* do nothing */
     default:
       usage();
-      Exit(-1);
+      Exit(0);
       return 0; /* dummy */
     }
   }

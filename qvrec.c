@@ -65,6 +65,18 @@ static uint8_t buf[YCC_MAXSIZ_VGA];
 
 #define HOGE 9
 
+void version() {
+  static char *usagestr[] = {
+      QVREC_USAGE_HEADER,
+      (char *)NULL,
+  };
+  char **p;
+
+  p = usagestr;
+  while (*p)
+    fprintf(stdout, *p++);
+}
+
 void usage() {
   static char *usagestr[] = {
       QVREC_USAGE_HEADER,
@@ -76,6 +88,7 @@ void usage() {
 #else
       "\t -S speed     : serial speed. [normal middle high]\n",
 #endif
+      "\t -V           : show version information.\n",
 #ifndef X68
       "\t -D ttydevice : set tty(cua) device.\n",
 #endif
@@ -509,12 +522,15 @@ char **argv;
 
   devpath = getenv("QVPLAYTTY");
 
-  while ((c = getopt(argc, argv, "D:S:F:hv")) != -1) {
+  while ((c = getopt(argc, argv, "D:S:F:hvV")) != -1) {
     switch (c) {
+    case 'V':
+      usage();
+      exit(0);
     case 'h':
     case '?':
       usage();
-      exit(-1);
+      exit(0);
     case 'v':
       qvverbose = 1;
       break;

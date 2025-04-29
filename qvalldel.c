@@ -47,12 +47,25 @@ static gid_t gid, egid;
 static int uidswapped = 0;
 #endif
 
+void version() {
+  static char *usagestr[] = {
+      QVALLDEL_USAGE_HEADER,
+      (char *)NULL,
+  };
+  char **p;
+
+  p = usagestr;
+  while (*p)
+    fprintf(stdout, *p++);
+}
+
 void usage() {
   static char *usagestr[] = {
       QVALLDEL_USAGE_HEADER,
       "qvalldel [options]\n",
-      "\t -h           : show this usage.\n",
       "\t -f           : not show 'Are you sure ?' message.\n",
+      "\t -h           : show this usage.\n",
+      "\t -V           : show version information.\n",
 #ifndef X68
       "\t -D ttydevice : set tty(cua) device.\n",
 #endif
@@ -123,13 +136,16 @@ char **argv;
 
   devpath = getenv("QVPLAYTTY");
 
-  while ((c = getopt(argc, argv, "D:fh")) != -1) {
+  while ((c = getopt(argc, argv, "D:fhV")) != -1) {
 
     switch (c) {
+    case 'V':
+      version();
+      exit(0);
     case 'h':
     case '?':
       usage();
-      exit(-1);
+      exit(0);
     case 'D':
       devpath = optarg;
       break;
