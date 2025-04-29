@@ -1,17 +1,16 @@
 @SET_MAKE@
-srcdir	= @srcdir@
-VPATH	= @srcdir@
 
 CC	= @CC@
 LDCC	= @LDCC@
+LDCC ?= $(CC)
 CFLAGS	= @CFLAGS@
 #CFLAGS	= @CFLAGS@ -DCANNOTUSEHIGHSPEED
 LIBS	= @LIBS@
 INSTALL	= @INSTALL@
 INSTALL_PROGRAM	= @INSTALL_PROGRAM@
 INSTALL_DATA	= @INSTALL_DATA@
-bindir	= /usr/local/bin
-mandir  = /usr/local/man/man1
+bindir	= @bindir@
+mandir  = @mandir@
 
 SRCS1	= tty.c command.c command1.c getuint.c jpeg.c ppm.c bmp.c qvplay.c
 OBJS1	= tty.o command.o command1.o getuint.o jpeg.o ppm.o bmp.o qvplay.o
@@ -29,7 +28,7 @@ PROG3	= qvalldel
 MAN3    = qvalldel.1
 
 .c.o:
-	$(CC) $(CFLAGS) $(DEFS) -c $<
+	$(CC) $(CFLAGS) $(DEFS) -MMD -MP -c $<
 
 all:	$(PROG1) $(PROG2) $(PROG3)
 
@@ -43,10 +42,10 @@ $(PROG3): $(OBJS3)
 	$(LDCC) -o $(PROG3) $(CFLAGS) $(OBJS3) $(LIBS)
 
 clean:
-	rm -f $(PROG1) $(OBJS1) $(PROG2) $(OBJS2) $(PROG3) $(OBJS3)
+	rm -f $(PROG1) $(OBJS1) $(PROG2) $(OBJS2) $(PROG3) $(OBJS3) $(OBJS1:.o=.d) $(OBJS2:.o=.d) $(OBJS3:.o=.d)
 
 realclean:
-	rm -f $(PROG1) $(OBJS1) $(PROG2) $(OBJS2) $(PROG3) $(OBJS3) config.log config.cache config.status Makefile
+	rm -f $(PROG1) $(OBJS1) $(PROG2) $(OBJS2) $(PROG3) $(OBJS3) $(OBJS1:.o=.d) $(OBJS2:.o=.d) $(OBJS3:.o=.d) config.log config.cache config.status Makefile
 
 # at RedHat 5.2 environment /dev/cua1 tty device's owner is root and group is uucp
 # some BSD environment /dev/tty is uucp/bin
@@ -58,8 +57,7 @@ install:	all
 	$(INSTALL_PROGRAM) -o root -g bin -m 444 $(MAN1) $(mandir)/$(MAN1)
 	$(INSTALL_PROGRAM) -o root -g bin -m 444 $(MAN2) $(mandir)/$(MAN2)
 	$(INSTALL_PROGRAM) -o root -g bin -m 444 $(MAN3) $(mandir)/$(MAN3)
-depend: .depend
-.depend:
-	mkdep $(SRCS1)
-	mkdep $(SRCS2)
-	mkdep $(SRCS3)
+
+-include $(OBJS1:.o=.d) $(OBJS2:.o=.d) $(OBJS3:.o=.d)
+
+.PHONY: all clean install realclean
