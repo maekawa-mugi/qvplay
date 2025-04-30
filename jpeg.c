@@ -13,11 +13,7 @@
 #include "jpegtab_f.h"
 #endif
 
-int write_file(buf, len, outfp)
-uint8_t *buf;
-int len;
-FILE *outfp;
-{
+int write_file(uint8_t *buf, int len, FILE *outfp) {
   int i, l;
 
   i = 0;
@@ -33,12 +29,7 @@ FILE *outfp;
 }
 
 #ifdef USEWORKFILE
-int write_file_file(filename, len, skip, outfp)
-char *filename;
-long len;
-long skip;
-FILE *outfp;
-{
+int write_file_file(char *filename, long len, long skip, FILE *outfp) {
   long i, l;
   FILE *fp;
   uint8_t buf[BUFSIZ];
@@ -69,10 +60,7 @@ FILE *outfp;
 }
 #endif
 
-int write_jpeg(buf, outfp)
-uint8_t *buf;
-FILE *outfp;
-{
+int write_jpeg(uint8_t *buf, FILE *outfp) {
   int i = 0;
   int areaNum;
   int ysize;
@@ -131,10 +119,7 @@ FILE *outfp;
 }
 
 #ifdef USEWORKFILE
-int write_jpeg_fine(filename, outfp)
-char *filename;
-FILE *outfp;
-{
+int write_jpeg_fine(char *filename, FILE *outfp) {
   int i = 0;
   int size;
   uint8_t c = 0x01;
@@ -186,10 +171,7 @@ FILE *outfp;
   return (i);
 }
 #else
-int write_jpeg_fine(buf, outfp)
-uint8_t *buf;
-FILE *outfp;
-{
+int write_jpeg_fine(uint8_t *buf, FILE *outfp) {
   int i = 0;
   int size;
   uint8_t c = 0x01;

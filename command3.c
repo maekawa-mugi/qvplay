@@ -23,11 +23,11 @@
 #endif /* OS2 */
 #endif /* WIN32 */
 #endif /* X68 */
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 
-int QValldelete() {
+int QValldelete(void) {
   uint8_t s;
   if (!QVok())
     return -1;

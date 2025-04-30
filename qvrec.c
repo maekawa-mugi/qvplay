@@ -1,19 +1,20 @@
 #include "config.h"
 #include "version.h"
 #include <ctype.h>
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
+
 #ifdef BINARYFILEMODE
 #include <fcntl.h> /* for setmode() */
 #endif
 #include <stdlib.h>
 #include <time.h>
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #include <sys/types.h>
 #include <unistd.h>
 #endif
-#if HAVE_SYS_PARAM_H
+#ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
 #else
 #define MAXPATHLEN 256
@@ -65,7 +66,7 @@ static uint8_t buf[YCC_MAXSIZ_VGA];
 
 #define HOGE 9
 
-void version() {
+void version(void) {
   static char *usagestr[] = {
       QVREC_USAGE_HEADER,
       (char *)NULL,
@@ -77,7 +78,7 @@ void version() {
     fprintf(stdout, *p++);
 }
 
-void usage() {
+void usage(void) {
   static char *usagestr[] = {
       QVREC_USAGE_HEADER,
       "qvrec [options] filename1.cam filename2.cam ...\n",
@@ -101,8 +102,7 @@ void usage() {
     fprintf(stdout, *p++);
 }
 
-void Exit(code) int code;
-{
+void Exit(int code) {
   if (!(QVgetfd() < 0))
     QVchangespeed(DEFAULT);
   QVreset(1);
@@ -110,9 +110,7 @@ void Exit(code) int code;
   exit(code);
 }
 
-void put_cam(n, infilename) int n;
-char *infilename;
-{
+void put_cam(int n, char *infilename) {
   int len;
   FILE *infp;
   int i;
@@ -206,9 +204,7 @@ cleanup:;
   return;
 }
 
-void put_hoge(n, infilename) int n;
-char *infilename;
-{
+void put_hoge(int n, char *infilename) {
   int len;
   FILE *infp;
   int i;
@@ -313,10 +309,7 @@ fgetretry:
     else if (x > 255)                                                          \
       x = 255;                                                                 \
   }
-void put_ppm(n, infilename, skiphead) int n;
-char *infilename;
-int skiphead;
-{
+void put_ppm(int n, char *infilename, int skiphead) {
   int len;
   FILE *infp;
 
@@ -470,7 +463,7 @@ cleanup:;
 }
 
 #ifndef DONTCAREUID
-void daemonuid() {
+void daemonuid(void) {
   if (uidswapped) {
 #ifdef HAVE_SETREUID
     setreuid(uid, euid);
@@ -485,7 +478,7 @@ void daemonuid() {
   }
 }
 
-void useruid() {
+void useruid(void) {
   if (!uidswapped) {
 #ifdef HAVE_SETREUID
     setregid(egid, gid);
@@ -501,10 +494,7 @@ void useruid() {
 }
 #endif
 
-int main(argc, argv)
-int argc;
-char **argv;
-{
+int main(int argc, char **argv) {
   char *devpath = NULL;
   char *outfilename = NULL;
   char c;

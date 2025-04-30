@@ -6,10 +6,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-static int put_uint32_t(l, outfp)
-uint32_t l;
-FILE *outfp;
-{
+static int put_uint32_t(uint32_t l, FILE *outfp) {
   int i;
   for (i = 0; i < 4; i++) {
     if (fputc(0xff & (l >> (8 * i)), outfp) == EOF) {
@@ -20,10 +17,7 @@ FILE *outfp;
   return (i);
 }
 
-static int put_uint16_t(s, outfp)
-uint16_t s;
-FILE *outfp;
-{
+static int put_uint16_t(uint16_t s, FILE *outfp) {
   if ((fputc(0xff & s, outfp) == EOF) ||
       (fputc(0xff & (s >> 8), outfp) == EOF)) {
     perror("put_uint16_t");
@@ -32,13 +26,9 @@ FILE *outfp;
   return (2);
 }
 
-int write_bmp(buf, outfp, width, height, rateW, rateH)
-uint8_t *buf;
-FILE *outfp;
-int width;
-int height;
-int rateW;
-int rateH;
+int write_bmp(uint8_t *buf, FILE *outfp, int width, int height, int rateW,
+              int rateH)
+
 {
   long size;
   size = width * height * 3;

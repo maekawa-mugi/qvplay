@@ -9,11 +9,11 @@
 #endif
 #include <stdlib.h>
 #include <time.h>
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #include <sys/types.h>
 #include <unistd.h>
 #endif
-#if HAVE_SYS_PARAM_H
+#ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
 #else
 #define MAXPATHLEN 256
@@ -80,7 +80,7 @@ static gid_t gid, egid;
 static int uidswapped = 0;
 #endif
 
-void version() {
+void version(void) {
   static char *usagestr[] = {
       QVPLAY_USAGE_HEADER,
       (char *)NULL,
@@ -92,7 +92,7 @@ void version() {
     fprintf(stdout, *p++);
 }
 
-void usage() {
+void usage(void) {
   static char *usagestr[] = {
       QVPLAY_USAGE_HEADER,
       "\t -h             : show this usage.\n",
@@ -145,8 +145,7 @@ void usage() {
     fprintf(stdout, *p++);
 }
 
-void Exit(code) int code;
-{
+void Exit(int code) {
 
   if (!(QVgetfd() < 0))
     QVchangespeed(DEFAULT);
@@ -157,10 +156,7 @@ void Exit(code) int code;
 #ifdef USEWORKFILE
 #define WORKFILE "qvwork.dat"
 
-void get_picture(n, outfilename, format) int n;
-char *outfilename;
-int format;
-{
+void get_picture(int n, char *outfilename, int format) {
   int len;
   uint8_t *buf = NULL;
   FILE *outfp;
@@ -307,10 +303,7 @@ cleanup0:;
     free(buf);
 }
 #else /* not defined USEWORLFILE */
-void get_picture(n, outfilename, format) int n;
-char *outfilename;
-int format;
-{
+void get_picture(int n, char *outfilename, int format) {
   int len;
   uint8_t *buf;
   FILE *outfp;
@@ -492,9 +485,7 @@ cleanup0:;
 }
 #endif
 
-void get_camfile(n, outfilename) int n;
-char *outfilename;
-{
+void get_camfile(int n, char *outfilename) {
   long len;
   long lenj;
   char buf1[64];
@@ -566,7 +557,7 @@ char *outfilename;
   if (outfilename) {
     outfp = fopen(outfilename, WMODE);
     if (outfp == NULL) {
-      fprintf(stderr, "can't open outfile(%s).\n, outfilename");
+      fprintf(stderr, "can't open outfile(%s).\n", outfilename);
       errflg++;
       goto cleanup0;
     }
@@ -727,8 +718,7 @@ void show_picture(n) int n;
     errflg++;
 }
 
-void default_picture(n) int n;
-{
+void default_picture(int n) {
   int m;
   if (n < 1)
     m = 1;
@@ -739,11 +729,7 @@ void default_picture(n) int n;
     errflg++;
 }
 
-void get_all_pictures(start, end, outfilename, format) int start;
-int end;
-char *outfilename;
-int format;
-{
+void get_all_pictures(int start, int end, char *outfilename, int format) {
   int i;
   char fname[MAXPATHLEN];
 
@@ -803,8 +789,7 @@ int format;
   }
 }
 
-void delete_picture(n) int n;
-{
+void delete_picture(int n) {
   if (all_pic_num < n) {
     fprintf(stderr, "picture number is too large.\n");
     errflg++;
@@ -816,8 +801,7 @@ void delete_picture(n) int n;
   all_pic_num = -1; /*need update*/
 }
 
-void show_4_pictures(str) char *str;
-{
+void show_4_pictures(char *str) {
   int pictureNo[4];
   int i;
   for (i = 0; i < 4; i++)
@@ -836,8 +820,7 @@ void show_4_pictures(str) char *str;
   QV4split(pictureNo);
 }
 
-void show_9_pictures(str) char *str;
-{
+void show_9_pictures(char *str) {
   int pictureNo[9];
   int i;
   for (i = 0; i < 9; i++)
@@ -857,8 +840,7 @@ void show_9_pictures(str) char *str;
   QV9split(pictureNo);
 }
 
-void protect_picture(n) int n;
-{
+void protect_picture(int n) {
   if (n < 1)
     return;
   if (n > all_pic_num) {
@@ -869,8 +851,7 @@ void protect_picture(n) int n;
   QVprotect(n, 1);
 }
 
-void unprotect_picture(n) int n;
-{
+void unprotect_picture(int n) {
   if (n < 1)
     return;
   if (n > all_pic_num) {
@@ -881,8 +862,7 @@ void unprotect_picture(n) int n;
   QVprotect(n, 0);
 }
 
-void picture_information(n) int n;
-{
+void picture_information(int n) {
   int i;
   if (n < 1)
     return;
@@ -903,7 +883,7 @@ void picture_information(n) int n;
     printf(" 480x240\n");
 }
 
-void take_picture() {
+void take_picture(void) {
   if (qv7xxprotocol != 0) {
     fprintf(stderr, "QV-700/770 cannot take picture by remote command.\n");
     errflg++;
@@ -938,8 +918,7 @@ void take_picture() {
 }
 
 #ifdef X68K
-void show_on_X68k(n) int n;
-{
+void show_on_X68k(int n) {
   int len;
   uint8_t *buf;
   int fine = 0;
@@ -977,7 +956,7 @@ cleanup0:;
 }
 #endif
 #ifndef DONTCAREUID
-void daemonuid() {
+void daemonuid(void) {
   if (uidswapped) {
 #ifdef HAVE_SETREUID
     setreuid(uid, euid);
@@ -992,7 +971,7 @@ void daemonuid() {
   }
 }
 
-void useruid() {
+void useruid(void) {
   if (!uidswapped) {
 #ifdef HAVE_SETREUID
     setregid(egid, gid);
@@ -1008,8 +987,7 @@ void useruid() {
 }
 #endif
 
-void print_swstat(stat) int stat;
-{
+void print_swstat(int stat) {
   if (qv7xxprotocol != 0) {
     fprintf(stderr, "QV-700/770 cannot report status.\n");
     return;
@@ -1048,9 +1026,8 @@ void print_swstat(stat) int stat;
     printf("Shutter button is pressed.\n");
 }
 
-int main(argc, argv)
-int argc;
-char **argv;
+int main(int argc, char **argv)
+
 {
   char *devpath = NULL;
   char *outfilename = NULL;

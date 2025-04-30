@@ -1,1 +1,1 @@
-int QValldelete ();
+int QValldelete (void);

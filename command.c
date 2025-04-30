@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <sys/types.h>
 
-
 #ifdef X68K
 #include "x68k/tty_x68.h"
 #else
@@ -24,7 +23,7 @@
 #endif /* OS2 */
 #endif /* WIN32 */
 #endif /* X68K */
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 
@@ -45,8 +44,7 @@ static int check_sum = 0;
 
 /* for VC++1.5 */
 #ifdef DOS
-void sleep(sec) int sec;
-{
+void sleep(int sec) {
   time_t lt;
   time_t lt2;
   time(&lt);
@@ -59,19 +57,15 @@ void sleep(sec) int sec;
 }
 #endif
 
-void QVsetfd(fd) int fd;
-{
+void QVsetfd(int fd) {
   dprintf((stderr, "QVfd = %x\n", fd));
   QVfd = fd;
 }
 
-int QVgetfd() { return QVfd; }
+int QVgetfd(void) { return QVfd; }
 
 /*------------------------------------------------------------*/
-static int calcsum(p, len)
-uint8_t *p;
-int len;
-{
+static int calcsum(uint8_t *p, int len) {
   uint8_t *q;
   int sum = 0;
   int i;
@@ -83,8 +77,7 @@ int len;
   return (sum);
 }
 
-void wbyte(c) uint8_t c;
-{
+void wbyte(uint8_t c) {
   dprintf((stderr, "> %02x\n", c));
   if (writetty(QVfd, &c, 1) < 0) {
     perror("writetty");
@@ -122,9 +115,7 @@ int checksum(uint8_t u) {
   return (1);
 }
 
-void wstr(p, len) uint8_t *p;
-int len;
-{
+void wstr(uint8_t *p, int len) {
   dprintf((stderr, "> len=%d\n", len));
   if (writetty(QVfd, p, len) < 0) {
     perror("writetty");
@@ -136,9 +127,7 @@ int len;
   check_sum = check_sum + calcsum(p, len);
 }
 
-inline void rstr(p, len) uint8_t *p;
-int len;
-{
+void rstr(uint8_t *p, int len) {
 
   dprintf((stderr, "< len=%d\n", len));
   if (readtty(QVfd, p, len) < 0) {
@@ -152,7 +141,7 @@ int len;
 
 /*------------------------------------------------------------*/
 
-int QVok() {
+int QVok(void) {
   int retrycount = RETRY;
 
   while (retrycount--) {
@@ -165,9 +154,7 @@ int QVok() {
   return 0; /*ng*/
 }
 
-int QVreset(flag)
-int flag;
-{
+int QVreset(int flag) {
   uint8_t s;
 
   if (!QVok())
@@ -188,7 +175,7 @@ int flag;
   return (int)s; /*ok*/
 }
 
-int QVhowmany() {
+int QVhowmany(void) {
   uint8_t s;
   uint8_t n;
   int retrycount = RETRY;
@@ -206,8 +193,7 @@ int QVhowmany() {
   return (int)n;
 }
 
-int QVremain(n) /* 100 only may be*/
-int n;
+int QVremain(int n) /* 100 only may be*/
 {
   uint8_t s;
 
@@ -242,9 +228,7 @@ int n;
   }
 }
 
-int QVshowpicture(n)
-int n;
-{
+int QVshowpicture(int n) {
   uint8_t s;
 
   if (!QVok())
@@ -258,7 +242,7 @@ int n;
   return 1; /*ok*/
 }
 
-int QVswstat() {
+int QVswstat(void) {
   uint8_t s;
   int r;
 
@@ -303,9 +287,7 @@ long QVrevision() {
 }
 
 static int current_speed = DEFAULT;
-int QVchangespeed(speed)
-int speed;
-{
+int QVchangespeed(int speed) {
   int n;
   uint8_t s;
   int baud;
@@ -378,9 +360,7 @@ int speed;
 }
 
 /*------------------------------------------------------------*/
-int QVsectorsize(n)
-int n;
-{
+int QVsectorsize(int n) {
   uint8_t s;
   uint8_t t;
   s = (uint8_t)(n >> 8) & 0xff;
@@ -398,10 +378,7 @@ int n;
 }
 
 #ifdef USEWORKFILE
-int QVblockrecv_file(fp, filesize)
-FILE *fp;
-int filesize;
-{
+int QVblockrecv_file(FILE *fp, int filesize) {
   uint8_t s;
   uint8_t t;
   uint8_t *p;
@@ -484,10 +461,7 @@ int filesize;
 }
 #endif
 
-int QVblockrecv(buf, filesize)
-uint8_t *buf;
-int filesize;
-{
+int QVblockrecv(uint8_t *buf, int filesize) {
   uint8_t s;
   uint8_t t;
   uint8_t *p;
@@ -567,10 +541,7 @@ int filesize;
   return p - buf;
 }
 
-int QVblocksend(buf, size)
-uint8_t *buf;
-int size;
-{
+int QVblocksend(uint8_t *buf, int size) {
   uint8_t s;
   uint8_t t;
   uint8_t *p;
@@ -629,7 +600,7 @@ int size;
   return p - buf;
 }
 
-int QVbattery() {
+int QVbattery(void) {
   uint8_t s;
 
   if (!QVok())
@@ -671,9 +642,7 @@ int QVbattery() {
   return (int)s;
 }
 
-int QVdefaultpicture(n)
-int n;
-{
+int QVdefaultpicture(int n) {
   uint8_t s;
 
   if (!QVok())
@@ -687,7 +656,7 @@ int n;
   return (int)1;
 }
 
-int QVnewprotocol() {
+int QVnewprotocol(void) {
   uint8_t s;
   if (!QVok())
     return -1; /*ng*/
@@ -700,7 +669,7 @@ int QVnewprotocol() {
   return (int)1;
 }
 
-int QVdisableAutoPowerOff() {
+int QVdisableAutoPowerOff(void) {
   uint8_t s;
   if (!QVok())
     return -1; /*ng*/

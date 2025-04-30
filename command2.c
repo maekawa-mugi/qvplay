@@ -23,18 +23,14 @@
 #endif /* OS2 */
 #endif /* WIN32 */
 #endif /* X68 */
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 
 extern int qvverbose;
 
 /*------------------------------------------------------------*/
-int QVputcam(n, size, buf)
-int n;
-int size;
-uint8_t *buf;
-{
+int QVputcam(int n, int size, uint8_t *buf) {
   uint8_t s;
   int len;
 
@@ -95,11 +91,7 @@ uint8_t *buf;
 }
 
 /*------------------------------------------------------------*/
-int QVputpicture(n, size, buf)
-int n;
-int size;
-uint8_t *buf;
-{
+int QVputpicture(int n, int size, uint8_t *buf) {
   uint8_t s;
   int len;
 
@@ -142,10 +134,8 @@ uint8_t *buf;
 }
 
 /*------------------------------------------------------------*/
-int QVputJpegQv7xx(n, size, buf)
-int n;
-int size;
-uint8_t *buf;
+int QVputJpegQv7xx(int n, int size, uint8_t *buf)
+
 {
   uint8_t s;
   int len;

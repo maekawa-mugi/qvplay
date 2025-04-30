@@ -2,43 +2,43 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-#if HAVE_FCNTL_H
+#ifdef HAVE_FCNTL_H
 #include <fcntl.h>
 #endif
 #include <stdlib.h>
-#if TIME_WITH_SYS_TIME
+#ifdef TIME_WITH_SYS_TIME
 #include <sys/time.h>
 #include <time.h>
 #else
-#if HAVE_SYS_TIME_H
+#ifdef HAVE_SYS_TIME_H
 #include <sys/time.h>
 #else
 #include <time.h>
 #endif
 #endif
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #include <sys/types.h>
 #include <unistd.h>
 #endif
-#if HAVE_TERMIOS_H
+#ifdef HAVE_TERMIOS_H
 #include <termios.h>
 #else
-#if HAVE_TERMIO_H
+#ifdef HAVE_TERMIO_H
 #include <termio.h>
 #else
-#if HAVE_SYS_IOCTL_H
+#ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>
 #endif
 #include <sgtty.h>
 #endif
 #endif
-#if HAVE_TTOLD_H
+#ifdef HAVE_TTOLD_H
 #include <ttold.h>
 #endif
-#if HAVE_IOCTL_TYPES_H
+#ifdef HAVE_IOCTL_TYPES_H
 #include <ioctl-types.h>
 #else
-#if HAVE_SYS_IOCTL_H
+#ifdef HAVE_SYS_IOCTL_H
 #include <sys/ioctl.h>
 #endif
 #endif
@@ -48,11 +48,8 @@
 
 #define TTYTIMEOUT 15
 
-int changespeed(fd, baud)
-int fd;
-int baud;
-{
-#if HAVE_TERMIOS_H
+int changespeed(int fd, int baud) {
+#ifdef HAVE_TERMIOS_H
   /* termios interface */
   struct termios tio;
 
@@ -74,7 +71,7 @@ int baud;
     return (-1);
   }
 #else
-#if HAVE_TERMIO_H
+#ifdef HAVE_TERMIO_H
   /* termio interface */
   /*  #  error not implemented yet. */
   fprintf(stderr, "sorry not inplemented yet.\n");
@@ -117,14 +114,12 @@ int baud;
   return (1);
 }
 
-int opentty(path)
-char *path;
-{
+int opentty(char *path) {
   int fd;
   struct termios tio;
 
   if ((fd = open(path, O_RDWR | O_NDELAY)) != -1) {
-#if HAVE_TERMIOS_H
+#ifdef HAVE_TERMIOS_H
 #else
     if (ioctl(fd, TIOCEXCL, 0) < 0) {
       fprintf(stderr, "Can't set tty exclusive mode.\n");
@@ -146,11 +141,7 @@ char *path;
   return (fd);
 }
 
-int readtty(fd, p, c)
-int fd;
-unsigned char *p;
-int c;
-{
+int readtty(int fd, unsigned char *p, int c) {
   fd_set readfds;
   int nfds;
   struct timeval tv;
@@ -181,8 +172,7 @@ int c;
   return (j);
 }
 
-void flushtty(fd) int fd;
-{
+void flushtty(int fd) {
   uint8_t c;
   fd_set readfds;
   int nfds;

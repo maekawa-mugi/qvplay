@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #include <sys/types.h>
 #include <unistd.h>
 #endif
-#if HAVE_SYS_PARAM_H
+#ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
 #else
 #define MAXPATHLEN 256
@@ -47,7 +47,7 @@ static gid_t gid, egid;
 static int uidswapped = 0;
 #endif
 
-void version() {
+void version(void) {
   static char *usagestr[] = {
       QVALLDEL_USAGE_HEADER,
       (char *)NULL,
@@ -56,10 +56,10 @@ void version() {
 
   p = usagestr;
   while (*p)
-    fprintf(stdout, *p++);
+    fprintf(stdout, "%s", *p++);
 }
 
-void usage() {
+void usage(void) {
   static char *usagestr[] = {
       QVALLDEL_USAGE_HEADER,
       "qvalldel [options]\n",
@@ -75,11 +75,10 @@ void usage() {
 
   p = usagestr;
   while (*p)
-    fprintf(stdout, *p++);
+    fprintf(stdout, "%s", *p++);
 }
 
-void Exit(code) int code;
-{
+void Exit(int code) {
   QVreset(1);
   if (!(QVgetfd() < 0))
     closetty(QVgetfd());
@@ -87,7 +86,7 @@ void Exit(code) int code;
 }
 
 #ifndef DONTCAREUID
-void daemonuid() {
+void daemonuid(void) {
   if (uidswapped) {
 #ifdef HAVE_SETREUID
     setreuid(uid, euid);
@@ -102,7 +101,7 @@ void daemonuid() {
   }
 }
 
-void useruid() {
+void useruid(void) {
   if (!uidswapped) {
 #ifdef HAVE_SETREUID
     setregid(egid, gid);
@@ -118,10 +117,7 @@ void useruid() {
 }
 #endif
 
-int main(argc, argv)
-int argc;
-char **argv;
-{
+int main(int argc, char **argv) {
   char *devpath = NULL;
   int force = 0;
   char c;

@@ -22,7 +22,7 @@
 #endif /* OS2 */
 #endif /* WIN32 */
 #endif /* X68 */
-#if HAVE_UNISTD_H
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
 
@@ -38,9 +38,7 @@ extern int qvverbose;
 
 /*------------------------------------------------------------*/
 
-int QVdeletepicture(n)
-int n;
-{
+int QVdeletepicture(int n) {
   uint8_t s;
 
   if (!QVok())
@@ -55,7 +53,7 @@ int n;
   return 1;
 }
 
-int QVtakepicture() {
+int QVtakepicture(void) {
   uint8_t s;
   uint8_t buf[3];
   buf[0] = 'D';
@@ -80,10 +78,7 @@ int QVtakepicture() {
   return 1;
 }
 
-int QVmovepicture(from, to)
-int from;
-int to;
-{
+int QVmovepicture(int from, int to) {
   uint8_t s;
 
   if (!QVok())
@@ -127,9 +122,7 @@ int to;
   return 1;
 }
 
-int QVpicturesize(n)
-int n;
-{
+int QVpicturesize(int n) {
   uint8_t s;
   if (!QVok())
     return -1; /*ng*/
@@ -207,10 +200,7 @@ int QVgetsize2(int n) {
   return (filesize);
 }
 
-int QVgetextdata(n, buf)
-int n;
-uint8_t *buf;
-{
+int QVgetextdata(int n, uint8_t *buf) {
   /* QV700/770 only */
   uint8_t s;
   int len;
@@ -243,13 +233,7 @@ uint8_t *buf;
   return len;
 }
 
-int QVgetpicture(n, buf, format, vga, fp)
-int n;
-uint8_t *buf;
-int format;
-int vga;
-FILE *fp;
-{
+int QVgetpicture(int n, uint8_t *buf, int format, int vga, FILE *fp) {
   uint8_t s;
   int len;
   long filesize = 0;
@@ -336,9 +320,7 @@ FILE *fp;
   return len;
 }
 
-int QV4split(n)
-int *n;
-{
+int QV4split(int *n) {
   uint8_t s;
   int i;
 
@@ -354,9 +336,7 @@ int *n;
   return 1;
 }
 
-int QV9split(n)
-int *n;
-{
+int QV9split(int *n) {
   uint8_t s;
   int i;
 
@@ -372,10 +352,7 @@ int *n;
   return 1;
 }
 
-int QVprotect(n, on)
-int n;
-int on;
-{
+int QVprotect(int n, int on) {
   uint8_t s;
 
   if (!QVok())
@@ -393,9 +370,7 @@ int on;
   return 1;
 }
 
-int QVhidepicnum(n)
-int n;
-{
+int QVhidepicnum(int n) {
   uint8_t s;
 
   if (!QVok())
@@ -408,7 +383,7 @@ int n;
   return 1;
 }
 
-int QVpoweroff() {
+int QVpoweroff(void) {
   uint8_t s;
 
   if (!QVok())
@@ -421,7 +396,7 @@ int QVpoweroff() {
   return 1;
 }
 
-int QVcolorpattern() {
+int QVcolorpattern(void) {
   uint8_t s;
 
   if (!QVok())
@@ -434,9 +409,7 @@ int QVcolorpattern() {
   return 1;
 }
 
-int QVpicattr(n)
-int n;
-{
+int QVpicattr(int n) {
   uint8_t s;
 
   if (!QVok())
