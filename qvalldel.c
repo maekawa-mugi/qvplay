@@ -42,11 +42,6 @@ extern int optind, opterr;
 extern char *optarg;
 
 static int all_pic_num = -1;
-#ifndef DONTCAREUID
-static uid_t uid, euid;
-static gid_t gid, egid;
-static int uidswapped = 0;
-#endif
 
 void version(void) {
   static char *usagestr[] = {
@@ -87,50 +82,10 @@ void Exit(int code) {
   exit(code);
 }
 
-#ifndef DONTCAREUID
-void daemonuid(void) {
-  if (uidswapped) {
-#ifdef HAVE_SETREUID
-    setreuid(uid, euid);
-    setregid(gid, egid);
-#else
-    setuid(uid);
-    seteuid(euid);
-    setgid(gid);
-    setegid(egid);
-#endif
-    uidswapped = 0;
-  }
-}
-
-void useruid(void) {
-  if (!uidswapped) {
-#ifdef HAVE_SETREUID
-    setregid(egid, gid);
-    setreuid(euid, uid);
-#else
-    setgid(egid);
-    setegid(gid);
-    setuid(euid);
-    seteuid(uid);
-#endif
-    uidswapped = 1;
-  }
-}
-#endif
-
 int main(int argc, char **argv) {
   char *devpath = NULL;
   int force = 0;
   int c;
-
-#ifndef DONTCAREUID
-  uid = getuid();
-  euid = geteuid();
-  gid = getgid();
-  egid = getegid();
-  useruid();
-#endif
 
   devpath = getenv("QVPLAYTTY");
 
@@ -157,13 +112,7 @@ int main(int argc, char **argv) {
     devpath = RSPORT;
 
   if (devpath) {
-#ifndef DONTCAREUID
-    daemonuid();
-#endif
     QVsetfd(opentty(devpath));
-#ifndef DONTCAREUID
-    useruid();
-#endif
     if (QVgetfd() < 0)
       Exit(1);
     if (all_pic_num < 0)

@@ -78,11 +78,6 @@ extern int qv7xxprotocol;
 
 static int errflg = 0;
 static int all_pic_num = -1;
-#ifndef DONTCAREUID
-static uid_t uid, euid;
-static gid_t gid, egid;
-static int uidswapped = 0;
-#endif
 
 void version(void) {
   static char *usagestr[] = {
@@ -986,38 +981,6 @@ cleanup0:;
   free(buf);
 }
 #endif
-#ifndef DONTCAREUID
-void daemonuid(void) {
-  if (uidswapped) {
-#ifdef HAVE_SETREUID
-    setreuid(uid, euid);
-    setregid(gid, egid);
-#else
-    setuid(uid);
-    seteuid(euid);
-    setgid(gid);
-    setegid(egid);
-#endif
-    uidswapped = 0;
-  }
-}
-
-void useruid(void) {
-  if (!uidswapped) {
-#ifdef HAVE_SETREUID
-    setregid(egid, gid);
-    setreuid(euid, uid);
-#else
-    setgid(egid);
-    setegid(gid);
-    setuid(euid);
-    seteuid(uid);
-#endif
-    uidswapped = 1;
-  }
-}
-#endif
-
 void print_swstat(int stat) {
   if (qv7xxprotocol != 0) {
     fprintf(stderr, "QV-700/770 cannot report status.\n");
@@ -1080,13 +1043,7 @@ static int ensure_camera_connected(char *devpath, int *start_picture,
 
   if (QVgetfd() >= 0)
     return 1;
-#ifndef DONTCAREUID
-  daemonuid();
-#endif
   QVsetfd(opentty(devpath));
-#ifndef DONTCAREUID
-  useruid();
-#endif
   if (QVgetfd() < 0)
     return 0;
 
@@ -1136,14 +1093,6 @@ int main(int argc, char **argv)
   qvverbose = 0;
   qvhasvgamode = 0;
   qv7xxprotocol = 0;
-
-#ifndef DONTCAREUID
-  uid = getuid();
-  euid = geteuid();
-  gid = getgid();
-  egid = getegid();
-  useruid();
-#endif
 
   devpath = getenv("QVPLAYTTY");
   if (devpath == NULL)

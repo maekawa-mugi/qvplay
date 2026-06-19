@@ -1,7 +1,6 @@
 #cmakedefine STDC_HEADERS 1
 #cmakedefine TIME_WITH_SYS_TIME 1
 #cmakedefine HAVE_SELECT 1
-#cmakedefine HAVE_SETREUID 1
 #cmakedefine HAVE_FCNTL_H 1
 #cmakedefine HAVE_SGTTY_H 1
 #cmakedefine HAVE_SYS_IOCTL_H 1
