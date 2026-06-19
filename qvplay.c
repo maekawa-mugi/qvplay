@@ -6,6 +6,9 @@
 
 #ifdef BINARYFILEMODE
 #include <fcntl.h> /* for setmode() */
+#ifdef _WIN32
+#include <io.h>
+#endif
 #endif
 #include <stdlib.h>
 #include <time.h>
@@ -26,10 +29,11 @@
 #include "x68k/tty_x68.h"
 #else
 #ifdef _WIN32
-#include "win32/getopt/getopt.h"
+#include "win32/getopt.h"
 #include "win32/tty_w32.h"
 
 #else
+#include <getopt.h>
 #ifdef OS2
 #include "os2/tty_os2.h"
 #else
@@ -126,7 +130,7 @@ void usage(void) {
       "\t -1             : disable auto power off function.\n",
       "\t -z             : report QV status\n",
       "\t -Z             : report QV revision?\n",
-#if defined(__linux__) || defined(WIN32) || defined(OS2) ||                    \
+#if defined(__linux__) || defined(_WIN32) || defined(OS2) ||                   \
     defined(__FreeBSD__) || defined(DOS)
       "\t -S speed       : serial speed. [normal middle high top light]\n",
 #else
@@ -147,7 +151,6 @@ void usage(void) {
 
 void Exit(int code) {
   if (QVgetfd() >= 0) {
-    QVchangespeed(DEFAULT);
     closetty(QVgetfd());
     QVsetfd(-1);
   }
@@ -727,8 +730,7 @@ cleanup0:;
     free(bufj);
 }
 
-void show_picture(n) int n;
-{
+void show_picture(int n) {
   int m = n;
   if (n < 1)
     m = 1;
@@ -1329,7 +1331,7 @@ int main(int argc, char **argv)
 #endif
     case 'S':
       switch (optarg[0]) {
-#if defined(__linux__) || defined(WIN32) || defined(OS2) ||                    \
+#if defined(__linux__) || defined(_WIN32) || defined(OS2) ||                   \
     defined(__FreeBSD__) || defined(DOS)
       case 'l':
       case '5':
@@ -1370,5 +1372,7 @@ int main(int argc, char **argv)
     }
   }
 
+  if (QVgetfd() >= 0 && QVchangespeed(DEFAULT) < 0)
+    errflg++;
   Exit(errflg ? 1 : 0);
 }

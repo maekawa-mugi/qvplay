@@ -20,9 +20,10 @@
 #include "x68k/tty_x68.h"
 #else
 #ifdef _WIN32
-#include "win32/getopt/getopt.h"
+#include "win32/getopt.h"
 #include "win32/tty_w32.h"
 #else
+#include <getopt.h>
 #ifdef OS2
 #include "os2/tty_os2.h"
 #else
@@ -79,9 +80,10 @@ void usage(void) {
 }
 
 void Exit(int code) {
-  QVreset(1);
-  if (!(QVgetfd() < 0))
+  if (QVgetfd() >= 0) {
     closetty(QVgetfd());
+    QVsetfd(-1);
+  }
   exit(code);
 }
 
@@ -120,7 +122,7 @@ void useruid(void) {
 int main(int argc, char **argv) {
   char *devpath = NULL;
   int force = 0;
-  char c;
+  int c;
 
 #ifndef DONTCAREUID
   uid = getuid();
@@ -151,14 +153,8 @@ int main(int argc, char **argv) {
     }
   }
 
-  if (devpath == NULL) {
-    devpath = malloc(sizeof(char) * (strlen(RSPORT) + 1));
-    if (devpath == NULL) {
-      fprintf(stderr, "can't malloc\n");
-      exit(1);
-    }
-    strcpy(devpath, RSPORT);
-  }
+  if (devpath == NULL)
+    devpath = RSPORT;
 
   if (devpath) {
 #ifndef DONTCAREUID
@@ -189,6 +185,7 @@ int main(int argc, char **argv) {
     if ((c == 'y') || (c == 'Y'))
       QValldelete();
   }
-  QVreset(1);
+  if (QVreset(1) < 0)
+    Exit(1);
   Exit(0);
 }

@@ -1,4 +1,5 @@
 #include "command.h"
+#include "command3.h"
 #include "common.h"
 #include "config.h"
 #include <setjmp.h>
@@ -36,4 +37,5 @@ int QValldelete(void) {
   if (checksum(s) == -1)
     return (-1);
   wbyte(ACK);
+  return 1;
 }

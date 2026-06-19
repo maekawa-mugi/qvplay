@@ -1,3 +1,0 @@
-[submodule "win32/getopt"]
-	path = win32/getopt
-	url = https://github.com/skeeto/getopt

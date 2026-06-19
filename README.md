@@ -40,6 +40,18 @@ qvplayを使えば
 - 林 謙一 xg2k-hys@asahi-net.or.jp
 - itojunさん itojun@itojun.org
 
+## ビルド
+
+C17対応コンパイラとCMake 3.16以降を使用します。
+
+```sh
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
+```
+
+Unix系ではシリアルポートへのアクセス権をdialoutグループやudevルールで設定してください。インストールされる実行ファイルにsetgid権限は付与しません。
+
 ## qvplay、qvalldelを使うために用意するもの&準備
 
 ### 推奨対応カメラ

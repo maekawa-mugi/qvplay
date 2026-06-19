@@ -1,0 +1,14 @@
+#cmakedefine STDC_HEADERS 1
+#cmakedefine TIME_WITH_SYS_TIME 1
+#cmakedefine HAVE_SELECT 1
+#cmakedefine HAVE_SETREUID 1
+#cmakedefine HAVE_FCNTL_H 1
+#cmakedefine HAVE_SGTTY_H 1
+#cmakedefine HAVE_SYS_IOCTL_H 1
+#cmakedefine HAVE_SYS_PARAM_H 1
+#cmakedefine HAVE_SYS_TIME_H 1
+#cmakedefine HAVE_TERMIO_H 1
+#cmakedefine HAVE_TERMIOS_H 1
+#cmakedefine HAVE_UNISTD_H 1
+#cmakedefine HAVE_TTOLD_H 1
+#cmakedefine HAVE_IOCTL_TYPES_H 1

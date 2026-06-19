@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <sys/types.h>
 
+#ifdef QVPLAY_TEST_TRANSPORT
+#include "tests/transport.h"
+#else
 #ifdef X68K
 #include "x68k/tty_x68.h"
 #else
@@ -22,6 +25,7 @@
 #endif /* OS2 */
 #endif /* WIN32 */
 #endif /* X68K */
+#endif /* QVPLAY_TEST_TRANSPORT */
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif

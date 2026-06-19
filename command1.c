@@ -27,6 +27,7 @@
 #endif
 
 #include "command.h"
+#include "command1.h"
 
 #if 0
 #define dprintf(x) fprintf x
@@ -54,7 +55,6 @@ int QVdeletepicture(int n) {
 }
 
 int QVtakepicture(void) {
-  uint8_t s;
   uint8_t buf[3];
   buf[0] = 'D';
   buf[1] = 'R';
@@ -66,12 +66,12 @@ int QVtakepicture(void) {
   /*  wstr("DR", 2); */
   wstr(buf, 3);
   /* fprintf(stderr,"DR\n", s); */
-  s = rbyte(); /* checksum */
+  (void)rbyte(); /* checksum */
   /*   fprintf(stderr,"rbyte\n"); */
   /*  if(checksum(s) == -1) return(-1); */
   /* wbyte(ACK); */
   /* fprintf(stderr,"ACK\n"); */
-  s = rbyte(); /* SW status */
+  (void)rbyte(); /* SW status */
   /* fprintf(stderr,"SW status %02x\n", s); */
   sleep(10);
 
@@ -239,6 +239,10 @@ int QVgetpicture(int n, uint8_t *buf, size_t capacity, int format, int vga,
   int len;
   long filesize = 0;
 
+#ifndef USEWORKFILE
+  (void)fp;
+#endif
+
   if (vga == 2) {
     if ((format == JPEG) || (format == CAM)) {
       filesize = QVgetsize2(n);
@@ -371,7 +375,7 @@ int QVprotect(int n, int on) {
   return 1;
 }
 
-int QVhidepicnum(int n) {
+int QVhidepicnum(void) {
   uint8_t s;
 
   if (!QVok())

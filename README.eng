@@ -128,8 +128,6 @@ Non-Unix systems
      command.c    
      command1.h
      command1.c    
-     command2.h
-     command2.c    
      command3.h
      command3.c    
      getuint.c
@@ -148,7 +146,15 @@ Non-Unix systems
      configure.in
      config.h.in
 
-*Installation (Unix system)
+*Preferred build method
+
+Use a C17 compiler and CMake 3.16 or newer.
+
+  cmake -S . -B build
+  cmake --build build
+  ctest --test-dir build --output-on-failure
+
+*Legacy installation (Unix system)
 1. ./setup OSname   (OSname is your operating system's name.
                      c.f. linux, newsos4 ...
                      If your environment can use 'uname', 'OSname'
@@ -163,14 +169,13 @@ Non-Unix systems
 5. Check the 'Makefile' in obj/OSname.
    See at 'install:' section.
 
-   $(INSTALL_PROGRAM) -s -o root -g uucp -m 2755 $(PROG1) $(bindir)/$(PROG1)
+   Programs are installed with mode 0755. Grant serial-port access through
+   your system's dialout group or an appropriate udev rule instead of setgid.
 
-   Check owner name 'root' and groupe name 'uucp' are same as
-   the special file of tty device you want to use.
+   Check that your user can access the special file of the tty device.
    % ls -l /dev/ttyS0
    crw-rw----   1 root     uucp       4,  64 May  6  1998 /dev/ttyS0
                   owner    group
-   If owner and group are not same, edit Makefile.
 6. make
 7. su
 8. make install

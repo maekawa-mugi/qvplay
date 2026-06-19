@@ -12,5 +12,3 @@
   "qvplay (Ver " QVPLAY_VERSION ") (c)1996-2000 ken-ichi HAYASHI, itojun\n"
 #define QVALLDEL_USAGE_HEADER                                                  \
   "qvalldel (Ver " QVPLAY_VERSION ") (c)1996-2000 ken-ichi HAYASHI\n"
-#define QVREC_USAGE_HEADER                                                     \
-  "qvrec (Ver " QVPLAY_VERSION ") (c)1996-2000 ken-ichi HAYASHI, itojun\n"

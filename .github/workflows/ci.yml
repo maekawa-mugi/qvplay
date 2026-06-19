@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            configure_args: -DCMAKE_C_COMPILER=gcc
+            sanitizers: ON
+          - os: ubuntu-latest
+            configure_args: -DCMAKE_C_COMPILER=clang
+            sanitizers: ON
+          - os: windows-latest
+            configure_args: ""
+            sanitizers: OFF
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DQVPLAY_SANITIZERS=${{ matrix.sanitizers }} ${{ matrix.configure_args }}
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure

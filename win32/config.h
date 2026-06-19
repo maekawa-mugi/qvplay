@@ -19,40 +19,9 @@
 /* Define to `int' if <sys/types.h> doesn't define.  */
 /* #undef uid_t */
 
-/* Define if you have the select function.  */
-#define HAVE_SELECT 1
-
-/* Define if you have the setreuid function.  */
-#define HAVE_SETREUID 0
-
-/* Define if you have the <fcntl.h> header file.  */
-#define HAVE_FCNTL_H 1
-
-/* Define if you have the <sgtty.h> header file.  */
-/* #undef HAVE_SGTTY_H */
-
-/* Define if you have the <sys/ioctl.h> header file.  */
-#define HAVE_SYS_IOCTL_H 1
-
-/* Define if you have the <sys/param.h> header file.  */
-#define HAVE_SYS_PARAM_H 0
-
-/* Define if you have the <sys/time.h> header file.  */
-#define HAVE_SYS_TIME_H 0
-
-/* Define if you have the <termio.h> header file.  */
-#define HAVE_TERMIO_H 0
-
-/* Define if you have the <termios.h> header file.  */
-#define HAVE_TERMIOS_H 0
-
-/* Define if you have the <unistd.h> header file.  */
-#define HAVE_UNISTD_H 0
-
 #include <windows.h>
 
-#define inline
-#define DONTCAREUID	 1
+#define DONTCAREUID 1
 #define BINARYFILEMODE 1
 
 

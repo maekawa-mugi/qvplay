@@ -43,10 +43,10 @@ realclean:
 # some BSD environment /dev/tty is uucp/bin
 
 install:	all
-	$(INSTALL_PROGRAM) -s -o root -g uucp -m 2755 $(PROG1) $(bindir)/$(PROG1)
-	$(INSTALL_PROGRAM) -s -o root -g uucp -m 2755 $(PROG3) $(bindir)/$(PROG3)
-	$(INSTALL_PROGRAM) -o root -g bin -m 444 $(MAN1) $(mandir)/$(MAN1)
-	$(INSTALL_PROGRAM) -o root -g bin -m 444 $(MAN3) $(mandir)/$(MAN3)
+	$(INSTALL_PROGRAM) -s -m 755 $(PROG1) $(bindir)/$(PROG1)
+	$(INSTALL_PROGRAM) -s -m 755 $(PROG3) $(bindir)/$(PROG3)
+	$(INSTALL_DATA) -m 644 $(MAN1) $(mandir)/$(MAN1)
+	$(INSTALL_DATA) -m 644 $(MAN3) $(mandir)/$(MAN3)
 
 -include $(OBJS1:.o=.d) $(OBJS3:.o=.d)
 
