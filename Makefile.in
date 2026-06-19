@@ -17,11 +17,6 @@ OBJS1	= tty.o command.o command1.o getuint.o jpeg.o ppm.o bmp.o qvplay.o
 PROG1	= qvplay
 MAN1    = qvplay.1
 
-SRCS2	= tty.c command.c command2.c getuint.c qvrec.c
-OBJS2	= tty.o command.o command2.o getuint.o qvrec.o
-PROG2	= qvrec
-MAN2    = qvrec.1
-
 SRCS3	= tty.c command.c command3.c qvalldel.c
 OBJS3	= tty.o command.o command3.o qvalldel.o
 PROG3	= qvalldel
@@ -30,34 +25,29 @@ MAN3    = qvalldel.1
 .c.o:
 	$(CC) $(CFLAGS) $(DEFS) -MMD -MP -c $<
 
-all:	$(PROG1) $(PROG2) $(PROG3)
+all:	$(PROG1) $(PROG3)
 
 $(PROG1): $(OBJS1)
 	$(LDCC) -o $(PROG1) $(CFLAGS) $(OBJS1) $(LIBS)
-
-$(PROG2): $(OBJS2)
-	$(LDCC) -o $(PROG2) $(CFLAGS) $(OBJS2) $(LIBS)
 
 $(PROG3): $(OBJS3)
 	$(LDCC) -o $(PROG3) $(CFLAGS) $(OBJS3) $(LIBS)
 
 clean:
-	rm -f $(PROG1) $(OBJS1) $(PROG2) $(OBJS2) $(PROG3) $(OBJS3) $(OBJS1:.o=.d) $(OBJS2:.o=.d) $(OBJS3:.o=.d)
+	rm -f $(PROG1) $(OBJS1) $(PROG3) $(OBJS3) $(OBJS1:.o=.d) $(OBJS3:.o=.d)
 
 realclean:
-	rm -f $(PROG1) $(OBJS1) $(PROG2) $(OBJS2) $(PROG3) $(OBJS3) $(OBJS1:.o=.d) $(OBJS2:.o=.d) $(OBJS3:.o=.d) config.log config.cache config.status Makefile
+	rm -f $(PROG1) $(OBJS1) $(PROG3) $(OBJS3) $(OBJS1:.o=.d) $(OBJS3:.o=.d) config.log config.cache config.status Makefile
 
 # at RedHat 5.2 environment /dev/cua1 tty device's owner is root and group is uucp
 # some BSD environment /dev/tty is uucp/bin
 
 install:	all
 	$(INSTALL_PROGRAM) -s -o root -g uucp -m 2755 $(PROG1) $(bindir)/$(PROG1)
-	$(INSTALL_PROGRAM) -s -o root -g uucp -m 2755 $(PROG2) $(bindir)/$(PROG2)
 	$(INSTALL_PROGRAM) -s -o root -g uucp -m 2755 $(PROG3) $(bindir)/$(PROG3)
 	$(INSTALL_PROGRAM) -o root -g bin -m 444 $(MAN1) $(mandir)/$(MAN1)
-	$(INSTALL_PROGRAM) -o root -g bin -m 444 $(MAN2) $(mandir)/$(MAN2)
 	$(INSTALL_PROGRAM) -o root -g bin -m 444 $(MAN3) $(mandir)/$(MAN3)
 
--include $(OBJS1:.o=.d) $(OBJS2:.o=.d) $(OBJS3:.o=.d)
+-include $(OBJS1:.o=.d) $(OBJS3:.o=.d)
 
 .PHONY: all clean install realclean

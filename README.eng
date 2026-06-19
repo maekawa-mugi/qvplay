@@ -29,9 +29,6 @@ Windows 95) environment, using 'qvplay'.
 - report how many images in QV-10.
 - press the shutter of QV-10.
 
-And, you can upload 'PPM', 'RGB', 'CAM' format image files
-to QV-10, using 'qvrec'.
-
 #QV-100/200/300's fine mode picture (640x480) is supported at Ver 0.90.
 #QV-700/770's fine mode picture(640x480) is supported at Ver 0.93.
 #But upload is not supported yet.
@@ -45,14 +42,14 @@ Jun-ichiro "itojun" Itoh <itojun@itojun.org>
 
 *Attention
 - The auther assumes no responsibility for the results for the usage of
-  this software(qvplay, qvrec, qvalldel), and documents.
-- There is a possibility of this software (qvplay, qvrec, qvalldel)
+  this software(qvplay, qvalldel), and documents.
+- There is a possibility of this software (qvplay, qvalldel)
   can cause permanent damage to QV-10's hardware and image data
   in the QV-10. 
   Use at your own risk.
 - Sometimes, you must do a small hardware hack to PC-QV10 connection
   cable. (On old FreeBSD and NEXTSTEP, this hardware hack is needed)
-- This software (qvplay, qvrec, qvalldel) is 'FreeWare'.
+- This software (qvplay, qvalldel) is 'FreeWare'.
   You can freely redistribute this archive.
 - You can use the entire source code of this archive in your software,
   but I assume no resuponsibilitiy for the results of the usage of the
@@ -123,10 +120,8 @@ Non-Unix systems
          x68k.c
   src/
      qvplay.c
-     qvrec.c
      qvalldel.c
      qvplay.1
-     qvrec.1
      qvalldel.1
      common.h
      command.h
@@ -219,11 +214,7 @@ Add files(qvplay.c command.c command1.c jpeg.c ppm.c
 bmp.c getopt.c getuint.c tty_w32.c) to project.
 Do build.
 
-To build 'qvrec', make ProjectWorkspace named 'qvrec'.
-Add files(qvrec.c command.c command2.c getopt.c getuint.c
-tty_w32.c) to project. And do build.
-
-To build 'qvalldel', make ProjectWorkspace named 'qvrec'.
+To build 'qvalldel', make ProjectWorkspace named 'qvalldel'.
 Add files(qvalldel.c command.c command3.c getopt.c tty_w32.c)
 to project. And do build.
 
@@ -250,20 +241,20 @@ copy ..\..\src\*.c .
 copy ..\..\src\*.h .
 do make
 
-*Equipment for qvplay, qvrec, qvalldel.
+*Equipment for qvplay and qvalldel.
 - CASIO QV-10, QV-10a, QV-30, QV-11, QV-70
         QV-100, QV-200, QV-300
         QV-700, QV-770
 - PC link cable (included CASIO PC link kit for Windows)
 
 Connect QV-10 and PC/WS by PC link cable.
-And execute 'qvplay', 'qvrec', 'qvdeleteall'.
-But, in some operating system environments, 'qvplay', 'qvrec', and
-'qvdeleteall', may not work well. Because, PC link cable has
+And execute 'qvplay' or 'qvdeleteall'.
+But, in some operating system environments, 'qvplay' and
+'qvdeleteall' may not work well. Because, PC link cable has
 electrical circuits (may be level converter), and it works
 by PC/WS's serial terminal voltage. The circuit in PC link cable
 use the CTS,DTR terminal as Vdd(+ side), and the RTS terminal as
-Vss(- side). So 'qvplay', 'qvrec', and 'qvdeleteall' change the
+Vss(- side). So 'qvplay' and 'qvdeleteall' change the
 CTS,DTR terminal to on, the RTS terminal to off and hold 
 those states. But, some operating system environments,
 change RTS terminal to off, causing serial communicaton to stop.
@@ -468,68 +459,6 @@ strings like "COM1", "COM2", etc.
 Under X680x0 environment, this environment variable QVPLAYTTY is
 ignored.
 
-*How to use 'qvrec'
-- usage 
-  qvrec [options] file1 file2 .....
-
- Upload image files to QV-10 and reset QV-10.
- If image files are not setted in command line, 'qvrec'
- accsepts an image file from standard input.
- (Accsept only one image). 
-
- 'qvrec' works only QV10 series.
- 
- 
- -h          Show usage to stderr.
- -v          Verbose mode. Reports downloaded data bytes to stderr.
-             (Reported information is uploaded bytes, not a filesize)
- -F {ppm,PPM,rgb,RGB,cam,CAM} 
-             Set input file format.
-
-             ppm or PPM   PPM format
-             rgb or RGB   RGB format
-             cam or CAM   CAM format
-
-             Default is 'ppm'.
-             Format name is detected by first letter.
-             So, 'photo', 'picture' are same as 'ppm'.
-            * This function dose not work for fine mode of QV-100 seriese.
-            * This function dose not work for QV-700/770.
-            * DOS version, you cannot choice format without CAM.
- -D ttydevice Change serial port to 'ttydevice'.
-             If your environment is Windows NT/95, set 'COM1'...'COM4'
-             as 'ttydevice'.
- -S {normal,mid,high,top,light}or{1,2,3,4,5}
-             Set serial speed.
-             See options of 'qvplay' for detail.
- 
-File format of image files are limited.
-       PPM  raw format (P6 fomat)
-            RGB 24bit color(8-8-8)
-            size 480x240   
-       RGB  RGB 24bit color(8-8-8)
-            size 480x240   
-
-Example 1 
- 1. Upload PPM image files to QV-10.
-    qvrec file1.ppm file2.ppm file3.ppm
-
-    If QV-10 has 4 pictures already,
-    file1.ppm become No.5,
-    file2.ppm become No.6,
-    file3.ppm become No.7,
-    in QV-10.
-
- 2. Upload an image file by high speed mode,
-    and show byte size of transfered.
-    qvrec -v -S h file.ppm
-
- 3. Upload an image file from standard input.
-    cat file.ppm | qvrec
-
- 4. Upload a CAM format image file.
-    qvrec -F cam file1.cam
-
 *How to use 'qvalldel'
 - usage
   qvalldel [options]
@@ -596,8 +525,6 @@ FAQ
 
 *Known BUGs
  - At QV-100/300, qvplay's -t option is not work well.
- - 'qvrec' is not support the fine mode of QV-100series.
- - 'qvrec' is not support QV-700/770.
  - DOS version is not works well.
 
 *URL/mail

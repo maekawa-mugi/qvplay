@@ -15,7 +15,6 @@ int QVchangespeed(int);
 int QVblockrecv_file(FILE *, int);
 #endif
 int QVblockrecv(uint8_t *, int);
-int QVblocksend(uint8_t *, int);
 int QVbattery(void);
 int QVremain(int);
 int QVswstat(void);

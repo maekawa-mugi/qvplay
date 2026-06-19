@@ -541,65 +541,6 @@ int QVblockrecv(uint8_t *buf, int filesize) {
   return p - buf;
 }
 
-int QVblocksend(uint8_t *buf, int size) {
-  uint8_t s;
-  uint8_t t;
-  uint8_t *p;
-  u_int sectorsize;
-  int retrycount = RETRY;
-  int rest;
-  int sum;
-
-  rest = size;
-
-  p = buf;
-  while (rest > 0) {
-    if (qvverbose)
-      fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
-    if (rest < SECTOR)
-      sectorsize = rest;
-    else
-      sectorsize = SECTOR;
-
-    wbyte(STX);
-    s = (uint8_t)(sectorsize >> 8) & 0xff;
-    sum = s;
-    t = (uint8_t)sectorsize & 0xff;
-    sum += t;
-    wbyte(s);
-    wbyte(t);
-
-    wstr(p, sectorsize);
-    sum = sum + calcsum(p, sectorsize);
-    p += sectorsize;
-    rest -= sectorsize;
-
-    wbyte(ETB);
-    sum += ETB;
-    wbyte(0xff & (~sum));
-    s = rbyte(); /* 0x06 */
-    if (s != ACK)
-      return (-1);
-  }
-
-  if (qvverbose)
-    fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
-  /* final sector */
-  wbyte(STX);
-  wbyte(0x00);
-  wbyte(0x00);
-  wbyte(ETX);
-  wbyte(0xfc);
-  s = rbyte(); /* 0x06 */
-  if (s != ACK)
-    return (-1);
-
-  if (qvverbose)
-    fprintf(stderr, "\n");
-
-  return p - buf;
-}
-
 int QVbattery(void) {
   uint8_t s;
 
