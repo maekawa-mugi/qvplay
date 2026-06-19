@@ -200,7 +200,7 @@ int QVgetsize2(int n) {
   return (filesize);
 }
 
-int QVgetextdata(int n, uint8_t *buf) {
+int QVgetextdata(int n, uint8_t *buf, size_t capacity) {
   /* QV700/770 only */
   uint8_t s;
   int len;
@@ -226,14 +226,15 @@ int QVgetextdata(int n, uint8_t *buf) {
     return (-1);
   wbyte(ACK);
 
-  len = QVblockrecv(buf, 0);
+  len = QVblockrecv(buf, capacity, 0);
   if (!QVok())
     return -1; /*ng*/
 
   return len;
 }
 
-int QVgetpicture(int n, uint8_t *buf, int format, int vga, FILE *fp) {
+int QVgetpicture(int n, uint8_t *buf, size_t capacity, int format, int vga,
+                 FILE *fp) {
   uint8_t s;
   int len;
   long filesize = 0;
@@ -312,7 +313,7 @@ int QVgetpicture(int n, uint8_t *buf, int format, int vga, FILE *fp) {
     len = QVblockrecv_file(fp, filesize);
   else
 #endif
-    len = QVblockrecv(buf, filesize);
+    len = QVblockrecv(buf, capacity, (size_t)filesize);
 
   if (!QVok())
     return -1; /*ng*/

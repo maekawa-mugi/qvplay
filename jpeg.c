@@ -19,7 +19,7 @@ int write_file(uint8_t *buf, int len, FILE *outfp) {
   i = 0;
   while (len > i) {
     l = ((len - i) < BUFSIZ) ? (len - i) : BUFSIZ;
-    if (fwrite(&buf[i], sizeof(uint8_t), l, outfp) != l) {
+    if (fwrite(&buf[i], sizeof(uint8_t), (size_t)l, outfp) != (size_t)l) {
       perror("write_file");
       return (-1);
     };
@@ -60,18 +60,28 @@ int write_file_file(char *filename, long len, long skip, FILE *outfp) {
 }
 #endif
 
-int write_jpeg(uint8_t *buf, FILE *outfp) {
+int write_jpeg(uint8_t *buf, size_t len, FILE *outfp) {
   int i = 0;
   int areaNum;
   int ysize;
   int usize;
   int vsize;
 
+  if (buf == NULL || len < 136) {
+    fprintf(stderr, "invalid JPEG source: header is truncated.\n");
+    return -1;
+  }
+
   areaNum = get_uint16_t(buf); /* areaNum == 0x03 */
   ysize = get_uint16_t(buf + 2);
   usize = get_uint16_t(buf + 4);
   vsize = get_uint16_t(buf + 6);
   i = i + 8;
+
+  if (areaNum != 3 || (size_t)ysize + (size_t)usize + (size_t)vsize > len - 136) {
+    fprintf(stderr, "invalid JPEG source: component sizes exceed input.\n");
+    return -1;
+  }
 
   if (write_file(soi, sizeof(soi), outfp) == -1)
     return (-1);
@@ -171,12 +181,21 @@ int write_jpeg_fine(char *filename, FILE *outfp) {
   return (i);
 }
 #else
-int write_jpeg_fine(uint8_t *buf, FILE *outfp) {
+int write_jpeg_fine(uint8_t *buf, size_t len, FILE *outfp) {
   int i = 0;
   int size;
   uint8_t c = 0x01;
 
+  if (buf == NULL || len < 136) {
+    fprintf(stderr, "invalid fine JPEG source: header is truncated.\n");
+    return -1;
+  }
+
   size = get_u_int(buf + 4);
+  if (size < 136 || (size_t)size > len) {
+    fprintf(stderr, "invalid fine JPEG source: size exceeds input.\n");
+    return -1;
+  }
   i = i + 8;
   if (write_file(soi, sizeof(soi), outfp) == -1)
     return (-1);
@@ -201,13 +220,13 @@ int write_jpeg_fine(uint8_t *buf, FILE *outfp) {
 
   if (write_file(sos_f, sizeof(sos_f), outfp) == -1)
     return (-1);
-  if (write_file(&buf[i], size, outfp) == -1)
+  if (write_file(&buf[i], size - i, outfp) == -1)
     return (-1);
 
   if (write_file(eoi, sizeof(eoi), outfp) == -1)
     return (-1);
 
-  return (i);
+  return size;
 }
 
 #endif

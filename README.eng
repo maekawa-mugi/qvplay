@@ -384,8 +384,9 @@ using 'CTRL-C', and reboot QV-10.
  -t          Take a picutre. (set QV10's function SW to REC position.)
              * This function dose not work well for QV-100series.
              * This function dose not work for QV-700/770.
- -V          Report approximate battery status.
+ -b          Report approximate battery status.
              * This function dose not work for QV-700/770.
+ -V          Show version information without connecting to the camera.
  -0          Poer off QV10 (not 'oh' it is 'zero')
  -1          Disable auto power off function.
  -7          Display a colour bar on QV10's LCD.

@@ -1,6 +1,6 @@
 int QVdeletepicture (int);
 int QVtakepicture (void);
-int QVgetpicture (int, uint8_t *, int, int, FILE *);
+int QVgetpicture (int, uint8_t *, size_t, int, int, FILE *);
 int QVmovepicture (int, int);
 int QV4split (int *);
 int QV9split (int *);
@@ -10,4 +10,4 @@ int QVpoweroff (void);
 int QVcolorpattern (void);
 int QVpicattr (int);
 int QVgetsize2 (int);
-int QVgetextdata (int, uint8_t *);
+int QVgetextdata (int, uint8_t *, size_t);

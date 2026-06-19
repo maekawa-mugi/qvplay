@@ -89,7 +89,7 @@ void version(void) {
 
   p = usagestr;
   while (*p)
-    fprintf(stdout, *p++);
+    fputs(*p++, stdout);
 }
 
 void usage(void) {
@@ -120,7 +120,7 @@ void usage(void) {
       "\t -t             : take a picture.(QV-700/770 cannot use)\n",
       "\t -P num         : protect a picture.\n",
       "\t -U num         : unprotect a picture.\n",
-      "\t -V             : report battery status. (roughly)(QV-700/770 not "
+      "\t -b             : report battery status. (roughly)(QV-700/770 not "
       "work)\n",
       "\t -0             : power off QV.\n",
       "\t -1             : disable auto power off function.\n",
@@ -142,14 +142,15 @@ void usage(void) {
 
   p = usagestr;
   while (*p)
-    fprintf(stdout, *p++);
+    fputs(*p++, stdout);
 }
 
 void Exit(int code) {
-
-  if (!(QVgetfd() < 0))
+  if (QVgetfd() >= 0) {
     QVchangespeed(DEFAULT);
-  closetty(QVgetfd());
+    closetty(QVgetfd());
+    QVsetfd(-1);
+  }
   exit(code);
 }
 
@@ -159,6 +160,7 @@ void Exit(int code) {
 void get_picture(int n, char *outfilename, int format) {
   int len;
   uint8_t *buf = NULL;
+  size_t capacity = 0;
   FILE *outfp;
   FILE *fp;
   int vga = 0;
@@ -177,12 +179,15 @@ void get_picture(int n, char *outfilename, int format) {
 
   switch (format) {
   case JPEG:
-    if (vga == 0)
+    if (vga == 0) {
+      capacity = JPEG_MAXSIZ;
       buf = (uint8_t *)malloc(JPEG_MAXSIZ);
+    }
     break;
   case PPM_T:
   case RGB_T:
   case BMP_T:
+    capacity = THUMBNAIL_MAXSIZ;
     buf = (uint8_t *)malloc(THUMBNAIL_MAXSIZ);
     break;
   case PPM_P:
@@ -213,7 +218,7 @@ void get_picture(int n, char *outfilename, int format) {
 #endif
 
   if (buf != NULL)
-    len = QVgetpicture(n, buf, format, vga, NULL);
+    len = QVgetpicture(n, buf, capacity, format, vga, NULL);
   else {
     fp = fopen(WORKFILE, WMODE);
     if (fp == NULL) {
@@ -221,7 +226,7 @@ void get_picture(int n, char *outfilename, int format) {
       errflg++;
       goto cleanup0;
     }
-    len = QVgetpicture(n, buf, format, vga, fp);
+    len = QVgetpicture(n, buf, 0, format, vga, fp);
     fclose(fp);
   }
 
@@ -289,7 +294,7 @@ void get_picture(int n, char *outfilename, int format) {
           goto cleanup;
         }
         unlink(WORKFILE);
-      } else if (write_jpeg(buf, outfp) == -1) {
+      } else if (write_jpeg(buf, (size_t)len, outfp) == -1) {
         errflg++;
         goto cleanup;
       }
@@ -306,6 +311,7 @@ cleanup0:;
 void get_picture(int n, char *outfilename, int format) {
   int len;
   uint8_t *buf;
+  size_t capacity = 0;
   FILE *outfp;
   int vga = 0;
 
@@ -325,30 +331,38 @@ void get_picture(int n, char *outfilename, int format) {
 
   switch (format) {
   case JPEG:
-    if (vga == 1)
+    if (vga == 1) {
+      capacity = JPEG_MAXSIZ_VGA;
       buf = (uint8_t *)malloc(JPEG_MAXSIZ_VGA);
-    else if (vga == 2) {
+    } else if (vga == 2) {
       int filesize;
       filesize = QVgetsize2(n);
-      if (filesize < 0)
+      if (filesize <= 0)
         return;
+      capacity = (size_t)filesize;
       buf = (uint8_t *)malloc(filesize);
-    } else
+    } else {
+      capacity = JPEG_MAXSIZ;
       buf = (uint8_t *)malloc(JPEG_MAXSIZ);
+    }
     break;
   case PPM_T:
   case RGB_T:
   case BMP_T:
+    capacity = THUMBNAIL_MAXSIZ;
     buf = (uint8_t *)malloc(THUMBNAIL_MAXSIZ);
     break;
   case PPM_P:
   case RGB_P:
   case BMP_P:
   default:
-    if (vga)
+    if (vga) {
+      capacity = YCC_MAXSIZ_VGA;
       buf = (uint8_t *)malloc(YCC_MAXSIZ_VGA);
-    else
+    } else {
+      capacity = YCC_MAXSIZ;
       buf = (uint8_t *)malloc(YCC_MAXSIZ);
+    }
     break;
   }
 
@@ -376,7 +390,7 @@ void get_picture(int n, char *outfilename, int format) {
   }
 #endif
 
-  len = QVgetpicture(n, buf, format, vga, NULL);
+  len = QVgetpicture(n, buf, capacity, format, vga, NULL);
   if (len < 0) {
     errflg++;
     goto cleanup;
@@ -457,7 +471,7 @@ void get_picture(int n, char *outfilename, int format) {
     case JPEG:
     default:
       if (vga == 1) {
-        if (write_jpeg_fine(buf, outfp) == -1) {
+        if (write_jpeg_fine(buf, (size_t)len, outfp) == -1) {
           errflg++;
           goto cleanup;
         }
@@ -467,7 +481,7 @@ void get_picture(int n, char *outfilename, int format) {
           goto cleanup;
         }
       } else {
-        if (write_jpeg(buf, outfp) == -1) {
+        if (write_jpeg(buf, (size_t)len, outfp) == -1) {
           errflg++;
           goto cleanup;
         }
@@ -492,6 +506,7 @@ void get_camfile(int n, char *outfilename) {
   char buf5[64];
   uint8_t *bufj;
   uint8_t *bufp;
+  size_t bufj_capacity = 0;
   FILE *outfp;
   int i;
   time_t tt;
@@ -512,6 +527,7 @@ void get_camfile(int n, char *outfilename) {
       vga = 2;
   }
 
+  bufj = NULL;
   bufp = (uint8_t *)malloc(THUMBNAIL_MAXSIZ);
   if (bufp == (uint8_t *)NULL) {
     fprintf(stderr, "can't alloc\n");
@@ -528,6 +544,7 @@ void get_camfile(int n, char *outfilename) {
       return;
     }
   } else {
+    bufj_capacity = JPEG_MAXSIZ;
     bufj = (uint8_t *)malloc(JPEG_MAXSIZ);
     if (bufj == (uint8_t *)NULL) {
       fprintf(stderr, "can't alloc\n");
@@ -536,16 +553,20 @@ void get_camfile(int n, char *outfilename) {
     }
   }
 #else
-  if (vga == 1)
+  if (vga == 1) {
+    bufj_capacity = JPEG_MAXSIZ_VGA;
     bufj = (uint8_t *)malloc(JPEG_MAXSIZ_VGA);
-  else if (vga == 2) {
+  } else if (vga == 2) {
     int filesize;
     filesize = QVgetsize2(n);
-    if (filesize < 0)
+    if (filesize <= 0)
       return;
+    bufj_capacity = (size_t)filesize;
     bufj = (uint8_t *)malloc(filesize);
-  } else
+  } else {
+    bufj_capacity = JPEG_MAXSIZ;
     bufj = (uint8_t *)malloc(JPEG_MAXSIZ);
+  }
   if (bufj == (uint8_t *)NULL) {
     fprintf(stderr, "can't alloc\n");
     errflg++;
@@ -605,18 +626,18 @@ void get_camfile(int n, char *outfilename) {
 
 #ifdef USEWORKFILE
   if (vga) {
-    lenj = QVgetpicture(n, NULL, JPEG, vga, fp);
+    lenj = QVgetpicture(n, NULL, 0, JPEG, vga, fp);
     fclose(fp);
   } else
-    lenj = QVgetpicture(n, bufj, JPEG, vga, NULL);
+    lenj = QVgetpicture(n, bufj, bufj_capacity, JPEG, vga, NULL);
 #else
-  lenj = QVgetpicture(n, bufj, JPEG, vga, NULL);
+  lenj = QVgetpicture(n, bufj, bufj_capacity, JPEG, vga, NULL);
 #endif
   if (lenj < 0) {
     errflg++;
     goto cleanup;
   }
-  if (vga)
+  if (vga == 1)
     lenj = lenj + 473;
   fputc((lenj >> 24) & 0xff, outfp);
   fputc((lenj >> 16) & 0xff, outfp);
@@ -663,7 +684,7 @@ void get_camfile(int n, char *outfilename) {
 
   fputc(0x00, outfp);
 
-  len = QVgetpicture(n, bufp, PPM_T, vga, NULL);
+  len = QVgetpicture(n, bufp, THUMBNAIL_MAXSIZ, PPM_T, vga, NULL);
   if (len < 0) {
     errflg++;
     goto cleanup;
@@ -681,7 +702,7 @@ void get_camfile(int n, char *outfilename) {
     };
     unlink(WORKFILE);
 #else
-    if (write_jpeg_fine(bufj, outfp) == -1) {
+    if (write_jpeg_fine(bufj, (size_t)(lenj - 473), outfp) == -1) {
       errflg++;
       goto cleanup;
     }
@@ -708,7 +729,7 @@ cleanup0:;
 
 void show_picture(n) int n;
 {
-  int m;
+  int m = n;
   if (n < 1)
     m = 1;
   if (all_pic_num < n)
@@ -719,7 +740,7 @@ void show_picture(n) int n;
 }
 
 void default_picture(int n) {
-  int m;
+  int m = n;
   if (n < 1)
     m = 1;
   if (all_pic_num < n)
@@ -746,41 +767,48 @@ void get_all_pictures(int start, int end, char *outfilename, int format) {
   }
 
   for (i = start; i <= end; i++) {
+    int result;
+
     switch (format) {
     case PPM_P:
     case PPM_T:
       if (outfilename)
-        sprintf(fname, OUTFILENAME_PPM, outfilename, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_PPM, outfilename, i);
       else
-        sprintf(fname, OUTFILENAME_PPM0, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_PPM0, i);
       break;
     case RGB_P:
     case RGB_T:
       if (outfilename)
-        sprintf(fname, OUTFILENAME_RGB, outfilename, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_RGB, outfilename, i);
       else
-        sprintf(fname, OUTFILENAME_RGB0, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_RGB0, i);
       break;
     case BMP_P:
     case BMP_T:
       if (outfilename)
-        sprintf(fname, OUTFILENAME_BMP, outfilename, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_BMP, outfilename, i);
       else
-        sprintf(fname, OUTFILENAME_BMP0, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_BMP0, i);
       break;
     case CAM:
       if (outfilename)
-        sprintf(fname, OUTFILENAME_CAM, outfilename, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_CAM, outfilename, i);
       else
-        sprintf(fname, OUTFILENAME_CAM0, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_CAM0, i);
       break;
     case JPEG:
     default:
       if (outfilename)
-        sprintf(fname, OUTFILENAME_JPG, outfilename, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_JPG, outfilename, i);
       else
-        sprintf(fname, OUTFILENAME_JPG0, i);
+        result = snprintf(fname, sizeof(fname), OUTFILENAME_JPG0, i);
       break;
+    }
+    if (result < 0 || (size_t)result >= sizeof(fname)) {
+      fprintf(stderr, "output filename is too long.\n");
+      errflg++;
+      return;
     }
     if (format == CAM)
       get_camfile(i, fname);
@@ -941,7 +969,8 @@ void show_on_X68k(int n) {
     errflg++;
     return;
   }
-  len = QVgetpicture(n, buf, PPM_P, fine, NULL);
+  len = QVgetpicture(n, buf, fine ? YCC_MAXSIZ_VGA : YCC_MAXSIZ, PPM_P, fine,
+                     NULL);
   if (len < 0) {
     errflg++;
     goto cleanup0;
@@ -1026,6 +1055,68 @@ void print_swstat(int stat) {
     printf("Shutter button is pressed.\n");
 }
 
+static int option_requires_camera(int option) {
+  switch (option) {
+  case 'D':
+  case 'F':
+  case 'V':
+  case '?':
+  case 'e':
+  case 'h':
+  case 'o':
+  case 's':
+  case 'v':
+    return 0;
+  default:
+    return 1;
+  }
+}
+
+static int ensure_camera_connected(char *devpath, int *start_picture,
+                                   int *end_picture) {
+  long revision;
+
+  if (QVgetfd() >= 0)
+    return 1;
+#ifndef DONTCAREUID
+  daemonuid();
+#endif
+  QVsetfd(opentty(devpath));
+#ifndef DONTCAREUID
+  useruid();
+#endif
+  if (QVgetfd() < 0)
+    return 0;
+
+  all_pic_num = QVhowmany();
+  if (all_pic_num < 0)
+    goto fail;
+  if (*end_picture == 0 || *end_picture > all_pic_num)
+    *end_picture = all_pic_num;
+  if (*start_picture == 0)
+    *start_picture = 1;
+
+  revision = QVrevision();
+  if (revision < 0)
+    goto fail;
+  qvhasvgamode = revision & 0x01000000;
+  qv7xxprotocol = (revision & 0x00a00000) == 0x00a00000;
+  if (qv7xxprotocol != 0 && QVnewprotocol() < 0)
+    goto fail;
+  if (QVbattery() <= LOW_BATT) {
+    fprintf(stderr, "LOW BATTERY, change battery or connect AC adapter.\n");
+    goto fail;
+  }
+  if (QVsectorsize(SECTOR) < 0)
+    goto fail;
+  return 1;
+
+fail:
+  closetty(QVgetfd());
+  QVsetfd(-1);
+  return 0;
+}
+
 int main(int argc, char **argv)
 
 {
@@ -1035,7 +1126,7 @@ int main(int argc, char **argv)
   int end_picture = 0;
   int move_from = 0;
   int move_to = 0;
-  char c;
+  int c;
   int i, j;
 
   uint8_t hoge[12]; /* extdatatest */
@@ -1053,37 +1144,11 @@ int main(int argc, char **argv)
 #endif
 
   devpath = getenv("QVPLAYTTY");
-
-  if (devpath == NULL) {
-    devpath = malloc(sizeof(char) * (strlen(RSPORT) + 1));
-    if (devpath == NULL) {
-      fprintf(stderr, "can't malloc\n");
-      exit(1);
-    }
-    strcpy(devpath, RSPORT);
-  }
-
-  for (i = 0; i < argc; i++) {
-    if (strcmp("-D", argv[i]) == 0) {
-      devpath = argv[i + 1];
-      break;
-    }
-  }
-
-  if (devpath) {
-#ifndef DONTCAREUID
-    daemonuid();
-#endif
-    QVsetfd(opentty(devpath));
-#ifndef DONTCAREUID
-    useruid();
-#endif
-  }
-  if (QVgetfd() < 0)
-    Exit(1);
+  if (devpath == NULL)
+    devpath = RSPORT;
 
   while ((c = getopt(argc, argv,
-                     "D:p:o:g:rRnNas:e:d:tvF:S:X:4:9:P:U:10V7i:IzZy:Y:hV")) !=
+                     "D:p:o:g:rRnNas:e:d:tvF:S:X:4:9:P:U:10b7i:IzZy:Y:hV")) !=
          EOF) {
     if (c == 'V') {
       version();
@@ -1091,27 +1156,11 @@ int main(int argc, char **argv)
     }
     if (c == 'h') {
       usage();
-      Exit(0);
+      exit(0);
     }
-    if (!(QVgetfd() < 0)) {
-      all_pic_num = QVhowmany();
-      if ((end_picture == 0) || (end_picture > all_pic_num))
-        end_picture = all_pic_num;
-      if (start_picture == 0)
-        start_picture = 1;
-      qvhasvgamode = QVrevision() & 0x01000000;
-      if ((QVrevision() & 0x00a00000) == 0x00a00000)
-        qv7xxprotocol = 1;
-      if (qv7xxprotocol != 0) {
-        QVnewprotocol();
-      }
-    }
-    if (QVbattery() <= LOW_BATT) {
-      fprintf(stderr, "LOW BATTERY, change battery or connect AC adapter.\n");
-      Exit(3);
-    }
-
-    QVsectorsize(SECTOR);
+    if (option_requires_camera(c) &&
+        !ensure_camera_connected(devpath, &start_picture, &end_picture))
+      Exit(1);
 
     switch (c) {
     case 'p':
@@ -1186,7 +1235,7 @@ int main(int argc, char **argv)
     case '1':
       QVdisableAutoPowerOff();
       break;
-    case 'V':
+    case 'b':
       printf("battery = %.2f V\n", (float)QVbattery() / 16);
       break;
     case 'H': /* not used */
@@ -1213,7 +1262,7 @@ int main(int argc, char **argv)
       default_picture(atoi(optarg));
       break;
     case 'Y':
-      j = QVgetextdata(atoi(optarg), hoge);
+      j = QVgetextdata(atoi(optarg), hoge, sizeof(hoge));
       fprintf(stderr, "ext ");
       for (i = 0; i < j; i++) {
         fprintf(stderr, "%02x ", hoge[i]);
@@ -1306,7 +1355,14 @@ int main(int argc, char **argv)
       QVchangespeed(speed);
       break;
     case 'D':
-      break; /* do nothing */
+      if (QVgetfd() >= 0) {
+        QVchangespeed(DEFAULT);
+        closetty(QVgetfd());
+        QVsetfd(-1);
+        all_pic_num = -1;
+      }
+      devpath = optarg;
+      break;
     default:
       usage();
       Exit(0);

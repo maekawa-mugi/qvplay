@@ -1,6 +1,5 @@
 #include "common.h"
 #include "config.h"
-#include <setjmp.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <sys/types.h>
@@ -38,9 +37,32 @@ int qvhasvgamode;
 int qv7xxprotocol;
 
 static int QVfd = -1;
-static int dotrap = 0;
-static jmp_buf errtrap;
 static int check_sum = 0;
+
+static int write_all(const uint8_t *buf, size_t len) {
+  size_t written = 0;
+
+  while (written < len) {
+    int result = writetty(QVfd, (uint8_t *)buf + written,
+                          (int)(len - written));
+    if (result <= 0)
+      return -1;
+    written += (size_t)result;
+  }
+  return 0;
+}
+
+static int read_exact(uint8_t *buf, size_t len) {
+  size_t received = 0;
+
+  while (received < len) {
+    int result = readtty(QVfd, buf + received, (int)(len - received));
+    if (result <= 0)
+      return -1;
+    received += (size_t)result;
+  }
+  return 0;
+}
 
 /* for VC++1.5 */
 #ifdef DOS
@@ -65,8 +87,8 @@ void QVsetfd(int fd) {
 int QVgetfd(void) { return QVfd; }
 
 /*------------------------------------------------------------*/
-static int calcsum(uint8_t *p, int len) {
-  uint8_t *q;
+static int calcsum(const uint8_t *p, int len) {
+  const uint8_t *q;
   int sum = 0;
   int i;
   q = p;
@@ -79,25 +101,19 @@ static int calcsum(uint8_t *p, int len) {
 
 void wbyte(uint8_t c) {
   dprintf((stderr, "> %02x\n", c));
-  if (writetty(QVfd, &c, 1) < 0) {
+  if (write_all(&c, 1) < 0) {
     perror("writetty");
-    if (dotrap)
-      longjmp(errtrap, 1);
-    else
-      Exit(1);
+    Exit(1);
   }
   check_sum = check_sum + (int)c;
 }
 
 uint8_t rbyte() {
-  uint8_t c;
+  uint8_t c = 0;
 
-  if (readtty(QVfd, &c, 1) < 0) {
+  if (read_exact(&c, 1) < 0) {
     perror("readtty");
-    if (dotrap)
-      longjmp(errtrap, 1);
-    else
-      Exit(1);
+    Exit(1);
   }
   dprintf((stderr, "< %02x\n", c));
   return c;
@@ -115,27 +131,21 @@ int checksum(uint8_t u) {
   return (1);
 }
 
-void wstr(uint8_t *p, int len) {
+void wstr(const void *p, int len) {
   dprintf((stderr, "> len=%d\n", len));
-  if (writetty(QVfd, p, len) < 0) {
+  if (write_all((const uint8_t *)p, (size_t)len) < 0) {
     perror("writetty");
-    if (dotrap)
-      longjmp(errtrap, 1);
-    else
-      Exit(1);
+    Exit(1);
   }
-  check_sum = check_sum + calcsum(p, len);
+  check_sum = check_sum + calcsum((const uint8_t *)p, len);
 }
 
 void rstr(uint8_t *p, int len) {
 
   dprintf((stderr, "< len=%d\n", len));
-  if (readtty(QVfd, p, len) < 0) {
+  if (read_exact(p, (size_t)len) < 0) {
     perror("readtty");
-    if (dotrap)
-      longjmp(errtrap, 1);
-    else
-      Exit(1);
+    Exit(1);
   }
 }
 
@@ -379,166 +389,175 @@ int QVsectorsize(int n) {
 
 #ifdef USEWORKFILE
 int QVblockrecv_file(FILE *fp, int filesize) {
-  uint8_t s;
-  uint8_t t;
-  uint8_t *p;
-  int i = 0;
-  u_int sectorsize;
-  int retrycount = RETRY;
-  int sum;
+  size_t received = 0;
   uint8_t buf[SECTOR];
+  uint8_t control = DC2;
 
-  wbyte(DC2);
+  if (fp == NULL || filesize < 0 || write_all(&control, 1) < 0)
+    return -1;
 
-  while (1) {
+  for (;;) {
+    int retry;
+
     if (qvverbose)
-      fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
-    else
-      fprintf(stderr, "%6d/%6d\b\b\b\b\b\b\b\b\b\b\b\b\b", p - buf, filesize);
+      fprintf(stderr, "%6lu/%6d\b\b\b\b\b\b\b\b\b\b\b\b\b",
+              (unsigned long)received, filesize);
 
-    /* x: fault handlers */
-    dotrap = 1;
-    if (setjmp(errtrap) != 0) {
-      wbyte(NAK);
-      dprintf((stderr, "*********retry*********\n"));
-    }
+    for (retry = 0; retry < RETRY; retry++) {
+      uint8_t header[3];
+      uint8_t footer[2];
+      size_t sectorsize;
+      int sum;
 
-  retry:;
-    p = buf;
-    /* 1: obtain sector size */
-    if ((s = rbyte()) != STX) {
-      dprintf((stderr, "NG sector size(%02x)\n", s));
-      flushtty(QVfd);
-      wbyte(NAK);
-      retrycount--;
-      if (retrycount)
-        goto retry;
-      return -1; /*ng*/
-    }
-    s = rbyte();
-    sum = s;
-    t = rbyte();
-    sum = sum + t;
-    sectorsize = ((u_int)s << 8) | t;
-
-    /* 2: drain it */
-    rstr(p, sectorsize);
-
-    sum = sum + calcsum(p, sectorsize);
-    /* 3: finalize sector */
-    s = rbyte();           /*sector type?*/
-    t = 0xff & (~rbyte()); /*checksum?*/
-    sum = 0xff & (sum + s);
-    if (sum != t) {
-      flushtty(QVfd);
-      wbyte(NAK);
-      goto retry;
-    }
-    i += sectorsize;
-    fwrite(p, sizeof(uint8_t), sectorsize, fp);
-
-    dotrap = 0;
-
-    if (s == ETX) {
-      /* final sector... terminate transfer */
-      wbyte(ACK);
+      if (read_exact(header, sizeof(header)) < 0 || header[0] != STX) {
+        flushtty(QVfd);
+        control = NAK;
+        if (write_all(&control, 1) < 0)
+          return -1;
+        continue;
+      }
+      sectorsize = ((size_t)header[1] << 8) | header[2];
+      if (sectorsize > sizeof(buf) ||
+          (filesize != 0 && sectorsize > (size_t)filesize - received)) {
+        fprintf(stderr, "received block exceeds expected file size.\n");
+        control = NAK;
+        (void)write_all(&control, 1);
+        return -1;
+      }
+      if (read_exact(buf, sectorsize) < 0 ||
+          read_exact(footer, sizeof(footer)) < 0) {
+        flushtty(QVfd);
+        control = NAK;
+        if (write_all(&control, 1) < 0)
+          return -1;
+        continue;
+      }
+      sum = header[1] + header[2] + calcsum(buf, (int)sectorsize);
+      sum = 0xff & (sum + footer[0]);
+      if (sum != (0xff & (~footer[1])) ||
+          (footer[0] != ETX && footer[0] != ETB)) {
+        flushtty(QVfd);
+        control = NAK;
+        if (write_all(&control, 1) < 0)
+          return -1;
+        continue;
+      }
+      if (footer[0] == ETX && filesize != 0 &&
+          received + sectorsize != (size_t)filesize) {
+        fprintf(stderr, "received file size does not match expected size.\n");
+        control = NAK;
+        (void)write_all(&control, 1);
+        return -1;
+      }
+      if (fwrite(buf, 1, sectorsize, fp) != sectorsize)
+        return -1;
+      received += sectorsize;
+      control = ACK;
+      if (write_all(&control, 1) < 0)
+        return -1;
+      if (footer[0] == ETX) {
+        if (qvverbose)
+          fprintf(stderr, "\n");
+        return (int)received;
+      }
       break;
-    } else if (s == ETB) {
-      /* block cleanup */
-      wbyte(ACK);
-    } else {
-      /* strange condition... retry this sector */
-      flushtty(QVfd);
-      wbyte(NAK);
-      goto retry;
     }
+    if (retry == RETRY)
+      return -1;
   }
-
-  if (qvverbose)
-    fprintf(stderr, "\n");
-
-  return i;
 }
 #endif
 
-int QVblockrecv(uint8_t *buf, int filesize) {
-  uint8_t s;
-  uint8_t t;
-  uint8_t *p;
-  u_int sectorsize;
-  int retrycount = RETRY;
-  int sum;
+int QVblockrecv(uint8_t *buf, size_t capacity, size_t expected_size) {
+  size_t received = 0;
+  uint8_t control = DC2;
 
-  wbyte(DC2);
+  if (buf == NULL || (expected_size != 0 && expected_size > capacity))
+    return -1;
+  if (write_all(&control, 1) < 0)
+    return -1;
 
-  p = buf;
-  while (1) {
-    if (qvverbose)
-      if (filesize == 0)
-        fprintf(stderr, "%6d\b\b\b\b\b\b", p - buf);
+  for (;;) {
+    int retry;
+
+    if (qvverbose) {
+      if (expected_size == 0)
+        fprintf(stderr, "%6lu\b\b\b\b\b\b", (unsigned long)received);
       else
-        fprintf(stderr, "%6d/%6d\b\b\b\b\b\b\b\b\b\b\b\b\b", p - buf, filesize);
-
-    /* x: fault handlers */
-    dotrap = 1;
-    if (setjmp(errtrap) != 0) {
-      wbyte(NAK);
-      dprintf((stderr, "*********retry*********\n"));
+        fprintf(stderr, "%6lu/%6lu\b\b\b\b\b\b\b\b\b\b\b\b\b",
+                (unsigned long)received, (unsigned long)expected_size);
     }
 
-  retry:;
-    /* 1: obtain sector size */
-    if ((s = rbyte()) != STX) {
-      dprintf((stderr, "NG sector size(%02x)\n", s));
-      flushtty(QVfd);
-      wbyte(NAK);
-      retrycount--;
-      if (retrycount)
-        goto retry;
-      return -1; /*ng*/
-    }
-    s = rbyte();
-    sum = s;
-    t = rbyte();
-    sum = sum + t;
-    sectorsize = ((u_int)s << 8) | t;
+    for (retry = 0; retry < RETRY; retry++) {
+      uint8_t header[3];
+      uint8_t footer[2];
+      size_t sectorsize;
+      int sum;
 
-    /* 2: drain it */
-    rstr(p, sectorsize);
-    sum = sum + calcsum(p, sectorsize);
-    p += sectorsize;
+      if (read_exact(header, sizeof(header)) < 0 || header[0] != STX) {
+        flushtty(QVfd);
+        control = NAK;
+        if (write_all(&control, 1) < 0)
+          return -1;
+        continue;
+      }
 
-    /* 3: finalize sector */
-    s = rbyte();           /*sector type?*/
-    t = 0xff & (~rbyte()); /*checksum?*/
-    sum = 0xff & (sum + s);
-    if (sum != t) {
-      flushtty(QVfd);
-      wbyte(NAK);
-      goto retry;
-    }
+      sectorsize = ((size_t)header[1] << 8) | header[2];
+      if (sectorsize > capacity - received ||
+          (expected_size != 0 && sectorsize > expected_size - received)) {
+        fprintf(stderr, "received block exceeds image buffer (%lu bytes).\n",
+                (unsigned long)sectorsize);
+        flushtty(QVfd);
+        control = NAK;
+        (void)write_all(&control, 1);
+        return -1;
+      }
 
-    dotrap = 0;
+      if (read_exact(buf + received, sectorsize) < 0 ||
+          read_exact(footer, sizeof(footer)) < 0) {
+        flushtty(QVfd);
+        control = NAK;
+        if (write_all(&control, 1) < 0)
+          return -1;
+        continue;
+      }
 
-    if (s == ETX) {
-      /* final sector... terminate transfer */
-      wbyte(ACK);
+      sum = header[1] + header[2] + calcsum(buf + received, (int)sectorsize);
+      sum = 0xff & (sum + footer[0]);
+      if (sum != (0xff & (~footer[1])) ||
+          (footer[0] != ETX && footer[0] != ETB)) {
+        flushtty(QVfd);
+        control = NAK;
+        if (write_all(&control, 1) < 0)
+          return -1;
+        continue;
+      }
+
+      if (footer[0] == ETX && expected_size != 0 &&
+          received + sectorsize != expected_size) {
+        fprintf(stderr, "received image size does not match expected size.\n");
+        control = NAK;
+        (void)write_all(&control, 1);
+        return -1;
+      }
+
+      received += sectorsize;
+      control = ACK;
+      if (write_all(&control, 1) < 0)
+        return -1;
+      if (footer[0] == ETX) {
+        if (qvverbose)
+          fprintf(stderr, "\n");
+        return (int)received;
+      }
       break;
-    } else if (s == ETB) {
-      /* block cleanup */
-      wbyte(ACK);
-    } else {
-      /* strange condition... retry this sector */
-      flushtty(QVfd);
-      wbyte(NAK);
-      goto retry;
+    }
+
+    if (retry == RETRY) {
+      fprintf(stderr, "block receive retry limit exceeded.\n");
+      return -1;
     }
   }
-
-  if (qvverbose)
-    fprintf(stderr, "\n");
-
-  return p - buf;
 }
 
 int QVbattery(void) {
