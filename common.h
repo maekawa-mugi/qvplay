@@ -38,15 +38,6 @@
 #define MID 2
 #define DEFAULT 1
 
-#define JPEG 0
-#define PPM_P 1
-#define PPM_T 2
-#define RGB_P 3
-#define RGB_T 4
-#define BMP_P 5
-#define BMP_T 6
-#define CAM 7
-
 /* for function prototypes */
 #ifdef STDC_HEADERS
 #define P__(x) x
@@ -62,16 +53,10 @@ void Exit (int);
 
 #define THUMBNAIL_WIDTH 52
 #define THUMBNAIL_HEIGHT 36
-#define PICTURE_WIDTH 480
-#define PICTURE_HEIGHT 240
-#define PICTURE_WIDTH_FINE 640
-#define PICTURE_HEIGHT_FINE 480
 
 #define THUMBNAIL_MAXSIZ 4 * 1024
 #define JPEG_MAXSIZ 32 * 1024
-#define YCC_MAXSIZ 154 * 1024
 #define JPEG_MAXSIZ_VGA 70 * 1024 /* not for QV770/QV700(may be QV5000SX) */
-#define YCC_MAXSIZ_VGA 460 * 1024
 
 #ifdef BINARYFILEMODE
 #define WMODE "wb"

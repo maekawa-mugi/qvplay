@@ -735,8 +735,8 @@ int QVgetextdata(int n, uint8_t *buf, size_t capacity) {
   return len;
 }
 
-int QVgetpicture(int n, uint8_t *buf, size_t capacity, int format, int vga,
-                 FILE *fp) {
+int QVgetpicture(int n, uint8_t *buf, size_t capacity, QVdataType data_type,
+                 int vga, FILE *fp) {
   uint8_t s;
   int len;
   long filesize = 0;
@@ -745,7 +745,7 @@ int QVgetpicture(int n, uint8_t *buf, size_t capacity, int format, int vga,
   (void)fp;
 #endif
 
-  if (vga == 2 && (format == JPEG || format == CAM)) {
+  if (vga == 2 && data_type == QV_DATA_JPEG) {
     filesize = QVgetsize2(n);
     if (filesize < 0)
       return -1;
@@ -760,18 +760,11 @@ int QVgetpicture(int n, uint8_t *buf, size_t capacity, int format, int vga,
 
   if (!QVok())
     return -1;
-  switch (format) {
-  case PPM_T:
-  case RGB_T:
-  case BMP_T:
+  switch (data_type) {
+  case QV_DATA_THUMBNAIL:
     wstr("MK", 2);
     break;
-  case PPM_P:
-  case RGB_P:
-  case BMP_P:
-    wstr(vga ? "Ml" : "ML", 2);
-    break;
-  case JPEG:
+  case QV_DATA_JPEG:
   default:
     if (vga == 1)
       wstr("Mg", 2);
@@ -787,7 +780,7 @@ int QVgetpicture(int n, uint8_t *buf, size_t capacity, int format, int vga,
   wbyte(ACK);
 
   if (qvverbose) {
-    if (format == PPM_T || format == RGB_T || format == BMP_T)
+    if (data_type == QV_DATA_THUMBNAIL)
       fprintf(stderr, "Thumbnail %3d: ", n);
     else
       fprintf(stderr, "Picture   %3d: ", n);

@@ -29,32 +29,16 @@
 #include <getopt.h>
 #include "tty.h"
 #endif
-#include "bmp.h"
-#include "common.h"
 #include "jpeg.h"
-#include "ppm.h"
 
 extern int optind, opterr;
 extern char *optarg;
 
-#define OUTFILENAME_JPG "%s_%03d.jpg"
-#define OUTFILENAME_JPG0 "qv_%03d.jpg"
-
-#define OUTFILENAME_PPM "%s_%03d.ppm"
-#define OUTFILENAME_PPM0 "qv_%03d.ppm"
-
 #define OUTFILENAME_CAM "%s_%03d.cam"
 #define OUTFILENAME_CAM0 "qv_%03d.cam"
+#define THUMBNAIL_YCC_SIZE                                                     \
+  (THUMBNAIL_WIDTH * THUMBNAIL_HEIGHT * 3 / 2)
 
-#define OUTFILENAME_RGB "%s_%03d.rgb"
-#define OUTFILENAME_RGB0 "qv_%03d.rgb"
-
-#define OUTFILENAME_BMP "%s_%03d.bmp"
-#define OUTFILENAME_BMP0 "qv_%03d.bmp"
-
-static int format = JPEG;
-
-static int raw_data = 0;
 static int speed = 0;
 extern int qvverbose;
 extern int qvhasvgamode;
@@ -87,14 +71,8 @@ void usage(void) {
       "\t -9 n1,n2,...,n9: show 9 picures on LCD.\n",
       "\t -7             : show color bar on LCD.\n",
       "\t -o filename    : set output filename.\n",
-      "\t -g num         : get a picture data in QV.\n",
-      "\t -a             : get all picture data in QV.\n",
-#ifdef USEWORKFILE
-      "\t -F format      : picture format.[jpeg ppm rgb bmp cam]\n",
-#else
-      "\t -F format      : picture format.[jpeg ppm PPM rgb RGB bmp BMP cam]\n",
-#endif
-      "                    (use with -a or -g).\n",
+      "\t -g num         : get a picture in CAM format.\n",
+      "\t -a             : get all pictures in CAM format.\n",
       "\t -s num         : start picture number.(use with -a or -I)\n",
       "\t -e num         : end picture number.(use with -a or -I)\n",
       "\t -v             : verbose mode(use with -a or -g)\n",
@@ -135,340 +113,57 @@ void Exit(int code) {
 
 #ifdef USEWORKFILE
 #define WORKFILE "qvwork.dat"
-
-void get_picture(int n, char *outfilename, int format) {
-  int len;
-  uint8_t *buf = NULL;
-  size_t capacity = 0;
-  FILE *outfp;
-  FILE *fp;
-  int vga = 0;
-
-  if (all_pic_num < n) {
-    fprintf(stderr, "picture number is too large.\n");
-    errflg++;
-    return;
-  }
-
-  if (QVpicattr(n) & 0x02) {
-    vga = 1;
-    if (qv7xxprotocol != 0)
-      vga = 2;
-  }
-
-  switch (format) {
-  case JPEG:
-    if (vga == 0) {
-      capacity = JPEG_MAXSIZ;
-      buf = (uint8_t *)malloc(JPEG_MAXSIZ);
-    }
-    break;
-  case PPM_T:
-  case RGB_T:
-  case BMP_T:
-    capacity = THUMBNAIL_MAXSIZ;
-    buf = (uint8_t *)malloc(THUMBNAIL_MAXSIZ);
-    break;
-  case PPM_P:
-  case RGB_P:
-  case BMP_P:
-  default:
-    buf = NULL;
-    break;
-  }
-
-  outfp = stdout;
-  if (outfilename) {
-    outfp = fopen(outfilename, WMODE);
-    if (outfp == NULL) {
-      fprintf(stderr, "can't open outfile(%s).\n", outfilename);
-      errflg++;
-      goto cleanup0;
-    }
-  }
-#ifdef BINARYFILEMODE
-  if (outfp == stdout) {
-    _setmode(_fileno(stdout), _O_BINARY);
-  }
 #endif
 
-  if (buf != NULL)
-    len = QVgetpicture(n, buf, capacity, format, vga, NULL);
-  else {
-    fp = fopen(WORKFILE, WMODE);
-    if (fp == NULL) {
-      fprintf(stderr, "can't open workfile(%s).\n", WORKFILE);
-      errflg++;
-      goto cleanup0;
-    }
-    len = QVgetpicture(n, buf, 0, format, vga, fp);
-    fclose(fp);
-  }
-
-  if (len < 0) {
-    errflg++;
-    goto cleanup;
-  }
-
-  if (raw_data) {
-    if (buf != NULL) {
-      if (write_file(buf, len, outfp) == -1) {
-        errflg++;
-        goto cleanup;
-      }
-    } else {
-      if (write_file_file(WORKFILE, len, 0, outfp) == -1) {
-        errflg++;
-        goto cleanup;
-      }
-      unlink(WORKFILE);
-    }
-  } else
-    switch (format) {
-    case PPM_T:
-      if (write_ppm(buf, outfp, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 2, 2, 1,
-                    0) == -1) {
-        errflg++;
-        goto cleanup;
-      }
-      break;
-    case PPM_P:
-      fprintf(stderr, "sorry. PPM format is not supported.\n");
-      break;
-    case RGB_T:
-      if (write_ppm(buf, outfp, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 2, 2, 0,
-                    0) == -1) {
-        errflg++;
-        goto cleanup;
-      }
-      break;
-    case RGB_P:
-      fprintf(stderr, "sorry. RGB format is not supported.\n");
-      break;
-    case BMP_T:
-      if (write_bmp(buf, outfp, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 2, 2) ==
-          -1) {
-        errflg++;
-        goto cleanup;
-      }
-      break;
-    case BMP_P:
-      fprintf(stderr, "sorry. RGB format is not supported.\n");
-      break;
-    case JPEG:
-    default:
-      if (vga == 1) {
-        if (write_jpeg_fine(WORKFILE, outfp) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-        unlink(WORKFILE);
-      } else if (vga == 2) {
-        if (write_file_file(WORKFILE, len, 0, outfp) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-        unlink(WORKFILE);
-      } else if (write_jpeg(buf, (size_t)len, outfp) == -1) {
-        errflg++;
-        goto cleanup;
-      }
-      break;
-    }
-cleanup:;
-  if (outfp != stdout)
-    fclose(outfp);
-cleanup0:;
-  if (buf)
-    free(buf);
+static long clamp_channel(long value) {
+  if (value < 0)
+    return 0;
+  if (value > 255)
+    return 255;
+  return value;
 }
-#else /* not defined USEWORLFILE */
-void get_picture(int n, char *outfilename, int format) {
-  int len;
-  uint8_t *buf;
-  size_t capacity = 0;
-  FILE *outfp;
-  int vga = 0;
 
-  buf = NULL;
+static int write_cam_thumbnail(const uint8_t *buf, FILE *outfp) {
+  const uint8_t *y_plane = buf;
+  const uint8_t *cb_plane = y_plane + THUMBNAIL_WIDTH * THUMBNAIL_HEIGHT;
+  const uint8_t *cr_plane =
+      cb_plane + (THUMBNAIL_WIDTH / 2) * (THUMBNAIL_HEIGHT / 2);
+  int written = 0;
+  int y;
 
-  if (all_pic_num < n) {
-    fprintf(stderr, "picture number is too large.\n");
-    errflg++;
-    return;
-  }
+  for (y = 0; y < THUMBNAIL_HEIGHT; y++) {
+    int x;
+    for (x = 0; x < THUMBNAIL_WIDTH; x++) {
+      const int chroma_index =
+          (y / 2) * (THUMBNAIL_WIDTH / 2) + (x / 2);
+      long cb = cb_plane[chroma_index];
+      long cr = cr_plane[chroma_index];
+      const long luminance = y_plane[y * THUMBNAIL_WIDTH + x] * 100000L;
+      long red;
+      long green;
+      long blue;
 
-  if (QVpicattr(n) & 0x02) {
-    vga = 1;
-    if (qv7xxprotocol != 0)
-      vga = 2;
-  }
+      if (cb > 127)
+        cb -= 256;
+      if (cr > 127)
+        cr -= 256;
 
-  switch (format) {
-  case JPEG:
-    if (vga == 1) {
-      capacity = JPEG_MAXSIZ_VGA;
-      buf = (uint8_t *)malloc(JPEG_MAXSIZ_VGA);
-    } else if (vga == 2) {
-      int filesize;
-      filesize = QVgetsize2(n);
-      if (filesize <= 0)
-        return;
-      capacity = (size_t)filesize;
-      buf = (uint8_t *)malloc(filesize);
-    } else {
-      capacity = JPEG_MAXSIZ;
-      buf = (uint8_t *)malloc(JPEG_MAXSIZ);
-    }
-    break;
-  case PPM_T:
-  case RGB_T:
-  case BMP_T:
-    capacity = THUMBNAIL_MAXSIZ;
-    buf = (uint8_t *)malloc(THUMBNAIL_MAXSIZ);
-    break;
-  case PPM_P:
-  case RGB_P:
-  case BMP_P:
-  default:
-    if (vga) {
-      capacity = YCC_MAXSIZ_VGA;
-      buf = (uint8_t *)malloc(YCC_MAXSIZ_VGA);
-    } else {
-      capacity = YCC_MAXSIZ;
-      buf = (uint8_t *)malloc(YCC_MAXSIZ);
-    }
-    break;
-  }
+      red = clamp_channel((luminance + 140200L * cr) / 100000L);
+      green =
+          clamp_channel((luminance - 34414L * cb - 71414L * cr) / 100000L);
+      blue = clamp_channel((luminance + 177200L * cb) / 100000L);
 
-  if (buf == (uint8_t *)NULL) {
-    fprintf(stderr, "can't alloc\n");
-    errflg++;
-    return;
-  }
-  outfp = stdout;
-  if (outfilename) {
-    outfp = fopen(outfilename, WMODE);
-    if (outfp == NULL) {
-      fprintf(stderr, "can't open outfile(%s).\n", outfilename);
-      errflg++;
-      goto cleanup0;
+      if (fputc((int)red, outfp) == EOF ||
+          fputc((int)green, outfp) == EOF ||
+          fputc((int)blue, outfp) == EOF) {
+        perror("write CAM thumbnail");
+        return -1;
+      }
+      written += 3;
     }
   }
-#ifdef BINARYFILEMODE
-  if (outfp == stdout) {
-    _setmode(_fileno(stdout), _O_BINARY);
-  }
-#endif
-
-  len = QVgetpicture(n, buf, capacity, format, vga, NULL);
-  if (len < 0) {
-    errflg++;
-    goto cleanup;
-  }
-
-  if (raw_data) {
-    if (write_file(buf, len, outfp) == -1) {
-      errflg++;
-      goto cleanup;
-    }
-  } else {
-    switch (format) {
-    case PPM_T:
-      if (write_ppm(buf, outfp, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 2, 2, 1,
-                    0) == -1) {
-        errflg++;
-        goto cleanup;
-      }
-      break;
-    case PPM_P:
-      if (vga) {
-        if (write_ppm(buf, outfp, PICTURE_WIDTH_FINE, PICTURE_HEIGHT_FINE, 2, 2,
-                      1, 0) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-      } else {
-        if (write_ppm(buf, outfp, PICTURE_WIDTH, PICTURE_HEIGHT, 3, 2, 1, 0) ==
-            -1) {
-          errflg++;
-          goto cleanup;
-        }
-      }
-      break;
-    case RGB_T:
-      if (write_ppm(buf, outfp, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 2, 2, 0,
-                    0) == -1) {
-        errflg++;
-        goto cleanup;
-      }
-      break;
-    case RGB_P:
-      if (vga) {
-        if (write_ppm(buf, outfp, PICTURE_WIDTH_FINE, PICTURE_HEIGHT_FINE, 2, 2,
-                      0, 0) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-      } else {
-        if (write_ppm(buf, outfp, PICTURE_WIDTH, PICTURE_HEIGHT, 3, 2, 0, 0) ==
-            -1) {
-          errflg++;
-          goto cleanup;
-        }
-      }
-      break;
-    case BMP_T:
-      if (write_bmp(buf, outfp, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 2, 2) ==
-          -1) {
-        errflg++;
-        goto cleanup;
-      }
-      break;
-    case BMP_P:
-      if (vga) {
-        if (write_bmp(buf, outfp, PICTURE_WIDTH_FINE, PICTURE_HEIGHT_FINE, 2,
-                      2) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-      } else {
-        if (write_bmp(buf, outfp, PICTURE_WIDTH, PICTURE_HEIGHT, 3, 2) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-      }
-      break;
-    case JPEG:
-    default:
-      if (vga == 1) {
-        if (write_jpeg_fine(buf, (size_t)len, outfp) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-      } else if (vga == 2) {
-        if (write_file(buf, len, outfp) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-      } else {
-        if (write_jpeg(buf, (size_t)len, outfp) == -1) {
-          errflg++;
-          goto cleanup;
-        }
-      }
-
-      break;
-    }
-  }
-cleanup:;
-  if (outfp != stdout)
-    fclose(outfp);
-cleanup0:;
-  if (buf != NULL)
-    free(buf);
+  return written;
 }
-#endif
 
 void get_camfile(int n, char *outfilename) {
   long len;
@@ -513,6 +208,7 @@ void get_camfile(int n, char *outfilename) {
     if (fp == NULL) {
       fprintf(stderr, "can't open workfile(%s).\n", WORKFILE);
       errflg++;
+      free(bufp);
       return;
     }
   } else {
@@ -521,6 +217,7 @@ void get_camfile(int n, char *outfilename) {
     if (bufj == (uint8_t *)NULL) {
       fprintf(stderr, "can't alloc\n");
       errflg++;
+      free(bufp);
       return;
     }
   }
@@ -531,8 +228,11 @@ void get_camfile(int n, char *outfilename) {
   } else if (vga == 2) {
     int filesize;
     filesize = QVgetsize2(n);
-    if (filesize <= 0)
+    if (filesize <= 0) {
+      errflg++;
+      free(bufp);
       return;
+    }
     bufj_capacity = (size_t)filesize;
     bufj = (uint8_t *)malloc(filesize);
   } else {
@@ -542,6 +242,7 @@ void get_camfile(int n, char *outfilename) {
   if (bufj == (uint8_t *)NULL) {
     fprintf(stderr, "can't alloc\n");
     errflg++;
+    free(bufp);
     return;
   }
 #endif
@@ -555,6 +256,10 @@ void get_camfile(int n, char *outfilename) {
       goto cleanup0;
     }
   }
+#ifdef BINARYFILEMODE
+  if (outfp == stdout)
+    _setmode(_fileno(stdout), _O_BINARY);
+#endif
 
   fputc(0x07, outfp); /* CAM header */
   fputc(0x20, outfp);
@@ -598,12 +303,12 @@ void get_camfile(int n, char *outfilename) {
 
 #ifdef USEWORKFILE
   if (vga) {
-    lenj = QVgetpicture(n, NULL, 0, JPEG, vga, fp);
+    lenj = QVgetpicture(n, NULL, 0, QV_DATA_JPEG, vga, fp);
     fclose(fp);
   } else
-    lenj = QVgetpicture(n, bufj, bufj_capacity, JPEG, vga, NULL);
+    lenj = QVgetpicture(n, bufj, bufj_capacity, QV_DATA_JPEG, vga, NULL);
 #else
-  lenj = QVgetpicture(n, bufj, bufj_capacity, JPEG, vga, NULL);
+  lenj = QVgetpicture(n, bufj, bufj_capacity, QV_DATA_JPEG, vga, NULL);
 #endif
   if (lenj < 0) {
     errflg++;
@@ -662,13 +367,17 @@ void get_camfile(int n, char *outfilename) {
 
   fputc(0x00, outfp);
 
-  len = QVgetpicture(n, bufp, THUMBNAIL_MAXSIZ, PPM_T, vga, NULL);
+  len = QVgetpicture(n, bufp, THUMBNAIL_MAXSIZ, QV_DATA_THUMBNAIL, vga, NULL);
   if (len < 0) {
     errflg++;
     goto cleanup;
   }
-  if (write_ppm(bufp, outfp, THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT, 2, 2, 0, 0) ==
-      -1) {
+  if (len < THUMBNAIL_YCC_SIZE) {
+    fprintf(stderr, "thumbnail data is too short.\n");
+    errflg++;
+    goto cleanup;
+  }
+  if (write_cam_thumbnail(bufp, outfp) == -1) {
     errflg++;
     goto cleanup;
   }
@@ -727,7 +436,7 @@ void default_picture(int n) {
     errflg++;
 }
 
-void get_all_pictures(int start, int end, char *outfilename, int format) {
+void get_all_pictures(int start, int end, char *outfilename) {
   int i;
   char fname[MAXPATHLEN];
 
@@ -737,8 +446,7 @@ void get_all_pictures(int start, int end, char *outfilename, int format) {
     return;
   }
   if (start > end) {
-    int tmp;
-    tmp = end;
+    int tmp = end;
     end = start;
     start = tmp;
   }
@@ -746,54 +454,18 @@ void get_all_pictures(int start, int end, char *outfilename, int format) {
   for (i = start; i <= end; i++) {
     int result;
 
-    switch (format) {
-    case PPM_P:
-    case PPM_T:
-      if (outfilename)
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_PPM, outfilename, i);
-      else
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_PPM0, i);
-      break;
-    case RGB_P:
-    case RGB_T:
-      if (outfilename)
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_RGB, outfilename, i);
-      else
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_RGB0, i);
-      break;
-    case BMP_P:
-    case BMP_T:
-      if (outfilename)
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_BMP, outfilename, i);
-      else
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_BMP0, i);
-      break;
-    case CAM:
-      if (outfilename)
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_CAM, outfilename, i);
-      else
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_CAM0, i);
-      break;
-    case JPEG:
-    default:
-      if (outfilename)
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_JPG, outfilename, i);
-      else
-        result = snprintf(fname, sizeof(fname), OUTFILENAME_JPG0, i);
-      break;
-    }
+    if (outfilename)
+      result = snprintf(fname, sizeof(fname), OUTFILENAME_CAM, outfilename, i);
+    else
+      result = snprintf(fname, sizeof(fname), OUTFILENAME_CAM0, i);
     if (result < 0 || (size_t)result >= sizeof(fname)) {
       fprintf(stderr, "output filename is too long.\n");
       errflg++;
       return;
     }
-    if (format == CAM)
-      get_camfile(i, fname);
-    else
-      get_picture(i, fname, format);
+    get_camfile(i, fname);
   }
 }
-
 void delete_picture(int n) {
   if (all_pic_num < n) {
     fprintf(stderr, "picture number is too large.\n");
@@ -964,7 +636,6 @@ void print_swstat(int stat) {
 static int option_requires_camera(int option) {
   switch (option) {
   case 'D':
-  case 'F':
   case 'V':
   case '?':
   case 'e':
@@ -1040,7 +711,7 @@ int main(int argc, char **argv)
     devpath = RSPORT;
 
   while ((c = getopt(argc, argv,
-                     "D:p:o:g:rRnNas:e:d:tvF:S:4:9:P:U:10b7i:IzZy:Y:hV")) !=
+                     "D:p:o:g:rRnNas:e:d:tvS:4:9:P:U:10b7i:IzZy:Y:hV")) !=
          EOF) {
     if (c == 'V') {
       version();
@@ -1062,10 +733,7 @@ int main(int argc, char **argv)
       outfilename = optarg;
       break;
     case 'g':
-      if (format == CAM)
-        get_camfile(atoi(optarg), outfilename);
-      else
-        get_picture(atoi(optarg), outfilename, format);
+      get_camfile(atoi(optarg), outfilename);
       break;
     case 'r':
       QVchangespeed(DEFAULT);
@@ -1087,7 +755,7 @@ int main(int argc, char **argv)
       }
       break;
     case 'a':
-      get_all_pictures(start_picture, end_picture, outfilename, format);
+      get_all_pictures(start_picture, end_picture, outfilename);
       break;
     case 's':
       start_picture = atoi(optarg);
@@ -1175,45 +843,6 @@ int main(int argc, char **argv)
         break;
       QVmovepicture(move_from, move_to);
       break;
-    case 'F': {
-      char *p;
-      if (optarg[0] == '+') {
-        raw_data = 1;
-        p = &optarg[1];
-      } else
-        p = &optarg[0];
-      switch (*p) {
-      case 'j':
-        format = JPEG;
-        break;
-      case 'p':
-        format = PPM_T;
-        break;
-      case 'r':
-        format = RGB_T;
-        break;
-      case 'b':
-        format = BMP_T;
-        break;
-#ifndef USEWORKFILE
-      case 'P':
-        format = PPM_P;
-        break;
-      case 'R':
-        format = RGB_P;
-        break;
-      case 'B':
-        format = BMP_P;
-        break;
-#endif
-      case 'c':
-        format = CAM;
-        break;
-      default:
-        format = JPEG;
-        break;
-      }
-    } break;
     case 'S':
       switch (optarg[0]) {
 #if defined(__linux__) || defined(_WIN32) || defined(__FreeBSD__)
@@ -1251,8 +880,8 @@ int main(int argc, char **argv)
       break;
     default:
       usage();
-      Exit(0);
-      return 0; /* dummy */
+      Exit(1);
+      return 1; /* dummy */
     }
   }
 

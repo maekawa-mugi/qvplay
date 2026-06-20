@@ -201,7 +201,7 @@ Comment:
 
     The Y element is represented by an unsigned char.
     Cb and Cr elements are represented by signed char. 
-    The formula to convert YCC to RGB, is described in "ppm.c".
+    The formula to convert YCC to RGB is in write_cam_thumbnail() in "qvplay.c".
     (qvplay's source file)
 
 
@@ -259,7 +259,7 @@ Comment:
 
     The Y element is represented by an unsigned char.
     Cb and Cr elements are represented by signed char. 
-    The formula to convert YCC to RGB, is described in "ppm.c".
+    The formula to convert YCC to RGB is in write_cam_thumbnail() in "qvplay.c".
     (qvplay's source file)
 
 

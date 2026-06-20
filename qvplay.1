@@ -42,9 +42,6 @@ qvplay \- control Casio QV-10 digital camera.
 .BI \-o \ filename
 ]
 [
-.BI \-F \ format
-]
-[
 .BI \-g \ num
 ]
 [
@@ -116,26 +113,8 @@ If the camera does not respond, switch it off and then on again to do
 a 'hard' reset.  
 If the transfer times out, try using a slower speed.
 .PP
-Pictures of QV-10 series(QV-10/10a/11/30/70) and 'Normal' pictures of QV-100
-series(QV-100/200/300) 
- are output as 480x240 so you should re-size them with
-.BR xv (1)
-or pipe through a converter, e.g.
-.PP
-.nf
-qvplay -g 1 | djpeg | pnmscale -xsize 320 -ysize 240 | cjpeg
-.fi
-.PP
-where
-.BR djpeg (1)
-and
-.BR cjpeg (1)
-are conversion routines from the International JPEG Group (often
-distributed with
-.BR xv (1).
-.PP
-'Fine' pictures of QV-100 seriers(QV-100/200/300) and all pictres of 
-QV-700/770 are output as 640x480.
+Pictures are downloaded in Casio's CAM format. Each CAM file contains
+the thumbnail and camera image data.
 .SH OPTIONS
 Options are processed from left to right so it is important to set the
 serial line speed first, then any start and end parameters before any
@@ -160,10 +139,10 @@ to achieve lightspeed e.g.
 .PP
 .nf
   setserial /dev/cua1 spd_hi	# set 57600baud
-  qvplay -S top -o foo.jpg -g 1
+  qvplay -S top -o foo.cam -g 1
 or
   setserial /dev/cua1 spd_vhi	# set 115200baud
-  qvplay -S light -o foo.jpg -g 1
+  qvplay -S light -o foo.cam -g 1
 .fi
 .PP
 If you are using a PC/AT compatible computer, you will need a 16550A compatible
@@ -182,45 +161,7 @@ option instead of
 .I qv.
 For example,
 .I "\-o foo"
-will cause files foo_001.jpg, foo_002.jpg to be created.
-.IP "\fB\-F\fP \fIformat\fP"
-Governs the output format for the download. 
-The format is determined by the first letter, so 'ppm', 'picture' and
-\'photo' are equivalent.
-.PP
-.RS 
-Possible values are:
-.PP
-.PD 0
-.TP 8
-.B jpeg
-The default.
-JPEG (JFIF) format.
-.TP 8
-.B ppm
-PPM format thumbnail picture
-.TP 8
-.B PPM
-PPM format picture
-.TP 8
-.B rgb
-RGB format thumbnail picture
-.TP 8
-.B RGB
-RGB format picture
-.TP 8
-.B bmp
-BMP format thumbnail picture
-.TP 8
-.B BMP
-BMP format picture
-.TP 8
-.B cam
-CAM format picture (thumbnail and picture format) - Casio's
-proprietary format.
-.PP
-.RE
-.PD 1
+will cause files foo_001.cam, foo_002.cam to be created.
 .IP "\fB\-g\fP \fInum\fP"
 Download the
 .I num'th
@@ -228,9 +169,11 @@ image from the camera.
 If the
 .BI \-o \ basename
 option is used, then the picture will be saved as 
-.I basename.jpg,
+.I basename,
 otherwise, the image is sent to
 .B stdout.
+The output uses Casio's CAM format and includes the thumbnail and camera
+image data.
 .IP "\fB\-s\fP \fInum\fP"
 Specify the starting number for a mass download of files.
 Must be used
@@ -270,8 +213,8 @@ Reset the camera and change baud rate to 9600 baud.
 Print the number of pictures in the camera's memory.
 .IP "\fB\-a\fP"
 Download all pictures from the camera and save as files called
-qv_001.jpg, qv_002.jpg etc. See also the
-.B "-F, -o, -s"
+qv_001.cam, qv_002.cam etc. See also the
+.B "-o, -s"
 and
 .B -e
 options.

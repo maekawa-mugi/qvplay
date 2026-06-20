@@ -5,6 +5,11 @@
 #include <stdint.h>
 #include <stdio.h>
 
+typedef enum {
+  QV_DATA_JPEG,
+  QV_DATA_THUMBNAIL
+} QVdataType;
+
 void QVsetfd(int);
 int QVgetfd(void);
 int QVreset(int);
@@ -31,7 +36,7 @@ int QVnewprotocol(void);
 int QVdisableAutoPowerOff(void);
 int QVdeletepicture(int);
 int QVtakepicture(void);
-int QVgetpicture(int, uint8_t *, size_t, int, int, FILE *);
+int QVgetpicture(int, uint8_t *, size_t, QVdataType, int, FILE *);
 int QVmovepicture(int, int);
 int QV4split(int *);
 int QV9split(int *);

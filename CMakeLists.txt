@@ -47,7 +47,7 @@ endif()
 set(QVPLAY_COMMON_SOURCES command.c ${QVPLAY_TTY_SOURCE})
 
 add_executable(qvplay
-  qvplay.c getuint.c jpeg.c ppm.c bmp.c
+  qvplay.c getuint.c jpeg.c
   ${QVPLAY_COMMON_SOURCES} ${QVPLAY_PLATFORM_SOURCES})
 target_include_directories(qvplay PRIVATE
   "${QVPLAY_CONFIG_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
@@ -74,6 +74,9 @@ if(BUILD_TESTING)
   target_include_directories(jpeg_test PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/tests" "${CMAKE_CURRENT_SOURCE_DIR}")
   add_test(NAME jpeg_tables COMMAND jpeg_test)
+
+  add_test(NAME legacy_format_option_removed COMMAND qvplay -F cam)
+  set_tests_properties(legacy_format_option_removed PROPERTIES WILL_FAIL TRUE)
 endif()
 
 install(TARGETS qvplay qvalldel RUNTIME DESTINATION bin)

@@ -123,10 +123,6 @@ Non-Unix systems
      tty.c   
      jpeg.h     
      jpeg.c
-     ppm.h
-     ppm.c
-     bmp.h
-     bmp.c
      cam2jpgtab.h (Thanks for itojun-san)
      configure*
      Makefile.in
@@ -193,8 +189,8 @@ Select [File][New][ProjectWorkspace] menu item.
 Select [Console Application] at [New ProjectWorkspace]Dialog Box.
 make ProjectWorkspace named 'qvplay'.
 Select [Insert][Add File to Project] menu item.
-Add files(qvplay.c command.c jpeg.c ppm.c
-bmp.c getopt.c getuint.c tty_w32.c) to project.
+Add files(qvplay.c command.c jpeg.c
+getopt.c getuint.c tty_w32.c) to project.
 Do build.
 
 To build 'qvalldel', make ProjectWorkspace named 'qvalldel'.
@@ -273,9 +269,7 @@ using 'CTRL-C', and reboot QV-10.
  
  num: picture number, 1 to 96 or 1 to 192 positive number.
  filename: output file name, strings 
- options are processed sequentially.  For example, the file type must be
- set before the option to extract the file, otherwise the default type
- will be used.
+ options are processed sequentially.
  
  -h          Show usage to stderr.
  -r          Reset QV10.
@@ -288,44 +282,22 @@ using 'CTRL-C', and reboot QV-10.
  -p num      Shows a picture to QV10's LCD.
  -o filename Set output filename.  (the picture number and image
              extension will be tacked on to the end of this.)
- -F {jpeg,ppm,PPM,rgb,RGB,bmp,BMP,cam} 
-             Set output file format.
-             Use with -a option or -g option.
-             You should set this option before -a or -g.
-             This option is not affect to before it.
-
-             jpeg  JPEG(JFIF) format
-             ppm   PPM format (thumbnail image)
-             PPM   PPM format (picture image)
-             rgb   RGB format (thumbnail image)
-             RGB   RGB format (picture image)
-             bmp   BMP(24bit) format (thumbnail image)
-             BMP   BMP(24bit) format (thumbnail image)
-             cam   CAM format (thimbnail and picture image)
-            
-             Default is 'jpeg'.
-             Format name is detected by first letter.
-             So, 'photo', 'picture' are same as 'ppm'.
- -g num      Download all images from QV10 and save as
-             image files. (see -F option)
+ -g num      Download an image from QV10 in CAM format.
              If -o option is set, saved as the filename,
              if -o option is not set, image file is dumped
              to stdout.
- -a          Download all image data from QV10 and save as
-             image files.(see -F option)
-             If -F option is not set, and -o option is set,
+ -a          Download all image data from QV10 in CAM format.
+             If -o option is set,
              you got image files like below.
-              filename_001.jpg
-              filename_002.jpg
-              filename_003.jpg
+              filename_001.cam
+              filename_002.cam
+              filename_003.cam
               .....
              If -o option is not set, you got image files like below.
-              qv_001.jpg
-              qv_002.jpg
-              qv_003.jpg
+              qv_001.cam
+              qv_002.cam
+              qv_003.cam
               .....
-             If -F option is set, the filename become '*.ppm', '*.cam',
-             and so on.
  -s num      Use with -a option.
              It must be set before -a option.
              Set the first picture number that you want to download.
@@ -381,10 +353,8 @@ you can't use a single command line to access multiple cameras.
 When -h option is set, it shows usage, and exits qvplay. The options 
 which are used after the -h option are ignored.
   
-Outputed picture image files (jpeg, PPM, RGB, BMP), are 
-480x240. So you should change aspect size to 4:3.
-'Fine' pictures of QV-100 seriers(QV-100/200/300) and all pictres of 
-QV-700/770 are output as 640x480. So you should not change aspect size.
+Downloaded pictures are stored in Casio's CAM format, including the
+thumbnail and camera image data.
 
 -S option should be used as soon as possible for maximum affect.  (First
 option, unless -D is first, in which case it should be second.)
@@ -403,10 +373,10 @@ to use 'top' or 'light' speed on Linux, set serial port by
 
 Example 1 
   setserial /dev/cua1 spd_hi        # set 57600baud
-  qvplay -S top -o foo.jpg -g 1
+  qvplay -S top -o foo.cam -g 1
 Example 2
   setserial /dev/cua1 spd_vhi        # set 115200baud
-  qvplay -S light -o foo.jpg -g 1
+  qvplay -S light -o foo.cam -g 1
 
 (At old Linux kernel, without using setserial, 
  specifying over '-S high' will give tty problems.)
