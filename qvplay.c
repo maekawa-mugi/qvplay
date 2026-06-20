@@ -6,9 +6,7 @@
 
 #ifdef BINARYFILEMODE
 #include <fcntl.h> /* for setmode() */
-#ifdef _WIN32
 #include <io.h>
-#endif
 #endif
 #include <stdlib.h>
 #include <time.h>
@@ -25,26 +23,13 @@
 #include "command1.h"
 #include "common.h"
 
-#ifdef X68KK
-#include "x68k/tty_x68.h"
-#else
 #ifdef _WIN32
 #include "win32/getopt.h"
 #include "win32/tty_w32.h"
-
 #else
 #include <getopt.h>
-#ifdef OS2
-#include "os2/tty_os2.h"
-#else
-#ifdef DOS
-#include "dos/tty_dos.h"
-#else
 #include "tty.h"
-#endif /* DOS */
-#endif /* OS2 */
-#endif /* WIN32 */
-#endif /* X68 */
+#endif
 #include "bmp.h"
 #include "common.h"
 #include "jpeg.h"
@@ -125,16 +110,13 @@ void usage(void) {
       "\t -1             : disable auto power off function.\n",
       "\t -z             : report QV status\n",
       "\t -Z             : report QV revision?\n",
-#if defined(__linux__) || defined(_WIN32) || defined(OS2) ||                   \
-    defined(__FreeBSD__) || defined(DOS)
+#if defined(__linux__) || defined(_WIN32) || defined(__FreeBSD__)
       "\t -S speed       : serial speed. [normal middle high top light]\n",
 #else
       "\t -S speed       : serial speed. [normal middle high]\n",
 #endif
       "\t -V             : show version information.\n",
-#ifndef X68
       "\t -D ttydevice   : set tty(cua) device.\n",
-#endif
       (char *)NULL,
   };
   char **p;
@@ -207,11 +189,7 @@ void get_picture(int n, char *outfilename, int format) {
   }
 #ifdef BINARYFILEMODE
   if (outfp == stdout) {
-#ifdef _WIN32
     _setmode(_fileno(stdout), _O_BINARY);
-#else
-    setmode(fileno(stdout), O_BINARY); /* X680x0 DOS */
-#endif
   }
 #endif
 
@@ -380,11 +358,7 @@ void get_picture(int n, char *outfilename, int format) {
   }
 #ifdef BINARYFILEMODE
   if (outfp == stdout) {
-#ifdef _WIN32
     _setmode(_fileno(stdout), _O_BINARY);
-#else
-    setmode(fileno(stdout), O_BINARY); /* X680x0 */
-#endif
   }
 #endif
 
@@ -942,45 +916,6 @@ void take_picture(void) {
   all_pic_num = QVhowmany();
 }
 
-#ifdef X68K
-void show_on_X68k(int n) {
-  int len;
-  uint8_t *buf;
-  int fine = 0;
-
-  if (all_pic_num < n) {
-    fprintf(stderr, "picture number is too large.\n");
-    errflg++;
-    return;
-  }
-  if (QVpicattr(n) & 0x02)
-    fine = 1;
-
-  if (fine)
-    buf = (uint8_t *)malloc(YCC_MAXSIZ_VGA);
-  else
-    buf = (uint8_t *)malloc(YCC_MAXSIZ);
-
-  if (buf == (uint8_t *)NULL) {
-    fprintf(stderr, "can't alloc\n");
-    errflg++;
-    return;
-  }
-  len = QVgetpicture(n, buf, fine ? YCC_MAXSIZ_VGA : YCC_MAXSIZ, PPM_P, fine,
-                     NULL);
-  if (len < 0) {
-    errflg++;
-    goto cleanup0;
-  }
-  if (fine)
-    write_x68k_fine(buf, PICTURE_WIDTH_FINE, PICTURE_HEIGHT_FINE, 2, 2);
-  else
-    write_x68k(buf, PICTURE_WIDTH, PICTURE_HEIGHT, 3, 2);
-
-cleanup0:;
-  free(buf);
-}
-#endif
 void print_swstat(int stat) {
   if (qv7xxprotocol != 0) {
     fprintf(stderr, "QV-700/770 cannot report status.\n");
@@ -1099,7 +1034,7 @@ int main(int argc, char **argv)
     devpath = RSPORT;
 
   while ((c = getopt(argc, argv,
-                     "D:p:o:g:rRnNas:e:d:tvF:S:X:4:9:P:U:10b7i:IzZy:Y:hV")) !=
+                     "D:p:o:g:rRnNas:e:d:tvF:S:4:9:P:U:10b7i:IzZy:Y:hV")) !=
          EOF) {
     if (c == 'V') {
       version();
@@ -1273,15 +1208,9 @@ int main(int argc, char **argv)
         break;
       }
     } break;
-#ifdef X68K
-    case 'X':
-      show_on_X68k(atoi(optarg));
-      break;
-#endif
     case 'S':
       switch (optarg[0]) {
-#if defined(__linux__) || defined(_WIN32) || defined(OS2) ||                   \
-    defined(__FreeBSD__) || defined(DOS)
+#if defined(__linux__) || defined(_WIN32) || defined(__FreeBSD__)
       case 'l':
       case '5':
         speed = LIGHT;

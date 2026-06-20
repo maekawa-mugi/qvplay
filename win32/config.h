@@ -21,7 +21,6 @@
 
 #include <windows.h>
 
-#define DONTCAREUID 1
 #define BINARYFILEMODE 1
 
 

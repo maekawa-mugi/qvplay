@@ -1,2 +1,1 @@
 #define STDC_HEADERS 1
-#define DONTCAREUID 1

@@ -88,10 +88,8 @@ Unix system
 -NeXT NeXTcube(M68040-25) NEXTSTEP 3.3J(*)
 
 Non-Unix systems
--SHARP X68030 + Human68k 3.02
--PC/AT clone Windows NT 3.51 (Intel) (work on DOS prompt)
--PC/AT clone Windows 95 (work on DOS prompt)
--PC/AT clone OS/2 Warp 3.0 (Intel) (work on DOS prompt)
+-PC/AT clone Windows NT 3.51 (Intel)
+-PC/AT clone Windows 95
 
 (*) Need hardware hack.(describe below)
 
@@ -111,13 +109,6 @@ Non-Unix systems
         getopt.h (GNU getopt)
         tty_w32.c
         tty_w32.h
-     X68k/
-         Makefile
-         config.h
-         siochk.c (Thanks for Masuda-san)
-         tty_x68.c
-         tty_x68.h
-         x68k.c
   src/
      qvplay.c
      qvalldel.c
@@ -194,15 +185,6 @@ OS and special file
 - FreeBSD 2.1.0R 2.2.0R   #define RSPORT "/dev/cuaa0"
 - NEXTSTEP 3.3J           #define RSPORT "/dev/ttya"
 
-*Installation (X680x0)
-Use the source code at 'obj/X68k' and 'src'. 
-You should compile it with 'gcc', 'gmake', and 'libc'.
-extract source archive on X680x0.
-cd QVplay\obj\X68k
-copy ..\..\src\*.c .
-copy ..\..\src\*.h .
-gmake -f Makefile
-
 *Installation (Windows NT/Windows 95)
 Use the source code at 'obj/Win32' and 'src/'. 
 You should complie it with 'VisualC++4.0'.
@@ -226,25 +208,6 @@ to project. And do build.
 Default serial port is defined in 'common.h'.
 Please change '#define RSPORT "COM1"', to your 
 default serial port.
-
-*Installation (OS/2 Warp3.0 for Intel)
-You need EMX developpers environment, and GNU make for OS/2.
-Use the source code at 'obj/os2' and 'src'. 
-extract source archive on OS/2.
-cd QVplay\obj\os2
-copy ..\..\src\*.c .
-copy ..\..\src\*.h .
-make -f os2.mak
-
-*Installation (DOS)
-You need Turbo C++ Ver.4.0 and MCD Version 0.91.
-See readme.txt in obj/dos directory.
-Use the source code at 'obj/dos' and 'src'. 
-extract source archive on OS/2.
-cd QVplay\obj\dos
-copy ..\..\src\*.c .
-copy ..\..\src\*.h .
-do make
 
 *Equipment for qvplay and qvalldel.
 - CASIO QV-10, QV-10a, QV-30, QV-11, QV-70
@@ -405,11 +368,9 @@ using 'CTRL-C', and reboot QV-10.
              3 high     high speed      38400 baud
              4 top      very high speed 57600 baud
              5 light    light speed:-) 115200 baud
-             (If your environment is Linux, FreeBSD, OS2,
-              or Windows NT/95, and your computer has
+             (If your environment is Linux, FreeBSD,
+              or Windows, and your computer has
               high speed serial port, you can use 'light' speed.)
- -X num     Display picture to X680x0's graphic plane.
-            * This function works on X680x0 only.
  -z         Report camera status
             * This function dose not work for QV-700/770.
  -Z         Report camera revision.
@@ -462,9 +423,6 @@ QVPLAYTTY instead of -D option.
 Under unix variant environment, specify a path name of special file 
 like '/dev/ttyS0'. Under WindowsNT/95 environment, specify the
 strings like "COM1", "COM2", etc.
-Under X680x0 environment, this environment variable QVPLAYTTY is
-ignored.
-
 *How to use 'qvalldel'
 - usage
   qvalldel [options]
@@ -531,7 +489,6 @@ FAQ
 
 *Known BUGs
  - At QV-100/300, qvplay's -t option is not work well.
- - DOS version is not works well.
 
 *URL/mail
  http: http://www.asahi-net.or.jp/~xgk2-hys/index-e.html

@@ -9,18 +9,12 @@
 /* FreeBSD      "/dev/cuaa0" */
 /* NEXTSTEP "/dev/ttya" */
 /* Windows NT "COM1" */
-/* DOS "AUX1" for MLD serial driver */
-
-#if defined(_WIN32) || defined(OS2)
+#if defined(_WIN32)
 #define RSPORT "COM1"
-#else
-#ifdef DOS
-#define RSPORT "AUX1"
 #else
 /* for unix variant */
 #define RSPORT "/dev/qvtty"
-#endif /* DOS */
-#endif /* _WIN32 OS2 */
+#endif
 
 /* NEXTSTEP and (Old) FreeBSD cannot hold RTS to off
    so you short link cable's RTS and GND */

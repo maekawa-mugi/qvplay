@@ -6,25 +6,11 @@
 
 #ifdef QVPLAY_TEST_TRANSPORT
 #include "tests/transport.h"
-#else
-#ifdef X68K
-#include "x68k/tty_x68.h"
-#else
-#ifdef _WIN32
+#elif defined(_WIN32)
 #include "win32/tty_w32.h"
-#else
-#ifdef OS2
-#include "os2/tty_os2.h"
-#else
-#ifdef DOS
-#include "dos/tty_dos.h"
 #else
 #include "tty.h"
 #include <termios.h>
-#endif /* DOS */
-#endif /* OS2 */
-#endif /* WIN32 */
-#endif /* X68K */
 #endif /* QVPLAY_TEST_TRANSPORT */
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
@@ -67,21 +53,6 @@ static int read_exact(uint8_t *buf, size_t len) {
   }
   return 0;
 }
-
-/* for VC++1.5 */
-#ifdef DOS
-void sleep(int sec) {
-  time_t lt;
-  time_t lt2;
-  time(&lt);
-
-  while (1) {
-    time(&lt2);
-    if ((lt2 - lt) >= sec)
-      return;
-  }
-}
-#endif
 
 void QVsetfd(int fd) {
   dprintf((stderr, "QVfd = %x\n", fd));
@@ -334,22 +305,11 @@ int QVchangespeed(int speed) {
 #endif
     break;
   case HIGH: /* 38400 baud */
-#ifdef X68K
-    if (qvhasvgamode)
-      n = 11; /* QV-100/300  */
-    else
-      n = 10; /* 39062.5 baud */
-#else
     n = 11;
-#endif
     baud = B38400;
     break;
   case MID: /* 19200 baud */
-#ifdef X68K
-    n = 23;
-#else
     n = 22;
-#endif
     baud = B19200;
     break;
   case DEFAULT:

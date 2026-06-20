@@ -152,7 +152,7 @@ The default is \fI/dev/qvtty\fP.
 Specify the baud rate for the transfer. Possible values are
 {normal, mid, high, top, light} or {1,2,3,4,5} for a corresponding
 {9600, 19200, 38400, 57600, 115200} baud rate.
-\'light speed' is supported in Linux, OS2, and Win NT/95.
+\'light speed' is supported in Linux, FreeBSD, and Windows.
 With Old version Linux, use 
 .B setserial(1)
 to achieve lightspeed e.g.
@@ -373,10 +373,8 @@ Unix systems:
 .PP
 .nf
 Non-Unix systems:
--SHARP X68030 + Human68k 3.02
--PC/AT clone Windows NT 3.51(Intel)(work on DOS prompt)
--PC/AT clone Windows 95(work on DOS prompt)
--PC/AT clone OS/2 Warp 3.0(Intel)(work on DOS prompt)
+-PC/AT clone Windows NT 3.51(Intel)
+-PC/AT clone Windows 95
 .fi
 .PP
 Systems marked with (*) need the hardware hack described under

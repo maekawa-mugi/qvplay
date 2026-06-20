@@ -5,13 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
-#ifdef DOS
-#include "cam2jpg.h"
-#include "jpegtabf.h"
-#else
 #include "cam2jpgtab.h"
 #include "jpegtab_f.h"
-#endif
 
 int write_file(uint8_t *buf, int len, FILE *outfp) {
   int i, l;

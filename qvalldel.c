@@ -16,25 +16,13 @@
 #include "command.h"
 #include "command3.h"
 #include "common.h"
-#ifdef X68K
-#include "x68k/tty_x68.h"
-#else
 #ifdef _WIN32
 #include "win32/getopt.h"
 #include "win32/tty_w32.h"
 #else
 #include <getopt.h>
-#ifdef OS2
-#include "os2/tty_os2.h"
-#else
-#ifdef DOS
-#include "dos/tty_dos.h"
-#else
 #include "tty.h"
-#endif /* DOS */
-#endif /* OS2 */
-#endif /* WIN32 */
-#endif /* X68 */
+#endif
 
 #include "common.h"
 
@@ -62,9 +50,7 @@ void usage(void) {
       "\t -f           : not show 'Are you sure ?' message.\n",
       "\t -h           : show this usage.\n",
       "\t -V           : show version information.\n",
-#ifndef X68
       "\t -D ttydevice : set tty(cua) device.\n",
-#endif
       (char *)NULL,
   };
   char **p;
