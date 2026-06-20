@@ -1,5 +1,10 @@
-#include <stdint.h>
+#ifndef QVPLAY_COMMAND_H
+#define QVPLAY_COMMAND_H
+
 #include <stddef.h>
+#include <stdint.h>
+#include <stdio.h>
+
 void QVsetfd(int);
 int QVgetfd(void);
 int QVreset(int);
@@ -24,3 +29,19 @@ int QVsectorsize(int);
 int QVdefaultpicture(int);
 int QVnewprotocol(void);
 int QVdisableAutoPowerOff(void);
+int QVdeletepicture(int);
+int QVtakepicture(void);
+int QVgetpicture(int, uint8_t *, size_t, int, int, FILE *);
+int QVmovepicture(int, int);
+int QV4split(int *);
+int QV9split(int *);
+int QVprotect(int, int);
+int QVhidepicnum(void);
+int QVpoweroff(void);
+int QVcolorpattern(void);
+int QVpicattr(int);
+int QVgetsize2(int);
+int QVgetextdata(int, uint8_t *, size_t);
+int QValldelete(void);
+
+#endif

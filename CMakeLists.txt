@@ -11,6 +11,12 @@ if(QVPLAY_SANITIZERS AND CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
   add_link_options(-fsanitize=address,undefined)
 endif()
 
+include(CheckIPOSupported)
+set(QVPLAY_IPO_SUPPORTED FALSE)
+if(NOT QVPLAY_SANITIZERS)
+  check_ipo_supported(RESULT QVPLAY_IPO_SUPPORTED LANGUAGES C)
+endif()
+
 if(WIN32)
   add_compile_definitions(_CRT_SECURE_NO_WARNINGS)
   set(QVPLAY_TTY_SOURCE win32/tty_w32.c)
@@ -41,15 +47,20 @@ endif()
 set(QVPLAY_COMMON_SOURCES command.c ${QVPLAY_TTY_SOURCE})
 
 add_executable(qvplay
-  qvplay.c command1.c getuint.c jpeg.c ppm.c bmp.c
+  qvplay.c getuint.c jpeg.c ppm.c bmp.c
   ${QVPLAY_COMMON_SOURCES} ${QVPLAY_PLATFORM_SOURCES})
 target_include_directories(qvplay PRIVATE
   "${QVPLAY_CONFIG_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
 
 add_executable(qvalldel
-  qvalldel.c command3.c ${QVPLAY_COMMON_SOURCES} ${QVPLAY_PLATFORM_SOURCES})
+  qvalldel.c ${QVPLAY_COMMON_SOURCES} ${QVPLAY_PLATFORM_SOURCES})
 target_include_directories(qvalldel PRIVATE
   "${QVPLAY_CONFIG_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}")
+
+if(QVPLAY_IPO_SUPPORTED)
+  set_property(TARGET qvplay qvalldel PROPERTY
+    INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+endif()
 
 include(CTest)
 if(BUILD_TESTING)

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "command.h"
 #include "config.h"
 #include <stdint.h>
 #include <stdio.h>
@@ -604,4 +605,317 @@ int QVdisableAutoPowerOff(void) {
   wbyte(ACK);
   QVreset(0); /* QE */
   return (int)1;
+}
+
+/* Camera operations used by qvplay. */
+int QVdeletepicture(int n) {
+  uint8_t s;
+
+  if (!QVok())
+    return -1;
+  wstr("DF", 2);
+  wbyte((uint8_t)n);
+  wbyte(0xff);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
+}
+
+int QVtakepicture(void) {
+  const uint8_t command[] = {'D', 'R', ACK};
+
+  QVsectorsize(0x0340);
+  if (!QVok())
+    return -1;
+  wstr(command, sizeof(command));
+  (void)rbyte();
+  (void)rbyte();
+  sleep(10);
+  return 1;
+}
+
+int QVmovepicture(int from, int to) {
+  uint8_t s;
+
+  if (!QVok())
+    return -1;
+  wstr("DI", 2);
+  wbyte((uint8_t)from);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+
+  if (!QVok())
+    return -1;
+  wstr("DY", 2);
+  wbyte(0x02);
+  wbyte((uint8_t)from);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+
+  if (!QVok())
+    return -1;
+  wstr("DF", 2);
+  wbyte((uint8_t)from);
+  wbyte(0xff);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+
+  if (!QVok())
+    return -1;
+  wstr("Dj", 2);
+  wbyte((uint8_t)to);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
+}
+
+int QVgetsize2(int n) {
+  uint8_t s;
+  long filesize = 0;
+
+  if (QVshowpicture(n) < 0 || !QVok())
+    return -1;
+  wstr("DL", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+
+  if (!QVok())
+    return -1;
+  wstr("EM", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  s = rbyte();
+  filesize = s;
+  s = rbyte();
+  filesize = (filesize << 8) | s;
+  s = rbyte();
+  filesize = (filesize << 8) | s;
+  s = rbyte();
+  filesize = (filesize << 8) | s;
+  return (int)filesize;
+}
+
+int QVgetextdata(int n, uint8_t *buf, size_t capacity) {
+  uint8_t s;
+  int len;
+
+  if (QVshowpicture(n) < 0 || !QVok())
+    return -1;
+  wstr("DL", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+
+  if (!QVok())
+    return -1;
+  wstr("CV", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+
+  len = QVblockrecv(buf, capacity, 0);
+  if (!QVok())
+    return -1;
+  return len;
+}
+
+int QVgetpicture(int n, uint8_t *buf, size_t capacity, int format, int vga,
+                 FILE *fp) {
+  uint8_t s;
+  int len;
+  long filesize = 0;
+
+#ifndef USEWORKFILE
+  (void)fp;
+#endif
+
+  if (vga == 2 && (format == JPEG || format == CAM)) {
+    filesize = QVgetsize2(n);
+    if (filesize < 0)
+      return -1;
+  }
+  if (QVshowpicture(n) < 0 || !QVok())
+    return -1;
+  wstr("DL", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+
+  if (!QVok())
+    return -1;
+  switch (format) {
+  case PPM_T:
+  case RGB_T:
+  case BMP_T:
+    wstr("MK", 2);
+    break;
+  case PPM_P:
+  case RGB_P:
+  case BMP_P:
+    wstr(vga ? "Ml" : "ML", 2);
+    break;
+  case JPEG:
+  default:
+    if (vga == 1)
+      wstr("Mg", 2);
+    else if (vga == 2)
+      wstr("EG", 2);
+    else
+      wstr("MG", 2);
+    break;
+  }
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+
+  if (qvverbose) {
+    if (format == PPM_T || format == RGB_T || format == BMP_T)
+      fprintf(stderr, "Thumbnail %3d: ", n);
+    else
+      fprintf(stderr, "Picture   %3d: ", n);
+  }
+
+#ifdef USEWORKFILE
+  if (fp != NULL)
+    len = QVblockrecv_file(fp, (int)filesize);
+  else
+#endif
+    len = QVblockrecv(buf, capacity, (size_t)filesize);
+
+  if (!QVok())
+    return -1;
+  return len;
+}
+
+int QV4split(int *n) {
+  uint8_t s;
+  int i;
+
+  if (!QVok())
+    return -1;
+  wstr("DB", 2);
+  for (i = 0; i < 4; i++)
+    wbyte((uint8_t)n[i]);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
+}
+
+int QV9split(int *n) {
+  uint8_t s;
+  int i;
+
+  if (!QVok())
+    return -1;
+  wstr("DC", 2);
+  for (i = 0; i < 9; i++)
+    wbyte((uint8_t)n[i]);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
+}
+
+int QVprotect(int n, int on) {
+  uint8_t s;
+
+  if (!QVok())
+    return -1;
+  wstr("DY", 2);
+  wbyte(on ? 0x01 : 0x00);
+  wbyte((uint8_t)n);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
+}
+
+int QVhidepicnum(void) {
+  uint8_t s;
+
+  if (!QVok())
+    return -1;
+  wstr("DM", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
+}
+
+int QVpoweroff(void) {
+  uint8_t s;
+
+  if (!QVok())
+    return -1;
+  wstr("QX", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
+}
+
+int QVcolorpattern(void) {
+  uint8_t s;
+
+  if (!QVok())
+    return -1;
+  wstr("DP", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
+}
+
+int QVpicattr(int n) {
+  uint8_t s;
+
+  if (!QVok())
+    return -1;
+  wstr("DY", 2);
+  wbyte(0x02);
+  wbyte((uint8_t)n);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return rbyte();
+}
+
+/* Recovery operation used by qvalldel. */
+int QValldelete(void) {
+  uint8_t s;
+
+  if (!QVok())
+    return -1;
+  wstr("DD", 2);
+  s = rbyte();
+  if (checksum(s) == -1)
+    return -1;
+  wbyte(ACK);
+  return 1;
 }

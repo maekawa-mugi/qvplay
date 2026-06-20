@@ -12,13 +12,13 @@ INSTALL_DATA	= @INSTALL_DATA@
 bindir	= @bindir@
 mandir  = @mandir@
 
-SRCS1	= tty.c command.c command1.c getuint.c jpeg.c ppm.c bmp.c qvplay.c
-OBJS1	= tty.o command.o command1.o getuint.o jpeg.o ppm.o bmp.o qvplay.o
+SRCS1	= tty.c command.c getuint.c jpeg.c ppm.c bmp.c qvplay.c
+OBJS1	= tty.o command.o getuint.o jpeg.o ppm.o bmp.o qvplay.o
 PROG1	= qvplay
 MAN1    = qvplay.1
 
-SRCS3	= tty.c command.c command3.c qvalldel.c
-OBJS3	= tty.o command.o command3.o qvalldel.o
+SRCS3	= tty.c command.c qvalldel.c
+OBJS3	= tty.o command.o qvalldel.o
 PROG3	= qvalldel
 MAN3    = qvalldel.1
 

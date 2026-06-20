@@ -20,7 +20,6 @@
 #define MAXPATHLEN 256
 #endif
 #include "command.h"
-#include "command1.h"
 #include "common.h"
 
 #ifdef _WIN32

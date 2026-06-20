@@ -15,6 +15,9 @@ jobs:
           - os: ubuntu-latest
             configure_args: -DCMAKE_C_COMPILER=clang
             sanitizers: ON
+          - os: ubuntu-latest
+            configure_args: -DCMAKE_C_COMPILER=gcc
+            sanitizers: OFF
           - os: windows-latest
             configure_args: ""
             sanitizers: OFF
@@ -22,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure
-        run: cmake -S . -B build -DQVPLAY_SANITIZERS=${{ matrix.sanitizers }} ${{ matrix.configure_args }}
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DQVPLAY_SANITIZERS=${{ matrix.sanitizers }} ${{ matrix.configure_args }}
       - name: Build
         run: cmake --build build --config Release --parallel
       - name: Test

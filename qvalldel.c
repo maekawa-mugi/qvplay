@@ -14,7 +14,6 @@
 #define MAXPATHLEN 256
 #endif
 #include "command.h"
-#include "command3.h"
 #include "common.h"
 #ifdef _WIN32
 #include "win32/getopt.h"

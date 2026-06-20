@@ -117,10 +117,6 @@ Non-Unix systems
      common.h
      command.h
      command.c    
-     command1.h
-     command1.c    
-     command3.h
-     command3.c    
      getuint.c
      getuint.h
      tty.h
@@ -197,12 +193,12 @@ Select [File][New][ProjectWorkspace] menu item.
 Select [Console Application] at [New ProjectWorkspace]Dialog Box.
 make ProjectWorkspace named 'qvplay'.
 Select [Insert][Add File to Project] menu item.
-Add files(qvplay.c command.c command1.c jpeg.c ppm.c
+Add files(qvplay.c command.c jpeg.c ppm.c
 bmp.c getopt.c getuint.c tty_w32.c) to project.
 Do build.
 
 To build 'qvalldel', make ProjectWorkspace named 'qvalldel'.
-Add files(qvalldel.c command.c command3.c getopt.c tty_w32.c)
+Add files(qvalldel.c command.c getopt.c tty_w32.c)
 to project. And do build.
 
 Default serial port is defined in 'common.h'.
