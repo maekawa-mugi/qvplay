@@ -474,6 +474,7 @@ cleanup0:;
 void get_camfile(int n, char *outfilename) {
   long len;
   long lenj;
+  size_t jpeg_area_size;
   char buf1[64];
   char buf5[64];
   uint8_t *bufj;
@@ -609,12 +610,18 @@ void get_camfile(int n, char *outfilename) {
     errflg++;
     goto cleanup;
   }
+  jpeg_area_size = (size_t)lenj;
   if (vga == 1)
-    lenj = lenj + 473;
-  fputc((lenj >> 24) & 0xff, outfp);
-  fputc((lenj >> 16) & 0xff, outfp);
-  fputc((lenj >> 8) & 0xff, outfp);
-  fputc(lenj & 0xff, outfp);
+    jpeg_area_size = jpeg_fine_output_size(jpeg_area_size);
+  if (jpeg_area_size == 0 || jpeg_area_size > UINT32_MAX) {
+    fprintf(stderr, "converted JPEG size is invalid.\n");
+    errflg++;
+    goto cleanup;
+  }
+  fputc((jpeg_area_size >> 24) & 0xff, outfp);
+  fputc((jpeg_area_size >> 16) & 0xff, outfp);
+  fputc((jpeg_area_size >> 8) & 0xff, outfp);
+  fputc(jpeg_area_size & 0xff, outfp);
 
   if (vga) {
     fputc(0xf0, outfp);
@@ -633,7 +640,7 @@ void get_camfile(int n, char *outfilename) {
 
   /* comment  */
   fputc(0x01, outfp);
-  if (write_file((uint8_t *)buf1, strlen(buf1) + 1, outfp) == -1) {
+  if (write_file(buf1, strlen(buf1) + 1, outfp) == -1) {
     errflg++;
     goto cleanup;
   }
@@ -644,7 +651,7 @@ void get_camfile(int n, char *outfilename) {
   fputc(0x04, outfp);
   fputc(0x00, outfp);
   fputc(0x05, outfp);
-  if (write_file((uint8_t *)buf5, strlen(buf5) + 1, outfp) == -1) {
+  if (write_file(buf5, strlen(buf5) + 1, outfp) == -1) {
     errflg++;
     goto cleanup;
   }
@@ -674,7 +681,7 @@ void get_camfile(int n, char *outfilename) {
     };
     unlink(WORKFILE);
 #else
-    if (write_jpeg_fine(bufj, (size_t)(lenj - 473), outfp) == -1) {
+    if (write_jpeg_fine(bufj, (size_t)lenj, outfp) == -1) {
       errflg++;
       goto cleanup;
     }

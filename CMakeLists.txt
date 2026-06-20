@@ -58,6 +58,11 @@ if(BUILD_TESTING)
   target_include_directories(protocol_test PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/tests" "${CMAKE_CURRENT_SOURCE_DIR}")
   add_test(NAME protocol_receive COMMAND protocol_test)
+
+  add_executable(jpeg_test jpeg.c getuint.c tests/jpeg_test.c)
+  target_include_directories(jpeg_test PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/tests" "${CMAKE_CURRENT_SOURCE_DIR}")
+  add_test(NAME jpeg_tables COMMAND jpeg_test)
 endif()
 
 install(TARGETS qvplay qvalldel RUNTIME DESTINATION bin)
